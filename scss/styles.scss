@@ -97,9 +97,68 @@ $mutedColor: rgb(180, 180, 180);
 }
 
 
+/* Contact Destion Section  -------------------------*/
 
 
+.contactdtls{
+   
+	width: 100%;
+	
+	img{
+		width: 180px; 
+		height:180px;
+		border-radius: 100%;
+		border: 2px solid #eee;
+		padding:2px;
+		transition: .2s;
+		background-color: var(--info);
+	}
+
+	img:hover{
+		border:5px solid var(--info);
+		padding:2px;
+	}
+	   
+   ul{
+		padding: 0px;   
+		
+		li{
+			padding:0px 10px;
+			width: 100%;
+			margin: 0px;
+			transition:.4s;
+			border-right:2px solid #313333;
+			list-style-type: none;  
+			span{
+				color:$mutedColor;
+				font-family: 'Courier New', Courier, monospace;
+			}
+		}
+		
+		li:hover{
+			background: $mainLightDarkColor;
+		}
+	}
+
+}
 
 
+ 
+
+
+@media screen and (max-width:900px) {
+    .contacts {
+		.media h6{
+			font-size: 10px; 
+			font-weight: bold;
+		}
+		.badge,.media small{
+			position: absolute;
+			bottom: 0px;
+			right: 40px;
+		}
+	}
+
+}
 
 
