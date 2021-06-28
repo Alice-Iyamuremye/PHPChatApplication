@@ -1,0 +1,52 @@
+$onlineColor: rgb(19, 231, 0);
+$mainDarkColor: #25282c;
+$mainLightDarkColor: #343a40;
+$chatBackground: #82ffee;
+$mainBlueColor: var(--primary);
+$textColor: rgb(0, 0, 0);
+$mutedColor: rgb(180, 180, 180);
+
+.contacts {
+  a {
+    text-decoration: none;
+    color: #eee;
+  }
+  a:hover.active {
+    background-color: $mainBlueColor;
+  }
+
+  .list-group-item {
+    .media {
+      .online-status {
+        position: absolute;
+        top: 20px;
+        left: 16px;
+        width: 10px;
+        border-radius: 100%;
+        height: 10px;
+        background-color: $onlineColor;
+      }
+      p:last-of-type {
+        max-width: 70%;
+      }
+    }
+  }
+  .list-group-item:hover {
+    background-color: $mainDarkColor;
+  }
+
+  .settings {
+    height: 60px;
+    div {
+      padding: 17px;
+    }
+    div:hover {
+      background-color: $mainDarkColor;
+    }
+  }
+}
+
+.list-group-item {
+  background-color: $mainLightDarkColor;
+}
+/* Contact List Section --------------------------------- */

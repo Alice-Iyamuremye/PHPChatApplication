@@ -1,0 +1,33 @@
+.contacts a {
+  text-decoration: none;
+  color: #eee; }
+
+.contacts a:hover.active {
+  background-color: var(--primary); }
+
+.contacts .list-group-item .media .online-status {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  width: 10px;
+  border-radius: 100%;
+  height: 10px;
+  background-color: #13e700; }
+
+.contacts .list-group-item .media p:last-of-type {
+  max-width: 70%; }
+
+.contacts .list-group-item:hover {
+  background-color: #25282c; }
+
+.contacts .settings {
+  height: 60px; }
+  .contacts .settings div {
+    padding: 17px; }
+  .contacts .settings div:hover {
+    background-color: #25282c; }
+
+.list-group-item {
+  background-color: #343a40; }
+
+/* Contact List Section */
