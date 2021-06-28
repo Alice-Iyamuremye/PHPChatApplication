@@ -49,4 +49,57 @@ $mutedColor: rgb(180, 180, 180);
 .list-group-item {
   background-color: $mainLightDarkColor;
 }
-/* Contact List Section --------------------------------- */
+/* Contact List Section End --------------------------------- */
+
+
+/* Messaeg Aka Chat Section Start --------------------------------- */
+.message_section{
+	ul{
+		li{
+			position: relative;
+			display: inline-block;
+			background-color: $chatBackground;
+			border-radius: 20px 20px 20px 0px;
+			max-width:70%;
+			min-width: 20%;
+			padding:10px  20px 20px 20px;
+			font-family: Roboto, sans-serif;
+			font-size: 16px;
+			margin: 5px 0px;
+			line-height: 22px;
+			color: $textColor;
+			
+			.reply{
+				border-radius:5px;
+				font-size:13px;
+				width: 120%;
+				padding-left:5px;
+				margin-left: -10%;
+				border-left:3px solid rgba(0, 0, 0, 0.657);
+				background-color: rgba(75, 75, 75,.2);
+				span{
+					font-weight: bold; 
+				}
+			}
+
+			.deltime{
+				position: absolute;
+				right:20px;
+			}	
+		}
+
+		li.me{
+			border-radius: 20px 20px 0px 20px; 
+			float: right;
+			clear: right;
+		}
+	}
+}
+
+
+
+
+
+
+
+
