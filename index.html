@@ -461,16 +461,16 @@
                 <!-- ---------------------------  -->
                 <div class="container">
                     <div class="row reply align-items-center">
-                        <div class="border col-1 col-sm-1 col-xs-1 reply-emojis">
+                        <div class="col-1 col-sm-1 col-xs-1 reply-emojis">
                             <i class="fa fa-smile-o fa-2x"></i>
                         </div>
-                        <div class="border col-7 col-sm-9 col-xs-9 reply-main">
+                        <div class="col-7 col-sm-9 col-xs-9 reply-main">
                             <textarea class="form-control" rows="1" id="comment"></textarea>
                         </div>
-                        <div class="border col-1 col-sm-1 col-xs-1 reply-recording">
+                        <div class="col-1 col-sm-1 col-xs-1 reply-recording">
                             <i class="fa fa-microphone fa-2x" aria-hidden="true"></i>
                         </div>
-                        <div class="border col-1 col-sm-1   col-xs-1 reply-send">
+                        <div class="col-1 col-sm-1   col-xs-1 reply-send">
                             <i class="fa fa-send fa-2x" aria-hidden="true"></i>
                         </div>
                     </div>
@@ -742,25 +742,31 @@
 
     <script>
 
-        let contacts = document.querySelectorAll(".contacts a");
+        // Select All Contact to add an event on them
+        let contactlist = document.querySelectorAll(".contacts a");
 
-        console.log(contacts);
-        for (const item of contacts) {
+        // Loop Through The List and Add Click events
+        for (const item of contactlist) {
             item.addEventListener("click", () => {
-                let currentcontact = document.querySelector(".contacts .active");
-                let currentcontactid = currentcontact.getAttribute("identifier");
+                // Get the current Selected (has a class of active) at first it's dd-0
+                let CurrentContact = document.querySelector(".contacts .active");
+
+                let currentcontactid = CurrentContact.getAttribute("identifier");
                 let selectedContact = item.getAttribute("identifier");
 
+                // Check if the current seected contact is not equal to the one being selected
+                // Then display none to the previous one and display the selected one
                 if (currentcontactid !== selectedContact) {
 
                     let toremove = document.querySelector(".message." + currentcontactid);
                     toremove.classList.add("d-none");
+
                     document.querySelector(".contactdtls." + currentcontactid).classList.add("d-none");
 
                     let toadd = document.querySelector(".message." + selectedContact).classList.remove("d-none");
                     document.querySelector(".contactdtls." + selectedContact).classList.remove("d-none");
 
-                    currentcontact.classList.remove("active");
+                    CurrentContact.classList.remove("active");
                     item.classList.add("active");
                 }
                 console.log(currentcontactid + " => " + selectedContact);
