@@ -739,6 +739,38 @@
     <script src="js/jquery.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
+    <script>
+
+        let contacts = document.querySelectorAll(".contacts a");
+
+        console.log(contacts);
+        for (const item of contacts) {
+            item.addEventListener("click", () => {
+                let currentcontact = document.querySelector(".contacts .active");
+                let currentcontactid = currentcontact.getAttribute("identifier");
+                let selectedContact = item.getAttribute("identifier");
+
+                if (currentcontactid !== selectedContact) {
+
+                    let toremove = document.querySelector(".message." + currentcontactid);
+                    toremove.classList.add("d-none");
+                    document.querySelector(".contactdtls." + currentcontactid).classList.add("d-none");
+
+                    let toadd = document.querySelector(".message." + selectedContact).classList.remove("d-none");
+                    document.querySelector(".contactdtls." + selectedContact).classList.remove("d-none");
+
+                    currentcontact.classList.remove("active");
+                    item.classList.add("active");
+                }
+                console.log(currentcontactid + " => " + selectedContact);
+                console.log("button Was clicked")
+            }, false)
+
+        }
+
+
+    </script>
 </body>
 
 </html>
