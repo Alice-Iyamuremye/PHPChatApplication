@@ -32,37 +32,43 @@
 
 /* Contact List Section End --------------------------------- */
 /* Messaeg Aka Chat Section Start --------------------------------- */
-.message_section ul li {
-  position: relative;
-  display: inline-block;
-  background-color: #82ffee;
-  border-radius: 20px 20px 20px 0px;
-  max-width: 70%;
-  min-width: 20%;
-  padding: 10px  20px 20px 20px;
-  font-family: Roboto, sans-serif;
-  font-size: 16px;
-  margin: 5px 0px;
-  line-height: 22px;
-  color: black; }
-  .message_section ul li .reply {
-    border-radius: 5px;
-    font-size: 13px;
-    width: 120%;
-    padding-left: 5px;
-    margin-left: -10%;
-    border-left: 3px solid rgba(0, 0, 0, 0.657);
-    background-color: rgba(75, 75, 75, 0.2); }
-    .message_section ul li .reply span {
-      font-weight: bold; }
-  .message_section ul li .deltime {
-    position: absolute;
-    right: 20px; }
-
-.message_section ul li.me {
-  border-radius: 20px 20px 0px 20px;
-  float: right;
-  clear: right; }
+.message_section ul {
+  height: 88vh;
+  overflow: scroll; }
+  .message_section ul li {
+    position: relative;
+    display: inline-block;
+    background-color: #82ffee;
+    border-radius: 20px 20px 20px 0px;
+    max-width: 70%;
+    min-width: 20%;
+    padding: 10px  20px 20px 20px;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    margin: 5px 0px;
+    line-height: 22px;
+    color: black; }
+    .message_section ul li .reply {
+      border-radius: 5px;
+      font-size: 13px;
+      width: 120%;
+      padding-left: 5px;
+      margin-left: -10%;
+      border-left: 3px solid rgba(0, 0, 0, 0.657);
+      background-color: rgba(75, 75, 75, 0.2); }
+      .message_section ul li .reply span {
+        font-weight: bold; }
+    .message_section ul li .deltime {
+      position: absolute;
+      right: 20px; }
+    .message_section ul li img {
+      max-width: 300px; }
+  .message_section ul li.me {
+    border-radius: 20px 20px 0px 20px;
+    float: right;
+    clear: right; }
+  .message_section ul li:hover {
+    background-color: #cbffff; }
 
 /* Contact Destion Section  -------------------------*/
 .contactdtls {

@@ -15,7 +15,7 @@
 <body>
     <!-- The Whole Displayed is Made Using A 3 COlumns Grid Alignment Each Named Section one , Section two , section 3 -->
 
-    <section class="container-fluid text-light ">
+    <section class="container-fluid">
         <section class="row vh-100">
 
             <!-- Contact List  Section   -----SECTION ONE
@@ -195,18 +195,18 @@
 
             <!-- Chat Content Section  ----- Section TWO 
             ------------------------------------------------------------------------------------------- -->
-            <section class="col p-0 col-sm-8 col-md-9 col-lg-7 d-none d-inline-block bg-dark message_section">
+            <section class="col p-0 col-sm-8 col-md-9 col-lg-7 d-none d-inline-block bg-dark  message_section">
 
                 <!-- Text To be Displayed When A used First Lend On the Site ANd Havent Selected Any Contact -->
-                <div class="container-fluid text-center message dd-0 vh-100" style="margin-top:200px;">
-                    <h2 class="  align-content-center">please Select a contact</h2>
+                <div class="container-fluid text-center message dd-0" style="padding:240px 0px;">
+                    <h2 class=" text-light align-content-center">please Select a contact</h2>
                 </div>
 
                 <!-- Conversation Section , Each Havind a class dd-x ,which relates them to each user 
                     Aka Each User has a dd-x class too  -->
 
                 <div class="container-fluid message d-none dd-1">
-                    <ul class="clearfix list-unstyled" role="tooltip" style="height:80vh; overflow:scroll;">
+                    <ul class="clearfix list-unstyled" role="tooltip">
 
                         <li class="me">
                             <div>Hey dude, I’m bored. Tell me a good joke Please.</div>
@@ -285,7 +285,7 @@
 
 
                 <div class="container-fluid message d-none dd-2">
-                    <ul class="clearfix list-unstyled" role="tooltip" style="height:80vh; overflow:scroll;">
+                    <ul class="clearfix list-unstyled" role="tooltip">
 
                         <li class="">
                             <div style=" color:brown;">
@@ -303,7 +303,9 @@
                             <div style="color:brown;">
                                 <span>Ilunga Gisa </span>
                             </div>
-                            <div><img src="images/pzl.jpeg" width="100%"> </div>
+                            <div>
+                                <a data-toggle="modal" href="#dd-2"><img src="images/pzl.jpeg" width="100%"> </a>
+                            </div>
                             <span class="deltime"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
                                     <path
@@ -340,7 +342,7 @@
                 <!-- ---------------------------  -->
 
                 <div class="container-fluid message d-none dd-3">
-                    <ul class="clearfix list-unstyled" role="tooltip" style="height:80vh; overflow:scroll;">
+                    <ul class="clearfix list-unstyled" role="tooltip">
 
                         <li class="me">
                             <div>Hello Man , Bimezute ? </div>
@@ -369,7 +371,11 @@
                                 </svg></i>12:34</span>
                         </li><br>
                         <li class="">
-                            <div><img src="images/evapic.png" width="100%"> </div>
+
+                            <div>
+                                <!-- Link To the Modal -->
+                                <a data-toggle="modal" href="#dd-3"><img src="images/evapic.png" width="100%"> </a>
+                            </div>
                             <span class="deltime"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
                                     <path
@@ -417,7 +423,7 @@
 
                 <!-- ---------------------------  -->
                 <div class="container-fluid message d-none dd-4">
-                    <ul class="clearfix list-unstyled" role="tooltip" style="height:80vh; overflow:scroll;">
+                    <ul class="clearfix list-unstyled" role="tooltip">
 
                         <li class="me">
                             <div>How Was it in the 19s When it comes to shopping ?.</div>
@@ -459,7 +465,7 @@
                     </ul>
                 </div>
                 <!-- ---------------------------  -->
-                <div class="container">
+                <div class="container text-light">
                     <div class="row reply align-items-center">
                         <div class="col-1 col-sm-1 col-xs-1 reply-emojis">
                             <i class="fa fa-smile-o fa-2x"></i>
@@ -485,9 +491,9 @@
 
 
 
-            <!-- Chat Description start  Section three
+            <!-- Chat Description start  Section Three
                   ----------------------------------------------------------------------------------->
-            <section class=" col col-lg-2 d-none d-lg-inline-block bg-secondary ">
+            <section class=" col col-lg-2 d-none text-light d-lg-inline-block bg-secondary ">
                 <div class="contactdtls d-none dd-0">
                     <img src="images/evariste.jpg">
                     <hr>
@@ -536,7 +542,7 @@
                     </div>
                 </div>
                 <div class="contactdtls d-none dd-1">
-                    <img src="images/thumbnail-1.jpg">
+                    <a data-toggle="modal" href="#ddp-1"><img src="images/thumbnail-1.jpg"></a>
                     <hr>
                     <ul class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -584,7 +590,7 @@
                 </div>
 
                 <div class="contactdtls d-none dd-2">
-                    <img src="images/chess.jpeg">
+                    <a data-toggle="modal" href="#ddp-2"><img src="images/chess.jpeg"></a>
                     <hr>
                     <ul class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -633,7 +639,7 @@
 
                 <div class="contactdtls d-none dd-3">
 
-                    <img src="images/evariste.jpg">
+                    <a data-toggle="modal" href="#ddp-3"><img src="images/evariste.jpg"></a>
 
                     <hr>
                     <ul class="">
@@ -683,7 +689,7 @@
                 </div>
 
                 <div class="contactdtls d-none dd-4">
-                    <img src="images/ange.jpg">
+                    <a data-toggle="modal" href="#ddp-4"><img src="images/ange.jpg"></a>
                     <hr>
                     <ul class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -729,6 +735,127 @@
 
                     </div>
                 </div>
+
+                <!-- Modals Of All Images -->
+                <div>
+
+
+
+                    <!-- Profile Modal dd-1 Start-->
+                    <div class="modal fade" id="ddp-1">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close btn" data-dismiss="modal">&times;</button>
+                                </div> <!-- Modal Header-->
+                                <div class="modal-body text-center">
+                                    <img src="images/thumbnail-1.jpg" class="img-fluid">
+                                </div><!-- Modal body-->
+                            </div>
+                            <!--Modal content-->
+                        </div>
+                        <!--Modal Dialog-->
+                    </div> <!-- Image Modal  End-->
+
+
+                    <!-- Profile Modal dd-2 Start-->
+                    <div class="modal fade" id="ddp-2">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close btn" data-dismiss="modal">&times;</button>
+                                </div> <!-- Modal Header-->
+                                <div class="modal-body text-center">
+                                    <img src="images/chess.jpeg" class="img-fluid">
+                                </div><!-- Modal body-->
+                            </div>
+                            <!--Modal content-->
+                        </div>
+                        <!--Modal Dialog-->
+                    </div> <!-- Image Modal  End-->
+
+
+                    <!-- Profile Modal dd-3 Start-->
+                    <div class="modal fade" id="ddp-3">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close btn" data-dismiss="modal">&times;</button>
+                                </div> <!-- Modal Header-->
+                                <div class="modal-body text-center">
+                                    <img src="images/evariste.jpg" class="img-fluid">
+                                </div><!-- Modal body-->
+                            </div>
+                            <!--Modal content-->
+                        </div>
+                        <!--Modal Dialog-->
+                    </div> <!-- Image Modal  End-->
+
+                    <!-- Profile Modal dd-4 Start-->
+                    <div class="modal fade" id="ddp-4">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close btn" data-dismiss="modal">&times;</button>
+                                </div> <!-- Modal Header-->
+                                <div class="modal-body text-center">
+                                    <img src="images/ange.jpg" class="img-fluid">
+                                </div><!-- Modal body-->
+                            </div>
+                            <!--Modal content-->
+                        </div>
+                        <!--Modal Dialog-->
+                    </div> <!-- Image Modal  End-->
+
+
+                    <!-- Image Modal dd-3 Start-->
+                    <div class="modal fade text-dark" id="dd-3">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">@evariste32</h4>
+                                    <button class="close btn" data-dismiss="modal">&times;</button>
+                                </div> <!-- Modal Header-->
+                                <div class="modal-body">
+                                    <img src="images/evapic.png" class="img-fluid">
+                                </div><!-- Modal body-->
+                                <div class="modal-footer">
+                                    <span class="">Date: june-22-21 12:32</span>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                        Close</button>
+                                </div> <!-- Modal Header-->
+                            </div>
+                            <!--Modal content-->
+                        </div>
+                        <!--Modal Dialog-->
+                    </div> <!-- Image Modal  End-->
+
+
+                    <!-- Image Modal dd-3 Start-->
+                    <div class="modal text-dark fade" id="dd-2">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">@Ilunga Gisa</h4>
+                                    <button class="close btn" data-dismiss="modal">&times;</button>
+                                </div> <!-- Modal Header-->
+                                <div class="modal-body">
+                                    <img src="images/pzl.jpeg" class="img-fluid">
+                                </div><!-- Modal body-->
+                                <div class="modal-footer">
+                                    <span class="">Date: june-22-21 12:32</span>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                        Close</button>
+                                </div> <!-- Modal Header-->
+                            </div>
+                            <!--Modal content-->
+                        </div>
+                        <!--Modal Dialog-->
+                    </div> <!-- Image Modal  End-->
+
+                </div>
+                <!-- Image Modal End-->
+
             </section><!-- Chat Description   End ---------------------------------------->
 
 

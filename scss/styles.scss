@@ -55,6 +55,8 @@ $mutedColor: rgb(180, 180, 180);
 /* Messaeg Aka Chat Section Start --------------------------------- */
 .message_section{
 	ul{
+        height:88vh;
+         overflow:scroll;
 		li{
 			position: relative;
 			display: inline-block;
@@ -80,19 +82,27 @@ $mutedColor: rgb(180, 180, 180);
 				span{
 					font-weight: bold; 
 				}
+               
 			}
 
 			.deltime{
 				position: absolute;
 				right:20px;
 			}	
-		}
 
+            img{
+               max-width: 300px;
+            }
+		}
+        
 		li.me{
 			border-radius: 20px 20px 0px 20px; 
 			float: right;
 			clear: right;
 		}
+        li:hover{
+            background-color: #cbffff;
+        }
 	}
 }
 
