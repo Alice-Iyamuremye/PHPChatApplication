@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <script src="https://kit.fontawesome.com/116d420389.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/116d420389.js" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Bootstrap</title>
@@ -21,10 +21,58 @@
             <!-- Contact List  Section   -----SECTION ONE
             ------------------------------------------------------------------------------------------------------------- -->
             <section class=" col col-sm-4 col-md-3 p-0 d-none d-sm-inline-block bg-secondary contacts">
+                <nav class="navbar navbar-dark bg-dark d-inline-block ">
+                    <button class="navbar-toggler" onclick="openNav()">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </nav>
+                <!-- Side Menue  -->
+                <div id="mySidepanel" class="sidepanel">
+                    <div class="closeside">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
+
+                    </div>
+
+                    <div class="tophead">
+                        <div> <img src="images/ange.jpg"></div>
+                        <div class="myselfinfo">
+                            <h3>Username</h3>
+                            <h5>+250783305114</h5>
+                        </div>
+                    </div>
+
+
+                    <ul class="list-group mb-4">
+                        <li class="list-group-item list-group-item-action  py-3" href="#"><i
+                                class="fas fa-users mr-1"></i> New
+                            Group</li>
+                        <li class="list-group-item list-group-item-action  py-3" href="#"><i
+                                class="fas fa-users mr-1"></i> Contacts
+                        </li>
+                        <li class="list-group-item list-group-item-action  py-3" href="#"><i
+                                class="fas fa-users mr-1"></i> Calls
+                        </li>
+                        <li class="list-group-item list-group-item-action  py-3" href="#"><i
+                                class="fas fa-users mr-1"></i> Settings
+                        </li>
+                        <li class="list-group-item list-group-item-action  py-3" href="#"><i
+                                class="fas fa-users mr-1"></i>Night
+                            Mode</li>
+                    </ul>
+                </div><!-- Side Menue -->
+                <script>
+                    function openNav() {
+                        document.getElementById("mySidepanel").style.width = "350px";
+                    }
+
+                    function closeNav() {
+                        document.getElementById("mySidepanel").style.width = "0px";
+                    }
+                </script>
 
                 <!-- Search Form above the contact -->
-                <div class="form-outline">
-                    <input type="search" id="form1" class="form-control w-75 my-2 mx-auto" placeholder="Search "
+                <div class="form-outline d-inline-block">
+                    <input type="search" id="form1" class="form-control my-2 mx-auto" placeholder="Search "
                         aria-label="Search" />
                 </div>
 
@@ -640,6 +688,19 @@
                 <div class="contactdtls d-none dd-3">
 
                     <a data-toggle="modal" href="#ddp-3"><img src="images/evariste.jpg"></a>
+
+                    <div class="calicn text-light text-center row justify-content-around">
+                        <div class="col"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="16"
+                                fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                            </svg></div>
+                        <div class="col"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="16"
+                                fill="currentColor" class="bi bi-camera-video-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
+                            </svg></div>
+                    </div>
 
                     <hr>
                     <ul class="">

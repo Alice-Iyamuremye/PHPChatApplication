@@ -81,6 +81,11 @@
     padding: 2px;
     transition: .2s;
     background-color: var(--info); }
+  .contactdtls .calicn .col {
+    margin: 0px; }
+    .contactdtls .calicn .col:hover {
+      color: #343a40;
+      transform: rotate(20deg); }
   .contactdtls img:hover {
     border: 5px solid var(--info);
     padding: 2px; }
@@ -107,3 +112,39 @@
     position: absolute;
     bottom: 0px;
     right: 40px; } }
+
+.sidepanel {
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.2s;
+  padding-top: 10px; }
+  .sidepanel .tophead img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+    padding: 2px;
+    border: 3px solid #25282c; }
+  .sidepanel .tophead .myselfinfo {
+    padding-left: 10px;
+    color: #f1f1f1; }
+    .sidepanel .tophead .myselfinfo h5 {
+      padding-left: 10px; }
+  .sidepanel .closeside a {
+    margin: -10px 20px 20px 0px;
+    text-decoration: none;
+    font-size: 35px;
+    color: #eeeeee;
+    float: right;
+    width: 50px;
+    text-align: center;
+    height: 50px;
+    transition: 0.3s; }
+    .sidepanel .closeside a:hover {
+      transform: rotate(90deg);
+      color: #be2929; }
