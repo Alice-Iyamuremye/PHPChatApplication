@@ -82,15 +82,15 @@ function has_length_exactly($value, $exact) {
     $email_regex = '/\A[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\Z/i';
     return preg_match($email_regex, $value) === 1;
   }
-
+  
 
 
   function has_unique_username($username, $current_id="0") {
     global $db;
   //select a username with same username and where id is nont 0,for extra security
-    $sql = "SELECT * FROM admins ";
+    $sql = "SELECT * from users ";
     $sql .= "WHERE username='" . db_escape($db, $username) . "' ";
-    $sql .= "AND id != '" . db_escape($db, $current_id) . "'";
+    $sql .= "AND user_id != '" . db_escape($db, $current_id) . "'";
     //execute the query
     // Select the number of returned row and then keep the status in a variable
     //free the result since we are done with them

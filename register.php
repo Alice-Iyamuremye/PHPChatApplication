@@ -1,23 +1,43 @@
 <?php
 require_once("private/initialize.php");
 require_once("header.php");
-
-
 if(is_post_request()) {
+
+    $admin['avatar'] ='hello.jpg';
+    
+    if(isset($_FILES['user_avatar'])){
+        $result=upload_image();
+        if($result["uploadStatus"]==true && isset($result["filename"])){
+            $admin['avatar']=$result["filename"];
+        }
+        elseif($result["uploadStatus"]==false){
+            $err = $result;
+            foreach ($err as $error){
+                $errors[]=$im;
+            }
+        }
+    }
+$admin['unique_id'] = generate_uid();
 $admin['first_name'] = $_POST['firstname'] ?? '';
 $admin['last_name'] = $_POST['lastname'] ?? '';
-$admin['email'] = $_POST['email'] ?? '';
 $admin['username'] = $_POST['username'] ?? '';
+$admin['email'] = $_POST['email'] ?? '';
 $admin['password'] = $_POST['password'] ?? '';
 $admin['confirm_password'] = $_POST['confirm_password'] ?? '';
-$result = insert_admin($admin);//return all the errors if it does not work
-if($result === true) {
-    $new_id = mysqli_insert_id($db);
-    $_SESSION['message'] = $admin['username'].' Your Account Successfully Created';
-    redirect_to('index.php');
-} else {
-    $errors = $result;
-}}
+if(empty($errors)){
+    $result = insert_admin($admin);//return all the errors if it does not work
+    print_r($result);
+    if($result === true) {
+        $new_id = mysqli_insert_id($db);
+        $_SESSION['message'] = $admin['username'].' Your Account Successfully Created';
+        redirect_to('index.php');
+    } else {
+        $errors = $result;
+    }
+    
+}
+
+}
 
 echo display_errors($errors);
 
@@ -35,19 +55,19 @@ echo display_session_message();
                     <form method="POST" class="register-form" id="register-form" enctype="multipart/form-data" action="<?php echo h($_SERVER["PHP_SELF"]);?>">
                         <div class="form-group">
                             <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="firstname" id="name" placeholder="First Name" value="<?php echo $_POST['firstname'] ?? "";?>" required/>
+                            <input type="text" name="firstname" id="name" placeholder="First Name" value="<?php echo $_POST['firstname'] ?? "";?>" />
                         </div>
                         <div class="form-group">
                             <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="lastname" id="name" placeholder="Last Name" value="<?php echo $_POST['lastname'] ?? "";?>" required/>
+                            <input type="text" name="lastname" id="name" placeholder="Last Name" value="<?php echo $_POST['lastname'] ?? "";?>" />
                         </div>
                         <div class="form-group">
                             <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="username" id="name" placeholder="User Name" value="<?php echo $_POST['username'] ?? "";?>" required/>
+                            <input type="text" name="username" id="name" placeholder="User Name" value="<?php echo $_POST['username'] ?? "";?>" />
                         </div>
                         <div class="form-group">
                             <label for="avatar"><i class="zmdi zmdi-file-plus"></i></label>
-                            <input type="file" name="email" id="avatar" placeholder="Your Email" value="<?php echo $_POST['email'] ?? "";?>" required/>
+                            <input type="file" name="user_avatar" id="avatar" placeholder="Your Email" value="<?php echo $_POST['email'] ?? "";?>" />
                             
                         </div>
                         <div class="form-group">

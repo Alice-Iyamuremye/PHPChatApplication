@@ -4,9 +4,11 @@
   function log_in_admin($admin) {
   // Regenerating the ID protects the admin from session fixation.
     session_regenerate_id();
-    $_SESSION['admin_id'] = $admin['id'];
+    $_SESSION['user_id'] = $admin['unique_id'];
     $_SESSION['last_login'] = time();
     $_SESSION['username'] = $admin['username'];
+    $login= array("online_status"=>"true", "last_login"=>$_SESSION['last_login']);
+    update_online_status($login);
     return true;
   }
 
@@ -19,7 +21,7 @@
     // Having a admin_id in the session serves a dual-purpose:
     // - Its presence indicates the admin is logged in.
     // - Its value tells which admin for looking up their record.
-    return isset($_SESSION['admin_id']);
+    return isset($_SESSION['user_id']);
   }
 
   // Call require_login() at the top of any page which needs to

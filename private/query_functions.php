@@ -93,32 +93,29 @@
     }
   }
 
-  function update_subject($subject) {
+  function update_online_status($status) {
     global $db;
-
-    $errors = validate_subject($subject);
-    if(!empty($errors)) {
-      return $errors;
+    if(is_logged_in()){
+        $sql = "UPDATE online_status SET ";
+        $sql .= "online_status='" . db_escape($db, $status['online_status']) . "' ";
+        $sql .= "last_login='" . db_escape($db, $status['last_login']) . "' ";
+        $sql .= " WHERE unique_id='" . db_escape($db, $_SESSION['user_id']) . "' ";
+        $sql .= "LIMIT 1";
+    
+        $result = mysqli_query($db, $sql);
+        // For UPDATE statements, $result is true/false
+        if($result) {
+          return true;
+        } else {
+          // UPDATE failed
+          echo mysqli_error($db);
+          db_disconnect($db);
+          exit;
+        }
+    
     }
 
-    $sql = "UPDATE subjects SET ";
-    $sql .= "menu_name='" . db_escape($db, $subject['menu_name']) . "', ";
-    $sql .= "position='" . db_escape($db, $subject['position']) . "', ";
-    $sql .= "visible='" . db_escape($db, $subject['visible']) . "' ";
-    $sql .= "WHERE id='" . db_escape($db, $subject['id']) . "' ";
-    $sql .= "LIMIT 1";
-
-    $result = mysqli_query($db, $sql);
-    // For UPDATE statements, $result is true/false
-    if($result) {
-      return true;
-    } else {
-      // UPDATE failed
-      echo mysqli_error($db);
-      db_disconnect($db);
-      exit;
-    }
-
+   
   }
 
   function delete_subject($id) {
@@ -320,7 +317,7 @@
   function find_all_admins() {
     global $db;
 
-    $sql = "SELECT * FROM admins ";
+    $sql = "SELECT * from users ";
     $sql .= "ORDER BY last_name ASC, first_name ASC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
@@ -332,7 +329,7 @@
 
   function find_admin_by_id($id) {
     global $db;
-    $sql = "SELECT * FROM admins ";
+    $sql = "SELECT * from users ";
     $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
@@ -344,7 +341,7 @@
 
   function find_admin_by_username($username) {
     global $db;
-    $sql = "SELECT * FROM admins ";
+    $sql = "SELECT * from users ";
     $sql .= "WHERE username='" . db_escape($db, $username) . "' ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
@@ -366,7 +363,7 @@
     //Validate Form Name
     if(is_blank($admin['first_name'])) {// Check if it's empty first
       $errors[] = "First name cannot be blank.";
-    } elseif (!has_length($admin['first_name'], array('min' => 2, 'max' => 255))) {
+    } elseif (!has_length($admin['last_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "First name must be between 2 and 255 characters.";
     }
 
@@ -418,10 +415,14 @@
       $errors[] = "Password and confirm password must match.";
     }}
 
+
+    // Validata Form Last Name
+    if(is_blank($admin['avatar'])) {// Check if it's empty first
+        $errors[] = "Please Select An Image";
+      }
+
     return $errors;
   }
-
-
 
 // Inserting data in the admin table
 // Check if the validation function is all alright
@@ -440,21 +441,36 @@
     $hashed_password = password_hash($admin['password'], PASSWORD_BCRYPT);
 
     // db_escape simply uses mysl_real_escapre_string on all outside data
-    $sql = "INSERT INTO admins ";
-    $sql .= "(first_name, last_name, email, username, hashed_password) ";
+    $sql = "INSERT INTO users ";
+    $sql .= "(unique_id,first_name, last_name, username, email, hashed_password,avatar) ";
     $sql .= "VALUES (";
+    $sql .= "'" . db_escape($db, $admin['unique_id']) . "',";
     $sql .= "'" . db_escape($db, $admin['first_name']) . "',";
     $sql .= "'" . db_escape($db, $admin['last_name']) . "',";
-    $sql .= "'" . db_escape($db, $admin['email']) . "',";
     $sql .= "'" . db_escape($db, $admin['username']) . "',";
-    $sql .= "'" . db_escape($db, $hashed_password) . "'";
+    $sql .= "'" . db_escape($db, $admin['email']) . "',";
+    $sql .= "'" . db_escape($db, $hashed_password) . "',";
+    $sql .= "'" . db_escape($db, $admin['avatar']) . "'";
     $sql .= ")";
 
     $result = mysqli_query($db, $sql);
     // For INSERT statements, $result is true/false
     if($result) {
-      // If Data was inserted correctly in the database
-      return true;
+        
+    $sql = "INSERT INTO online_status ";
+    $sql .= "(user_id,last_login,online_status) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . db_escape($db, $admin['unique_id']) . "',";
+    $sql .= "'" . db_escape($db, "000000") . "',";
+    $sql .= "'" . db_escape($db, "false") . "'";
+    $sql .= ")";
+
+    $result = mysqli_query($db, $sql);
+        if($result){
+            // If Data was inserted correctly in the database
+            return true;
+        }
+     
     } else {
       // INSERT failed
       echo mysqli_error($db);
@@ -467,7 +483,6 @@
   // Update a User From the Admin Table , pass in all the data in an array
   function update_admin($admin) {
     global $db;
-
     /*
       We Don't always need to update the password , let's wok on the field
       We wan to do it in a way that if the password was sent then it's okay
@@ -511,7 +526,7 @@
   function delete_admin($admin) {
     global $db;
 
-    $sql = "DELETE FROM admins ";
+    $sql = "DELETE from users ";
     $sql .= "WHERE id='" . db_escape($db, $admin['id']) . "' ";
     $sql .= "LIMIT 1;";
     $result = mysqli_query($db, $sql);
@@ -526,5 +541,32 @@
       exit;
     }
   }
+
+
+
+
+  //Function To send Messaged
+  function send_message_to($msg) {
+    global $db;
+    $sql = "INSERT INTO messages ";
+    $sql .= "(sent_by, sent_to, msg) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . db_escape($db, $msg['sent_by']) . "',";
+    $sql .= "'" . db_escape($db, $msg['sent_to']) . "',";
+    $sql .= "'" . db_escape($db, $msg['msg']) . "'";
+    $sql .= ")";
+    $result = mysqli_query($db, $sql);
+    // For INSERT statements, $result is true/false
+    if($result) {
+      return true;
+    } else {
+      // INSERT failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }
+  }
+
+
 
 ?>

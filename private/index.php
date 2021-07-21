@@ -8,6 +8,8 @@ $admin_set = find_all_admins();
 require_once("header.php");
 echo display_errors($errors);
 echo display_session_message();
+
+print_r($_SESSION);
 ?>
         <body>
         <a href="logout.php"> <button class="bg-warning">Logout</button></a>

@@ -1,3 +1,9 @@
+<?php 
+function generate_uid(){
+    return uniqid(rand().time());
+}
+echo generate_uid()
+?>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,6 +1,9 @@
 <pre>
 <?php
 require_once("initialize.php");
+
+$logout= array("online_status"=>false, "last_login"=>$_SESSION['last_login']);
+update_online_status($logout);
 unset($_SESSION['username']);
 
 session_destroy(); //remove All sessions

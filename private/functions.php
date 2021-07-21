@@ -95,9 +95,86 @@ function display_session_authErrors() {
             $val=sweetalerterr($msg,"Error Trying To login");
             return  $val;
         }
-
     }
   }
+
+
+
+
+
+//Image Upload function
+function image_validation_check($target_file){
+    $error=[];
+    $mp=0;
+    $imageFileType = strtolower(pathinfo($_FILES["user_avatar"]["name"], PATHINFO_EXTENSION));
+
+    $check = getimagesize($_FILES["user_avatar"]["tmp_name"]) ;
+    if($check !== false) {
+    }else {
+        $error[] = "File is not an image.";
+    }
+    //  Check if file already exists
+    //     if (file_exists($target_file)) {
+    //         $error[]= "Sorry, file already exists.";
+    //         $uploadOk = 0;
+    //     }
+
+    // Check file size
+    if ($_FILES["user_avatar"]["size"] > 10000000) {
+        $error[]=  "Sorry, your file is too large.";
+
+    }
+
+// Allow certain file formats
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif") {
+        $error[]=  "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    }
+    return $error;
+}
+function upload_image(){
+    $newName=uniqid() . "-" . time();
+    $filename   = "assets/images/avatar/".$newName; // 5dab1961e93a7-1571494241
+    $imageFileType = strtolower(pathinfo($_FILES["user_avatar"]["name"], PATHINFO_EXTENSION));
+    $target_file = $filename.".".$imageFileType;
+    $errors=image_validation_check($target_file);
+
+    // If there was an error with the file then return the  errors 
+    if(!empty($errors)){
+        $sucessUpload=array("uploadStatus"=>false, "errors"=>$errors);
+    return $sucessUpload;
+    }else{
+        if (move_uploaded_file($_FILES["user_avatar"]["tmp_name"], $target_file)) {
+            echo "The file " . htmlspecialchars(basename($_FILES["user_avatar"]["name"])) . " has been uploaded.";
+            $sucessUpload=array("uploadStatus"=>true, "filename"=>"{$newName}");
+            return $sucessUpload;
+        } else {
+            $errors[]="Sorry, there was an error uploading your file.";
+        }
+    }
+    $sucessUpload=array("uploadStatus"=>false, "errors"=>$errors);
+    return $sucessUpload;
+}
+
+
+//Function To Generate User Id 
+//uses The php uniqid and prepend a random number and time  
+function generate_uid(){
+    return uniqid(rand().time());
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

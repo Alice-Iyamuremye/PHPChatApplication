@@ -6,7 +6,7 @@ require_once("initialize.php");
 function del_admin_funny($admin) {
     global $db;
 
-    $sql = "DELETE FROM admins ";
+    $sql = "DELETE from users ";
     $sql .= "WHERE id='" . db_escape($db, $admin). "' ";
     $sql .= "LIMIT 1;";
     $result = mysqli_query($db, $sql);
