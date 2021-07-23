@@ -573,5 +573,18 @@
     }
   }
 
+  //Function To send Messaged
+  function find_chat_messages($msg) {
+    global $db;
+    $sql = "SELECT * FROM  messages where (";
+    $sql .= " sent_by='".   $msg['sent_by'] . "' AND ";
+    $sql .= " sent_to='" .  $msg['sent_to'] . "') OR (";
+    $sql .= " sent_by='".   $msg['sent_to'] . "' AND ";
+    $sql .= " sent_to='" .  $msg['sent_by'] . "') ";
+    $sql .= "order by msg_id,text_time ";
+   $result = mysqli_query($db, $sql);
+   confirm_result_set($result);
+   return $result;
+  }
  
 ?>
