@@ -61,6 +61,7 @@
     $visible_str = (string) $subject['visible'];
     if(!has_inclusion_of($visible_str, ["0","1"])) {
       $errors[] = "Visible must be true or false.";
+      $errors[] = "Visiblmee must be true or false.";
     }
 
     return $errors;
@@ -139,11 +140,16 @@
 
   // Pages
 
-  function find_all_pages() {
+  function find_all_contacts() {
     global $db;
 
-    $sql = "SELECT * FROM pages ";
-    $sql .= "ORDER BY subject_id ASC, position ASC";
+    $sql = "
+    SELECT 
+    users.unique_id, users.first_name, users.last_name, 
+    users.avatar, online_status.last_login, online_status.online_status 
+    FROM chatapplication.users INNER JOIN chatapplication.online_status 
+    ON users.unique_id=online_status.user_id ";
+    //$sql .= "ORDER BY online_status.online_status DESC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
@@ -567,6 +573,5 @@
     }
   }
 
-
-
+ 
 ?>

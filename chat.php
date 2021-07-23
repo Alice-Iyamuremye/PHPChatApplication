@@ -1,12 +1,20 @@
+<?php 
+require_once("private/initialize.php");
+$contacts=find_all_contacts();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <!-- <script src="https://kit.fontawesome.com/116d420389.js" crossorigin="anonymous"></script> -->
+    
+      <!-- Font Icon -->
+      <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+    
+
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Bootstrap</title>
@@ -32,14 +40,16 @@
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
 
                     </div>
+                  
+                            <div class="tophead">
+                            <div> <img src="images/ange.jpg"></div>
+                            <div class="myselfinfo">
+                                <h3>Username</h3>
+                                <h5>+250783305114</h5>
+                            </div>
+                            </div>
 
-                    <div class="tophead">
-                        <div> <img src="images/ange.jpg"></div>
-                        <div class="myselfinfo">
-                            <h3>Username</h3>
-                            <h5>+250783305114</h5>
-                        </div>
-                    </div>
+                  
 
 
                     <ul class="list-group mb-4">
@@ -60,7 +70,7 @@
                             Mode</li>
                     </ul>
                 </div><!-- Side Menue -->
-                <script>
+              <script>
                     function openNav() {
                         document.getElementById("mySidepanel").style.width = "350px";
                     }
@@ -76,165 +86,43 @@
                         aria-label="Search" />
                 </div>
 
-
                 <!-- Contact List Groups  -->
                 <div class="list-group contacts" style="height: 80vh; overflow: scroll;">
 
+                <?php 
+                // Display All Contacts 
+                    while($data=mysqli_fetch_assoc($contacts)){ ?>
                     <!-- Starting Of Contact List group-->
-                    <a class="list-group-item text-white d-none active" identifier="dd-0" href="#">
-                        <div class="media">
-                            <span class="online-status"></span>
-                            <img src="images/thumbnail-1.jpg" alt="user" width="60" class="rounded-pill">
-                            <div class="media-body ml-1">
-                                <div class="d-flex align-items-end justify-content-between mb-1">
-                                    <h6 class="mb-0 text-truncate text-nowrap">Ilunga gisa </h6>
-                                    <small class="small font-weight-bold">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                        </svg> 09:20
-                                    </small>
+                            <a class="list-group-item text-white" href="?chater=<?php echo $data['unique_id'];?>">
+                                <div class="media">
+                                <?php
+                                    if($data["online_status"]=="true"){
+                                        echo "<span class='online-status'></span>";
+                                    }
+                                ?>
+                                    <img src="assets/images/avatar/<?php echo $data["avatar"]; ?>" alt="user" width="60" height="60" class="rounded-pill">
+                                    <div class="media-body ml-1">
+                                        <div class="d-flex align-items-end justify-content-between mb-1">
+                                            <h6 class="mb-0 text-truncate text-nowrap"><?php echo $data["first_name"]." ".$data["last_name"] ; ?> </h6>
+                                            <small class="small font-weight-bold">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+                                                    <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" /></svg> 09:20
+                                            </small>
+                                        </div>
+                                        <p class="font-italic mb-0 w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit
+                                            ... </p>
+                                    </div>
                                 </div>
-                                <p class="font-italic mb-0 w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit
-                                    ... </p>
-                            </div>
-                        </div>
-                    </a> <!-- --------------End of Contact list group-->
-
-
-                    <!-- Starting Of Contact List group-->
-                    <a class="list-group-item text-white" identifier="dd-1" href="#">
-                        <div class="media">
-                            <span class="online-status"></span>
-                            <img src="images/thumbnail-1.jpg" alt="user" width="60" class="rounded-pill">
-                            <div class="media-body ml-1">
-                                <div class="d-flex align-items-end justify-content-between mb-1">
-                                    <h6 class="mb-0 text-truncate text-nowrap">Monkeyman</h6>
-                                    <small class="small font-weight-bold"> <svg xmlns="http://www.w3.org/2000/svg"
-                                            width="16" height="16" fill="currentColor" class="bi bi-check-all"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                        </svg> 09:20</small>
-                                </div>
-                                <p class="font-italic mb-0w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit
-                                    ... </p>
-                            </div>
-                        </div>
-                    </a> <!-- --------------End of Contact list group-->
-
-
-                    <!-- Starting Of Contact List group-->
-                    <a class="list-group-item  text-white" identifier="dd-2" href="#">
-                        <div class="media">
-                            <img src="images/chess.jpeg" alt="user" width="60" class="rounded-pill">
-                            <div class="media-body ml-1">
-                                <div class="d-flex align-items-end justify-content-between mb-1">
-                                    <h6 class="mb-0 text-truncate text-nowrap">CST Chess Clus</h6>
-                                    <span class="badge badge-warning badge-pill">10,099</span>
-                                </div>
-                                <p class="font-italic mb-0w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit
-                                    ... </p>
-                            </div>
-                        </div>
-                    </a> <!-- --------------End of Contact list group-->
-
-
-                    <!-- Starting Of Contact List group  Evariste -->
-
-                    <a class="list-group-item text-white " identifier="dd-3" href="#">
-                        <div class="media">
-                            <span class="online-status"></span>
-
-                            <img src="images/evariste.jpg" alt="user" width="60" class="rounded-pill">
-
-                            <div class="media-body ml-1">
-                                <div class="d-flex align-items-end justify-content-between mb-1">
-                                    <h6 class="mb-0 text-truncate text-nowrap">Tuyisenge Evariste</h6>
-                                    <small class="small font-weight-bold"><i class="fas fa-check"></i> 12:03</small>
-                                </div>
-                                <p class="font-italic mb-0w-75 small text-nowrap text-truncate ">Nonese , how am i
-                                    ge....</p>
-                            </div>
-                        </div>
-                    </a> <!-- --------------End of Contact list group-->
-
-
-
-                    <!-- Starting Of Contact List group-->
-                    <a class="list-group-item  text-white " identifier="dd-4" href="#">
-                        <div class="media">
-
-                            <img src="images/ange.jpg" alt="user" width="60" class="rounded-pill">
-                            <div class="media-body ml-1">
-                                <div class="d-flex align-items-end justify-content-between mb-1">
-                                    <h6 class="mb-0 text-truncate text-nowrap">Uberewe Ange</h6>
-                                    <small class="small font-weight-bold"><i class="fas fa-check"></i> 12:03</small>
-                                </div>
-                                <p class="font-italic mb-0w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit
-                                    ... </p>
-                            </div>
-                        </div>
-                    </a> <!-- --------------End of Contact list group-->
-
-
-
-                    <!-- Starting of contact list group -->
-                    <a class="list-group-item  text-white " identifier="dd-5" href="#">
-                        <div class="media">
-                            <img src="images/thumbnail-3.jpg" alt="user" width="60" class="rounded-pill">
-                            <div class="media-body ml-1">
-                                <div class="d-flex align-items-end justify-content-between mb-1">
-                                    <h6 class="mb-0 text-truncate text-nowrap">Iyamuremye Alice</h6>
-                                    <small class="small font-weight-bold"><i class="fas fa-check"></i> 12:03</small>
-                                </div>
-                                <p class="font-italic mb-0w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit
-                                    ... </p>
-                            </div>
-                        </div>
-                    </a> <!-- --------------End of Contact list group-->
-
-
-
-                    <!-- Starting of contact list group -->
-                    <a class="list-group-item  text-white " identifier="dd-6" href="#">
-                        <div class="media">
-                            <img src="images/asum.jpg" alt="user" width="60" class="rounded-pill">
-                            <div class="media-body ml-1">
-                                <div class="d-flex align-items-end justify-content-between mb-1">
-                                    <h6 class="mb-0 text-truncate text-nowrap">Assoumpta</h6>
-                                    <small class="small font-weight-bold"><i class="fas fa-check"></i> 12:03</small>
-                                </div>
-                                <p class="font-italic mb-0w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit
-                                    ... </p>
-                            </div>
-                        </div>
-                    </a> <!-- --------------End of Contact list group-->
-
-
-
-                    <!-- Starting of contact list group -->
-                    <a class="list-group-item  text-white " identifier="dd-7" href="#">
-                        <div class="media">
-                            <img src="images/thumbnail-1.jpg" alt="user" width="60" class="rounded-pill">
-                            <div class="media-body ml-1">
-                                <div class="d-flex align-items-end justify-content-between mb-1">
-                                    <h6 class="mb-0 text-truncate text-nowrap">Mutabazi Dany</h6>
-                                    <small class="small font-weight-bold"><i class="fas fa-check"></i> 12:03</small>
-                                </div>
-                                <p class="font-italic mb-0w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit
-                                    ... </p>
-                            </div>
-                        </div>
-                    </a> <!-- --------------End of Contact list group-->
-
+                            </a> <!-- --------------End of Contact list group-->
+                <?php }
+                mysqli_free_result($contacts); ?>
                 </div>
 
 
                 <div class="d-flex justify-content-around  align-items-stretch settings">
                     <div><a href="#"><i class="fas fa-users mr-1"></i>Groups</a></div>
-                    <div><a href="#"><i class="fas fa-cogs mr-1"></i>Settings</a></div>
+                    <div><a href="#"><i class="zmdi zmdi-settings zmdi-hc-2x"></i>Settings</a></div>
                     <div><a href="#"><i class="fas fa-plus mr-1"></i>Contact</a></div>
                 </div>
 
@@ -250,225 +138,9 @@
                     <h2 class=" text-light align-content-center">please Select a contact</h2>
                 </div>
 
-                <!-- Conversation Section , Each Havind a class dd-x ,which relates them to each user 
-                    Aka Each User has a dd-x class too  -->
+              
 
-                <div class="container-fluid message d-none dd-1">
-                    <ul class="clearfix list-unstyled" role="tooltip">
-
-                        <li class="me">
-                            <div>Hey dude, I’m bored. Tell me a good joke Please.</div>
-                            <span class="deltime  ">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg>
-                                13:34
-                            </span>
-                        </li><br>
-
-                        <li class="">
-                            <div>sure.</div>
-                            <span class="deltime"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg></i>12:34</span>
-                        </li><br>
-
-                        <li class="">
-                            <div>How do you keep an idiot in suspense?</div>
-                            <span class="deltime"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg></i>12:34</span>
-                        </li><br>
-
-                        <li class="me">
-                            <div class="reply">
-                                <span>Jason Doe </span>
-                                <p> How do you keep... </p>
-                            </div>
-                            <div>I don't Know , How ? </div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg>13:34</span>
-                        </li>
-                        <li class="me">
-                            <div> I’m waiting for your answer</div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg>13:34</span>
-                        </li>
-                        <li class="me">
-                            <div> Helloooooooooooooo</div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg>13:34</span>
-                        </li>
-                        <li class="me">
-                            <div> Why Don't You answer?? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-emoji-angry-fill text-warking" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM4.053 4.276a.5.5 0 0 1 .67-.223l2 1a.5.5 0 0 1 .166.76c.071.206.111.44.111.687C7 7.328 6.552 8 6 8s-1-.672-1-1.5c0-.408.109-.778.285-1.049l-1.009-.504a.5.5 0 0 1-.223-.67zm.232 8.157a.5.5 0 0 1-.183-.683A4.498 4.498 0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 1 1-.866.5A3.498 3.498 0 0 0 8 10.5a3.498 3.498 0 0 0-3.032 1.75.5.5 0 0 1-.683.183zM10 8c-.552 0-1-.672-1-1.5 0-.247.04-.48.11-.686a.502.502 0 0 1 .166-.761l2-1a.5.5 0 1 1 .448.894l-1.009.504c.176.27.285.64.285 1.049 0 .828-.448 1.5-1 1.5z" />
-                                </svg></div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg>13:34</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- ---------------------------  -->
-
-
-
-                <div class="container-fluid message d-none dd-2">
-                    <ul class="clearfix list-unstyled" role="tooltip">
-
-                        <li class="">
-                            <div style=" color:brown;">
-                                <span>Ilunga Gisa </span>
-                            </div>
-                            <div>Guys , i Got a really Cool Riddle for you . Find the one move checkmate if you can ,
-                                white to move </div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg>13:34</span>
-                        </li><br>
-                        <li class="">
-                            <div style="color:brown;">
-                                <span>Ilunga Gisa </span>
-                            </div>
-                            <div>
-                                <a data-toggle="modal" href="#dd-2"><img src="images/pzl.jpeg" width="100%"> </a>
-                            </div>
-                            <span class="deltime"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg></i>12:34</span>
-                        </li><br>
-
-
-                        <li class="me">
-                            <div> Come on , this one is Really Easy ! </div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg>13:34</span>
-                        </li>
-                        <li class="me">
-                            <div> Queen To e7 , and the match is over ! </div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg>13:34</span>
-                        </li>
-
-
-
-
-
-                    </ul>
-                </div>
-
-
-                <!-- ---------------------------  -->
-
-                <div class="container-fluid message d-none dd-3">
-                    <ul class="clearfix list-unstyled" role="tooltip">
-
-                        <li class="me">
-                            <div>Hello Man , Bimezute ? </div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg></i>13:34</span>
-                        </li><br><br>
-
-                        <li class="me">
-                            <div>Finished My Portrait Already C man.</div>
-                            <span class="deltime"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg></i>12:34</span>
-                        </li><br><br>
-
-                        <li class="">
-                            <div>Yego Man , done kabisa! let me show you </div>
-                            <span class="deltime"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg></i>12:34</span>
-                        </li><br>
-                        <li class="">
-
-                            <div>
-                                <!-- Link To the Modal -->
-                                <a data-toggle="modal" href="#dd-3"><img src="images/evapic.png" width="100%"> </a>
-                            </div>
-                            <span class="deltime"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg></i>12:34</span>
-                        </li><br>
-
-
-                        <li class="me">
-                            <div> Damn man , You are really Good ! </div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg>13:34</span>
-                        </li>
-                        <li class="me">
-                            <div> 10/10 kabisa ! no difference , people can actually tell that it's me !</div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg>13:34</span>
-                        </li>
-                        <li class="me">
-                            <div> Nonese , how am i getting the picture ? <svg xmlns="http://www.w3.org/2000/svg"
-                                    width="16" height="16" fill="currentColor"
-                                    class="bi bi-emoji-angry-fill text-danger" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM4.053 4.276a.5.5 0 0 1 .67-.223l2 1a.5.5 0 0 1 .166.76c.071.206.111.44.111.687C7 7.328 6.552 8 6 8s-1-.672-1-1.5c0-.408.109-.778.285-1.049l-1.009-.504a.5.5 0 0 1-.223-.67zm.232 8.157a.5.5 0 0 1-.183-.683A4.498 4.498 0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 1 1-.866.5A3.498 3.498 0 0 0 8 10.5a3.498 3.498 0 0 0-3.032 1.75.5.5 0 0 1-.683.183zM10 8c-.552 0-1-.672-1-1.5 0-.247.04-.48.11-.686a.502.502 0 0 1 .166-.761l2-1a.5.5 0 1 1 .448.894l-1.009.504c.176.27.285.64.285 1.049 0 .828-.448 1.5-1 1.5z" />
-                                </svg></div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg>13:34</span>
-                        </li>
-
-
-
-
-
-                    </ul>
-                </div>
-
+                
                 <!-- ---------------------------  -->
                 <div class="container-fluid message d-none dd-4">
                     <ul class="clearfix list-unstyled" role="tooltip">
@@ -481,34 +153,7 @@
                                         d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
                                 </svg></i>13:34</span>
                         </li><br>
-                        <li class="me">
-                            <div>I am pretty sure Things were tough that time right ? </div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg></i>13:34</span>
-                        </li><br>
-
-                        <li class="">
-                            <div>Well, When I was your age, I used to go to the market with two Hundred and bring home
-                                soap, rice, milk, bread, face powder etc.</div>
-                            <span class="deltime"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg></i>12:34</span>
-                        </li><br>
-
-                        <li class="">
-                            <div>nowadays it is difficult. There are CCTV cameras everywhere.</div>
-                            <span class="deltime"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg></i>12:34</span>
-                        </li><br>
-
+                        
 
                     </ul>
                 </div>
@@ -516,16 +161,16 @@
                 <div class="container text-light">
                     <div class="row reply align-items-center">
                         <div class="col-1 col-sm-1 col-xs-1 reply-emojis">
-                            <i class="fa fa-smile-o fa-2x"></i>
+                        <i class="zmdi zmdi-mood zmdi-hc-2x"></i>
                         </div>
                         <div class="col-7 col-sm-9 col-xs-9 reply-main">
                             <textarea class="form-control" rows="1" id="comment"></textarea>
                         </div>
                         <div class="col-1 col-sm-1 col-xs-1 reply-recording">
-                            <i class="fa fa-microphone fa-2x" aria-hidden="true"></i>
+                            <i class="zmdi zmdi-mic zmdi-hc-2x"></i>
                         </div>
                         <div class="col-1 col-sm-1   col-xs-1 reply-send">
-                            <i class="fa fa-send fa-2x" aria-hidden="true"></i>
+                            <i class="zmdi zmdi-mail-send zmdi-hc-2x"></i>
                         </div>
                     </div>
 
@@ -929,41 +574,101 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script>
-
-        // Select All Contact to add an event on them
-        let contactlist = document.querySelectorAll(".contacts a");
-
-        // Loop Through The List and Add Click events
-        for (const item of contactlist) {
-            item.addEventListener("click", () => {
-                // Get the current Selected (has a class of active) at first it's dd-0
-                let CurrentContact = document.querySelector(".contacts .active");
-
-                let currentcontactid = CurrentContact.getAttribute("identifier");
-                let selectedContact = item.getAttribute("identifier");
-
-                // Check if the current seected contact is not equal to the one being selected
-                // Then display none to the previous one and display the selected one
-                if (currentcontactid !== selectedContact) {
-
-                    let toremove = document.querySelector(".message." + currentcontactid);
-                    toremove.classList.add("d-none");
-
-                    document.querySelector(".contactdtls." + currentcontactid).classList.add("d-none");
-
-                    let toadd = document.querySelector(".message." + selectedContact).classList.remove("d-none");
-                    document.querySelector(".contactdtls." + selectedContact).classList.remove("d-none");
-
-                    CurrentContact.classList.remove("active");
-                    item.classList.add("active");
+        var button = document.querySelector("#signin");
+                
+                function disableSubmitButton() {
+                button.disabled = true;
+                button.style.backgroundColor = "grey";
+                
+                button.value = 'Authenticationg...';
                 }
-                console.log(currentcontactid + " => " + selectedContact);
-                console.log("button Was clicked")
-            }, false)
 
-        }
+                function enableSubmitButton() {
+                    button.disabled = false;
+                    button.style.backgroundColor = "rgb(250, 50, 50 )";
+                    button.value = 'Login in';
+                    button.classList.remove("avoidclicks");
+                }
+
+                function displayErrors(errors) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-right',
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                        
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                        })
+                        Toast.fire({
+                        icon: 'error',
+                        title: 'Unknown Username Or Password'
+                        })
+                }
+                function successlogin() {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                     })
+                        Toast.fire({
+                        icon: 'success',
+                        title: 'Signed in successfully'
+                        }).then(function() {
+                            window.location = "private/index.php";
+                        });
+                        // Disappearing Effect 
+                        $toremove1=document.querySelector(".signin-content .signin-image");
+                        $toremove2=document.querySelector(".signin-content .signin-form");
+                        $toremove3=document.querySelector(".container");
+                        $toremove1.classList.add("animate__fadeOutLeft");
+                        $toremove2.classList.add("animate__fadeOutRight");
+                        $toremove3.classList.add("animate__fadeOut");
+                }
+
+                
 
 
+                function findmsg() {
+                disableSubmitButton();
+                var form = document.querySelector("#login-form");
+                var action = form.getAttribute("action");
+                // gather form data
+                var form_data = new FormData(form);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', action, true);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.onreadystatechange = function () {
+                    if(xhr.readyState == 4 && xhr.status == 200) {
+                    var result = xhr.responseText;
+                        console.log('Result: ' + result);
+                    var json = JSON.parse(result);
+                    if(json.hasOwnProperty('Errors') && json.Errors.length > 0) {
+                        displayErrors(json.Errors);
+                     enableSubmitButton();
+                        
+                    } else{
+                            enableSubmitButton();     
+                            successlogin();
+                        }
+                    }
+                };
+                xhr.send(form_data);
+                }
+
+                    button.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    findmsg();
+                    });
     </script>
 </body>
 

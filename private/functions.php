@@ -146,7 +146,7 @@ function upload_image(){
     }else{
         if (move_uploaded_file($_FILES["user_avatar"]["tmp_name"], $target_file)) {
             echo "The file " . htmlspecialchars(basename($_FILES["user_avatar"]["name"])) . " has been uploaded.";
-            $sucessUpload=array("uploadStatus"=>true, "filename"=>"{$newName}");
+            $sucessUpload=array("uploadStatus"=>true, "filename"=>"$newName.'.'$imageFileType");
             return $sucessUpload;
         } else {
             $errors[]="Sorry, there was an error uploading your file.";
