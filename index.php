@@ -5,7 +5,7 @@ require_once("header.php");
 
 //If user is logged in , redirect him to the home page 
 if(is_logged_in()){
-    redirect_to('private/index.php');
+    redirect_to('chat.php');
 }
 
 $username = '';
@@ -124,7 +124,7 @@ echo display_session_message();
                         icon: 'success',
                         title: 'Signed in successfully'
                         }).then(function() {
-                            window.location = "private/index.php";
+                            window.location = "chat.php";
                         });
                         // Disappearing Effect 
                         $toremove1=document.querySelector(".signin-content .signin-image");

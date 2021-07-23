@@ -2,7 +2,7 @@
 function generate_uid(){
     return uniqid(rand().time());
 }
-echo generate_uid()
+// echo generate_uid()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@ echo generate_uid()
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <script src="https://kit.fontawesome.com/116d420389.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/116d420389.js" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Bootstrap</title>
@@ -21,7 +21,15 @@ echo generate_uid()
 </head>
 
 <body>
+    <?php
+        function convert_timestamp_to_time($timestamp){
+            $date=date("d F Y H:i:s",  $timestamp);
+            return $date;
+        } 
 
+        // echo convert_to_time(1627031425);
+        echo convert_timestamp_to_time(1627031425);
+    ?>
     <div id="mySidepanel" class="sidepanel">
         <div class="closeside">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>

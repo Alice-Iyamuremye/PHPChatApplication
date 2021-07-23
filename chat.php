@@ -1,6 +1,13 @@
 <?php 
 require_once("private/initialize.php");
+
+require_login();
+
 $contacts=find_all_contacts();
+
+echo display_errors($errors);
+echo display_session_message();
+
 
 ?>
 <!DOCTYPE html>
@@ -21,6 +28,8 @@ $contacts=find_all_contacts();
 </head>
 
 <body>
+
+<a href="private/logout.php"> <button class="bg-warning">Logout</button></a>
     <!-- The Whole Displayed is Made Using A 3 COlumns Grid Alignment Each Named Section one , Section two , section 3 -->
 
     <section class="container-fluid">
@@ -38,36 +47,27 @@ $contacts=find_all_contacts();
                 <div id="mySidepanel" class="sidepanel">
                     <div class="closeside">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
-
                     </div>
                   
                             <div class="tophead">
-                            <div> <img src="images/ange.jpg"></div>
+                            <div> <img src="assets/images/avatar/<?php echo $_SESSION["avatar"];?>"></div>
                             <div class="myselfinfo">
-                                <h3>Username</h3>
-                                <h5>+250783305114</h5>
+                                <h3><?php echo $_SESSION["username"]; ?></h3>
+                                <h5><?php echo $_SESSION["email"];?></h5>
                             </div>
                             </div>
-
-                  
-
 
                     <ul class="list-group mb-4">
-                        <li class="list-group-item list-group-item-action  py-3" href="#"><i
-                                class="fas fa-users mr-1"></i> New
-                            Group</li>
-                        <li class="list-group-item list-group-item-action  py-3" href="#"><i
-                                class="fas fa-users mr-1"></i> Contacts
-                        </li>
-                        <li class="list-group-item list-group-item-action  py-3" href="#"><i
-                                class="fas fa-users mr-1"></i> Calls
-                        </li>
-                        <li class="list-group-item list-group-item-action  py-3" href="#"><i
-                                class="fas fa-users mr-1"></i> Settings
-                        </li>
-                        <li class="list-group-item list-group-item-action  py-3" href="#"><i
-                                class="fas fa-users mr-1"></i>Night
-                            Mode</li>
+                        <li class="list-group-item list-group-item-action  py-3" href="#">
+                        <i class="mr-4 zmdi zmdi-accounts-add zmdi-hc-2x"></i> New Group</li>
+                        <li class="list-group-item list-group-item-action  py-3" href="#">
+                        <i class="mr-4 zmdi zmdi-phone zmdi-hc-2x"></i> Calls</li>
+                        <li class="list-group-item list-group-item-action  py-3" href="#">
+                        <i class="mr-4 zmdi zmdi-settings zmdi-hc-2x"></i>Settings</li>
+                        <li class="list-group-item list-group-item-action  py-3" href="#">
+                        <i class="mr-4 zmdi zmdi-accounts-add zmdi-hc-2x"></i>NightMode</li>
+                        <li class="list-group-item list-group-item-action  py-3" href="#">
+                        <i class="mr-4 zmdi zmdi-accounts-add zmdi-hc-2x"></i>Logout</li>
                     </ul>
                 </div><!-- Side Menue -->
               <script>
@@ -125,16 +125,15 @@ $contacts=find_all_contacts();
                     <div><a href="#"><i class="zmdi zmdi-settings zmdi-hc-2x"></i>Settings</a></div>
                     <div><a href="#"><i class="fas fa-plus mr-1"></i>Contact</a></div>
                 </div>
-
+                
+           
             </section> <!-- Contact Section End ---------------------------------------->
-
-
             <!-- Chat Content Section  ----- Section TWO 
             ------------------------------------------------------------------------------------------- -->
             <section class="col p-0 col-sm-8 col-md-9 col-lg-7 d-none d-inline-block bg-dark  message_section">
 
                 <!-- Text To be Displayed When A used First Lend On the Site ANd Havent Selected Any Contact -->
-                <div class="container-fluid text-center message dd-0" style="padding:240px 0px;">
+                <div class="container-fluid text-center message d-none dd-0" style="padding:240px 0px;">
                     <h2 class=" text-light align-content-center">please Select a contact</h2>
                 </div>
 
@@ -142,7 +141,7 @@ $contacts=find_all_contacts();
 
                 
                 <!-- ---------------------------  -->
-                <div class="container-fluid message d-none dd-4">
+                <div class="container-fluid message dd-4">
                     <ul class="clearfix list-unstyled" role="tooltip">
 
                         <li class="me">

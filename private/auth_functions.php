@@ -7,7 +7,9 @@
     $_SESSION['user_id'] = $admin['unique_id'];
     $_SESSION['last_login'] = time();
     $_SESSION['username'] = $admin['username'];
-    $login= array("online_status"=>"true", "last_login"=>$_SESSION['last_login']);
+    $_SESSION['email'] = $admin['email'];
+    $_SESSION['avatar'] = $admin['avatar'];
+    $login= array("online_status"=>"true", "last_login"=>convert_to_time($_SESSION['last_login']));
     update_online_status($login);
     return true;
   }
@@ -28,7 +30,7 @@
   // require a valid login before granting acccess to the page.
   function require_login() {
     if(!is_logged_in()) {
-      redirect_to('../index.php');
+      redirect_to('index.php');
     } else {
       // Do nothing, let the rest of the page proceed
     }

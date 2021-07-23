@@ -1,7 +1,5 @@
 <?php
-
   // Subjects
-
   function find_all_subjects($options=[]) {
     global $db;
 
@@ -98,11 +96,10 @@
     global $db;
     if(is_logged_in()){
         $sql = "UPDATE online_status SET ";
-        $sql .= "online_status='" . db_escape($db, $status['online_status']) . "' ";
-        $sql .= "last_login='" . db_escape($db, $status['last_login']) . "' ";
-        $sql .= " WHERE unique_id='" . db_escape($db, $_SESSION['user_id']) . "' ";
+        $sql .= "online_status='" . db_escape($db, $status['online_status']) . "', ";
+        $sql .= "last_login='" . db_escape($db, $status['last_login']). "' ";
+        $sql .= " WHERE user_id='" . db_escape($db, $_SESSION['user_id']) . "' ";
         $sql .= "LIMIT 1";
-    
         $result = mysqli_query($db, $sql);
         // For UPDATE statements, $result is true/false
         if($result) {
@@ -340,21 +337,21 @@
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);//CHECK if the query worked
-    $admin = mysqli_fetch_assoc($result); // find first
+    $data = mysqli_fetch_assoc($result); // find first
     mysqli_free_result($result);
-    return $admin; // returns an assoc. array
+    return $data; // returns an assoc. array
   }
 
-  function find_admin_by_username($username) {
+  function  find_user_by_username($username) {
     global $db;
     $sql = "SELECT * from users ";
     $sql .= "WHERE username='" . db_escape($db, $username) . "' ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
-    $admin = mysqli_fetch_assoc($result); // find first
+    $data = mysqli_fetch_assoc($result); // find first
     mysqli_free_result($result);
-    return $admin; // returns an assoc. array
+    return $data; // returns an assoc. array
   }
 
 

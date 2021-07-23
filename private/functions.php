@@ -163,9 +163,11 @@ function generate_uid(){
     return uniqid(rand().time());
 }
 
-
-
-
+//function to Convert A time Stamp to time 
+function convert_to_time($timestamp){
+    $date=date("d F Y H:i:s",  $timestamp);
+    return $date;
+} 
 
 
 

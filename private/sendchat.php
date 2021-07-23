@@ -26,7 +26,7 @@ if(is_ajax_request()) {
     }
     if(empty($errors)){
         $login_failure_msg = "Error While Sending The Message.";
-        $admin = find_admin_by_username($username); 
+        $admin = find_user_by_username($username); 
         if($admin) {
             //check if the password from form match with the encrypted password
             if(password_verify($password, $admin['hashed_password'])) {
@@ -69,7 +69,7 @@ else{
             // Using one variable ensures that msg is the same
             $login_failure_msg = "Unknown Username or Password";
             //return an associative array with the user Data
-            $admin = find_admin_by_username($username); 
+            $admin = find_user_by_username($username); 
             if($admin) {
                 //check if the password from form match with the encrypted password
                 if(password_verify($password, $admin['hashed_password'])) {
