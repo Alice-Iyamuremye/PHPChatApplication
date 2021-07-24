@@ -114,7 +114,7 @@
     right: 40px; } }
 
 .sidepanel {
-  width: 0;
+  width: 0px;
   position: fixed;
   z-index: 1;
   height: 100vh;
@@ -124,6 +124,17 @@
   overflow-x: hidden;
   transition: 0.2s;
   padding-top: 10px; }
+  .sidepanel ul li {
+    font-weight: bold; }
+    .sidepanel ul li i {
+      color: #eeecec;
+      margin-left: 20px; }
+    .sidepanel ul li:hover {
+      color: white; }
+    .sidepanel ul li:last-child {
+      color: #ec5252; }
+      .sidepanel ul li:last-child i {
+        color: #ff5959; }
   .sidepanel .tophead img {
     width: 150px;
     height: 150px;

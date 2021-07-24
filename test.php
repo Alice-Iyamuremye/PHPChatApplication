@@ -21,6 +21,19 @@ function generate_uid(){
 </head>
 
 <body>
+
+
+    
+          <div class="custom-control custom-switch">
+              <input class="custom-control-input" id="wkns" type="checkbox"> 
+              <label class="custom-control-label" for="wkns">Weakness</label>
+          </div>
+           
+
+    
+ 
+ 
+
     <?php
         function convert_timestamp_to_time($timestamp){
             $date=date("d F Y H:i:s",  $timestamp);

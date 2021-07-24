@@ -5,6 +5,7 @@ $chatBackground: #82ffee;
 $mainBlueColor: var(--primary);
 $textColor: rgb(0, 0, 0);
 $mutedColor: rgb(180, 180, 180);
+$mainLightColor: rgb(238, 236, 236);
 
 .contacts {
   a {
@@ -183,9 +184,9 @@ $mutedColor: rgb(180, 180, 180);
 }
 
 
-// Test Webpage css
+// Side Panel Navigation Bar
 .sidepanel{
-        width: 0;
+        width: 0px;
         position: fixed;
         z-index: 1;
         height: 100vh;
@@ -195,8 +196,26 @@ $mutedColor: rgb(180, 180, 180);
         overflow-x: hidden;
         transition: 0.2s;
         padding-top: 10px;
-      
-    .tophead{
+
+        ul{
+            li{
+                font-weight: bold;
+              i{
+                  color: $mainLightColor;
+                  margin-left: 20px;
+              }
+              &:hover{
+                  color: white;
+              }
+              &:last-child{
+                    i{
+                        color: rgb(255, 89, 89);
+                    }
+                      color: rgb(236, 82, 82);
+              }
+            }
+        }
+        .tophead{
         img {
             width: 150px;
             height: 150px;
