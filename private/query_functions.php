@@ -1,6 +1,9 @@
 <?php
   // Subjects
-  function find_all_subjects($options=[]) {
+
+use function PHPSTORM_META\sql_injection_subst;
+
+function find_all_subjects($options=[]) {
     global $db;
 
     $visible = $options['visible'] ?? false;
@@ -139,13 +142,12 @@
 
   function find_all_contacts() {
     global $db;
-
     $sql = "
     SELECT 
     users.unique_id, users.first_name, users.last_name, 
     users.avatar, online_status.last_login, online_status.online_status 
     FROM chatapplication.users INNER JOIN chatapplication.online_status 
-    ON users.unique_id=online_status.user_id ";
+    ON users.unique_id=online_status.user_id WHERE NOT unique_id =\"{$_SESSION['user_id']}\" ;";
     //$sql .= "ORDER BY online_status.online_status DESC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);

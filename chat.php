@@ -3,11 +3,9 @@ require_once("private/initialize.php");
 
 require_login();
 
-
+$contacts=find_all_contacts();
 echo display_errors($errors);
 echo display_session_message();
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +25,7 @@ echo display_session_message();
 </head>
 
 <body>
+
  <!-- The Whole Displayed is Made Using A 3 COlumns Grid Alignment Each Named Section one , Section two , section 3 -->
 
     <section class="container-fluid">
@@ -36,8 +35,8 @@ echo display_session_message();
             ------------------------------------------------------------------------------------------------------------- -->
             <section class=" col col-sm-4 col-md-3 p-0 d-none d-sm-inline-block bg-secondary contacts">
                 <nav class="navbar navbar-dark bg-dark d-inline-block ">
-                    <button class="navbar-toggler" onclick="openNav()">
-                        <span class="navbar-toggler-icon"></span>
+                    <button class="navbar-toggler " onclick="openNav()">
+                        <span class="navbar-toggler-icon "></span>
                     </button>
                 </nav>
                 <!-- Side Menue  -->
@@ -47,12 +46,7 @@ echo display_session_message();
                     </div>
                   
                             <div class="tophead">
-                            <div> 
-                                <a data-toggle="modal" href="#profile">
-                                 <img src="assets/images/avatar/<?php echo $_SESSION["avatar"];?>">
-                                </a>
-                            </div>
-                          
+                            <div> <img src="assets/images/avatar/<?php echo $_SESSION["avatar"];?>"></div>
                             <div class="myselfinfo">
                                 <h3><?php echo $_SESSION["username"]; ?></h3>
                                 <h5><?php echo $_SESSION["email"];?></h5>
@@ -102,7 +96,36 @@ echo display_session_message();
 
                 <!-- Contact List Groups  -->
                 <div class="list-group contacts contacts_list" style="height: 80vh; overflow: scroll;">
-                    
+
+                <?php 
+                // Display All Contacts 
+                    while($data=mysqli_fetch_assoc($contacts)){ ?>
+                    <!-- Starting Of Contact List group-->
+                            <a class="list-group-item text-white" href="?chater=<?php echo $data['unique_id'];?>">
+                                <div class="media">
+                                <?php
+                                    if($data["online_status"]=="true"){
+                                        echo "<span class='online-status'></span>";
+                                    }
+                                ?>
+                                    <img src="assets/images/avatar/<?php echo $data["avatar"]; ?>" alt="user" width="60" height="60" class="rounded-pill">
+                                    <div class="media-body ml-1">
+                                        <div class="d-flex align-items-end justify-content-between mb-1">
+                                            <h6 class="mb-0 text-truncate text-nowrap"><?php echo $data["first_name"]." ".$data["last_name"] ; ?> </h6>
+                                            <small class="small font-weight-bold">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+                                                    <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" /></svg> 
+                                                    <?php echo date('H:i',strtotime($data["last_login"])) ?>
+                                            </small>
+                                        </div>
+                                        <p class="font-italic mb-0 w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit
+                                            ... </p>
+                                    </div>
+                                </div>
+                            </a> <!-- --------------End of Contact list group-->
+                <?php }
+                mysqli_free_result($contacts); ?>
                 </div>
 
 
@@ -219,7 +242,7 @@ echo display_session_message();
 
                     </div>
                 </div>
-                <div class="contactdtls  dd-1">
+                <div class="contactdtls d-none dd-1">
                     <a data-toggle="modal" href="#ddp-1"><img src="images/thumbnail-1.jpg"></a>
                     <hr>
                     <ul class="">
@@ -430,21 +453,60 @@ echo display_session_message();
                 <!-- Modals Of All Images -->
                 <div>
 
-                    <!-- Loggen in User Profile image Modal -->
-                    <div class="modal fade" id="profile">
+
+
+                   
+
+
+                    <!-- Profile Modal dd-2 Start-->
+                    <div class="modal fade" id="ddp-2">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button class="close btn" data-dismiss="modal">&times;</button>
                                 </div> <!-- Modal Header-->
                                 <div class="modal-body text-center">
-                                <img class="img-fluid" src="assets/images/avatar/<?php echo $_SESSION["avatar"];?>">
+                                    <img src="images/chess.jpeg" class="img-fluid">
                                 </div><!-- Modal body-->
                             </div>
                             <!--Modal content-->
                         </div>
                         <!--Modal Dialog-->
                     </div> <!-- Image Modal  End-->
+
+
+                    <!-- Profile Modal dd-3 Start-->
+                    <div class="modal fade" id="ddp-3">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close btn" data-dismiss="modal">&times;</button>
+                                </div> <!-- Modal Header-->
+                                <div class="modal-body text-center">
+                                    <img src="images/evariste.jpg" class="img-fluid">
+                                </div><!-- Modal body-->
+                            </div>
+                            <!--Modal content-->
+                        </div>
+                        <!--Modal Dialog-->
+                    </div> <!-- Image Modal  End-->
+
+                    <!-- Profile Modal dd-4 Start-->
+                    <div class="modal fade" id="ddp-4">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close btn" data-dismiss="modal">&times;</button>
+                                </div> <!-- Modal Header-->
+                                <div class="modal-body text-center">
+                                    <img src="images/ange.jpg" class="img-fluid">
+                                </div><!-- Modal body-->
+                            </div>
+                            <!--Modal content-->
+                        </div>
+                        <!--Modal Dialog-->
+                    </div> <!-- Image Modal  End-->
+
 
                     <!-- Image Modal dd-3 Start-->
                     <div class="modal fade text-dark" id="dd-3">
@@ -467,6 +529,30 @@ echo display_session_message();
                         </div>
                         <!--Modal Dialog-->
                     </div> <!-- Image Modal  End-->
+
+
+                    <!-- Image Modal dd-3 Start-->
+                    <div class="modal text-dark fade" id="dd-2">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">@Ilunga Gisa</h4>
+                                    <button class="close btn" data-dismiss="modal">&times;</button>
+                                </div> <!-- Modal Header-->
+                                <div class="modal-body">
+                                    <img src="images/pzl.jpeg" class="img-fluid">
+                                </div><!-- Modal body-->
+                                <div class="modal-footer">
+                                    <span class="">Date: june-22-21 12:32</span>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                        Close</button>
+                                </div> <!-- Modal Header-->
+                            </div>
+                            <!--Modal content-->
+                        </div>
+                        <!--Modal Dialog-->
+                    </div> <!-- Image Modal  End-->
+
                 </div>
                 <!-- Image Modal End-->
 
@@ -482,10 +568,10 @@ echo display_session_message();
     <script src="js/bootstrap.min.js"></script>
 
     <script>
-    
+
 setInterval(() =>{
     let xhr= new XMLHttpRequest();
-    xhr.open("GET","text.txt",true);
+    xhr.open("GET","private/find_contacts.php",true);
     xhr.onreadystatechange= function (){ //call back function
     if(xhr.readyState== 4 && xhr.status== 200){
         let result=xhr.responseText;
@@ -494,97 +580,112 @@ setInterval(() =>{
     }
     }
   xhr.send();
-}, 500);
-    
-       /* var button = document.querySelector("#signin");
-                function disableSubmitButton() {
-                button.disabled = true;
-                button.style.backgroundColor = "grey";
-                button.value = 'Authenticationg...';
-                }
-                function enableSubmitButton() {
-                    button.disabled = false;
-                    button.style.backgroundColor = "rgb(250, 50, 50 )";
-                    button.value = 'Login in';
-                    button.classList.remove("avoidclicks");
-                }
-                function displayErrors(errors) {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-right',
-                        showCloseButton: true,
-                        showConfirmButton: false,
-                        
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                        })
-                        Toast.fire({
-                        icon: 'error',
-                        title: 'Unknown Username Or Password'
-                        })
-                }
-                function successlogin() {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 1000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                     })
-                        Toast.fire({
-                        icon: 'success',
-                        title: 'Signed in successfully'
-                        }).then(function() {
-                            window.location = "private/index.php";
-                        });
-                        // Disappearing Effect 
-                        $toremove1=document.querySelector(".signin-content .signin-image");
-                        $toremove2=document.querySelector(".signin-content .signin-form");
-                        $toremove3=document.querySelector(".container");
-                        $toremove1.classList.add("animate__fadeOutLeft");
-                        $toremove2.classList.add("animate__fadeOutRight");
-                        $toremove3.classList.add("animate__fadeOut");
-                }
-                function findmsg() {
-                disableSubmitButton();
-                var form = document.querySelector("#login-form");
-                var action = form.getAttribute("action");
-                // gather form data
-                var form_data = new FormData(form);
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', action, true);
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.onreadystatechange = function () {
-                    if(xhr.readyState == 4 && xhr.status == 200) {
-                    var result = xhr.responseText;
-                        console.log('Result: ' + result);
-                    var json = JSON.parse(result);
-                    if(json.hasOwnProperty('Errors') && json.Errors.length > 0) {
-                        displayErrors(json.Errors);
-                     enableSubmitButton();
-                        
-                    } else{
-                            enableSubmitButton();     
-                            successlogin();
-                        }
-                    }
-                };
-                xhr.send(form_data);
-                }
-                    button.addEventListener("click", function(event) {
-                    event.preventDefault();
-                    findmsg();
-                });
+}, 5000);
+
+
+
+
+    //     var button = document.querySelector("#signin");
                 
-            */
-    </script>
+    //             function disableSubmitButton() {
+    //             button.disabled = true;
+    //             button.style.backgroundColor = "grey";
+                
+    //             button.value = 'Authenticationg...';
+    //             }
+
+    //             function enableSubmitButton() {
+    //                 button.disabled = false;
+    //                 button.style.backgroundColor = "rgb(250, 50, 50 )";
+    //                 button.value = 'Login in';
+    //                 button.classList.remove("avoidclicks");
+    //             }
+
+    //             function displayErrors(errors) {
+    //                 const Toast = Swal.mixin({
+    //                     toast: true,
+    //                     position: 'top-right',
+    //                     showCloseButton: true,
+    //                     showConfirmButton: false,
+                        
+    //                     timerProgressBar: true,
+    //                     didOpen: (toast) => {
+    //                         toast.addEventListener('mouseenter', Swal.stopTimer)
+    //                         toast.addEventListener('mouseleave', Swal.resumeTimer)
+    //                     }
+    //                     })
+    //                     Toast.fire({
+    //                     icon: 'error',
+    //                     title: 'Unknown Username Or Password'
+    //                     })
+    //             }
+    //             function successlogin() {
+    //                 const Toast = Swal.mixin({
+    //                     toast: true,
+    //                     position: 'top-end',
+    //                     showConfirmButton: false,
+    //                     timer: 1000,
+    //                     timerProgressBar: true,
+    //                     didOpen: (toast) => {
+    //                         toast.addEventListener('mouseenter', Swal.stopTimer)
+    //                         toast.addEventListener('mouseleave', Swal.resumeTimer)
+    //                     }
+    //                  })
+    //                     Toast.fire({
+    //                     icon: 'success',
+    //                     title: 'Signed in successfully'
+    //                     }).then(function() {
+    //                         window.location = "private/index.php";
+    //                     });
+    //                     // Disappearing Effect 
+    //                     $toremove1=document.querySelector(".signin-content .signin-image");
+    //                     $toremove2=document.querySelector(".signin-content .signin-form");
+    //                     $toremove3=document.querySelector(".container");
+    //                     $toremove1.classList.add("animate__fadeOutLeft");
+    //                     $toremove2.classList.add("animate__fadeOutRight");
+    //                     $toremove3.classList.add("animate__fadeOut");
+    //             }
+
+                
+
+
+    //             function findmsg() {
+    //             disableSubmitButton();
+    //             var form = document.querySelector("#login-form");
+    //             var action = form.getAttribute("action");
+    //             // gather form data
+    //             var form_data = new FormData(form);
+    //             var xhr = new XMLHttpRequest();
+    //             xhr.open('POST', action, true);
+    //             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    //             xhr.onreadystatechange = function () {
+    //                 if(xhr.readyState == 4 && xhr.status == 200) {
+    //                 var result = xhr.responseText;
+    //                     console.log('Result: ' + result);
+    //                 var json = JSON.parse(result);
+    //                 if(json.hasOwnProperty('Errors') && json.Errors.length > 0) {
+    //                     displayErrors(json.Errors);
+    //                  enableSubmitButton();
+                        
+    //                 } else{
+    //                         enableSubmitButton();     
+    //                         successlogin();
+    //                     }
+    //                 }
+    //             };
+    //             xhr.send(form_data);
+    //             }
+
+    //                 button.addEventListener("click", function(event) {
+    //                 event.preventDefault();
+    //                 findmsg();
+    //                 });
+                
+    //             function profile_picture_model(image)
+            
+    
+    
+    // </script>
 </body>
 
 </html>
