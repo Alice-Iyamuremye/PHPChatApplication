@@ -154,11 +154,24 @@ function find_all_subjects($options=[]) {
     return $result;
   }
 
+  function find_contact_by_id($id) {
+    global $db;
+    $sql = "
+    SELECT 
+    users.username, users.first_name,users.email, users.last_name, 
+    users.avatar, online_status.last_login, online_status.online_status 
+    FROM chatapplication.users INNER JOIN chatapplication.online_status 
+    ON users.unique_id=online_status.user_id WHERE unique_id =\"".db_escape($db, $id)."\" LIMIT 1;";
+    
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    $data = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+    return $data;
+  }
   function find_page_by_id($id, $options=[]) {
     global $db;
-
     $visible = $options['visible'] ?? false;
-
     $sql = "SELECT * FROM pages ";
     $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
     if($visible) {
@@ -585,5 +598,27 @@ function find_all_subjects($options=[]) {
    confirm_result_set($result);
    return $result;
   }
- 
+
+  function get_time_portion($time){
+      return date('H:i',strtotime($time));
+  }
+  function find_latest_messages($msg) {
+    global $db;
+    $sql="SELECT msg FROM `messages` WHERE (";
+    $sql .= " sent_by='".   $msg['sent_by'] . "' AND ";
+    $sql .= " sent_to='" .  $msg['sent_to'] . "') OR (";
+    $sql .= " sent_by='".   $msg['sent_to'] . "' AND ";
+    $sql .= " sent_to='" .  $msg['sent_by'] . "') ";
+    $sql .= "ORDER BY msg_id DESC LIMIT 1";
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    $data = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+    if(empty($data)){
+        return array("msg"=>"No Message Yet");
+    }else{
+        return $data;
+    }
+}
+    
 ?>

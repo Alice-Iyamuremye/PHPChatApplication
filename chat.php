@@ -17,6 +17,8 @@ echo display_session_message();
     
       <!-- Font Icon -->
       <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+     <!-- Animate Css  -->
+     <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/animate.min.css">
     
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -28,7 +30,7 @@ echo display_session_message();
 
  <!-- The Whole Displayed is Made Using A 3 COlumns Grid Alignment Each Named Section one , Section two , section 3 -->
 
-    <section class="container-fluid">
+    <section class="container-fluid" style="overflow: hidden;">
         <section class="row vh-100">
 
             <!-- Contact List  Section   -----SECTION ONE
@@ -46,7 +48,12 @@ echo display_session_message();
                     </div>
                   
                             <div class="tophead">
-                            <div> <img src="assets/images/avatar/<?php echo $_SESSION["avatar"];?>"></div>
+                            <div> 
+                                <a data-toggle="modal" href="#profile">
+                                    <img src="assets/images/avatar/<?php echo $_SESSION["avatar"];?>">
+                                </a>
+                            </div>
+                         
                             <div class="myselfinfo">
                                 <h3><?php echo $_SESSION["username"]; ?></h3>
                                 <h5><?php echo $_SESSION["email"];?></h5>
@@ -99,16 +106,18 @@ echo display_session_message();
 
                 <?php 
                 // Display All Contacts 
-                    while($data=mysqli_fetch_assoc($contacts)){ ?>
+                    while($data=mysqli_fetch_assoc($contacts)){ 
+                        $lastmsg=array("sent_by"=>$_SESSION['user_id'],"sent_to"=>$data['unique_id']);
+                        ?>
                     <!-- Starting Of Contact List group-->
-                            <a class="list-group-item text-white" href="?chater=<?php echo $data['unique_id'];?>">
+                            <a class="list-group-item text-white proton"  onclick="user_description(<?php echo '\''.$data['unique_id'].'\'';?>);get_chats(<?php echo '\''.$data['unique_id'].'\'';?>)" href="#">
                                 <div class="media">
                                 <?php
                                     if($data["online_status"]=="true"){
                                         echo "<span class='online-status'></span>";
                                     }
                                 ?>
-                                    <img src="assets/images/avatar/<?php echo $data["avatar"]; ?>" alt="user" width="60" height="60" class="rounded-pill">
+                                    <img src="assets/images/avatar/<?php echo $data["avatar"];?>" alt="user" width="60" height="60" class="rounded-pill">
                                     <div class="media-body ml-1">
                                         <div class="d-flex align-items-end justify-content-between mb-1">
                                             <h6 class="mb-0 text-truncate text-nowrap"><?php echo $data["first_name"]." ".$data["last_name"] ; ?> </h6>
@@ -119,8 +128,7 @@ echo display_session_message();
                                                     <?php echo date('H:i',strtotime($data["last_login"])) ?>
                                             </small>
                                         </div>
-                                        <p class="font-italic mb-0 w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit
-                                            ... </p>
+                                        <p class="font-italic mb-0 small text-truncate text-nowrap ltsmsg"><?php $latest=find_latest_messages($lastmsg);echo $latest["msg"];?></p>
                                     </div>
                                 </div>
                             </a> <!-- --------------End of Contact list group-->
@@ -151,18 +159,8 @@ echo display_session_message();
                 
                 <!-- ---------------------------  -->
                 <div class="container-fluid message dd-4">
-                    <ul class="clearfix list-unstyled" role="tooltip">
-
-                        <li class="me">
-                            <div>How Was it in the 19s When it comes to shopping ?.</div>
-                            <span class="deltime  "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                                </svg></i>13:34</span>
-                        </li><br>
-                        
-
+                    <ul class="clearfix list-unstyled whrmsggoes" role="tooltip">
+                       
                     </ul>
                 </div>
                 <!-- ---------------------------  -->
@@ -170,7 +168,7 @@ echo display_session_message();
                     <div class="row reply align-items-center">
                         <div class="col-1 col-sm-1 col-xs-1 reply-emojis">
                         <i class="zmdi zmdi-mood zmdi-hc-2x"></i>
-                        </div>
+                      </div>
                         <div class="col-7 col-sm-9 col-xs-9 reply-main">
                             <textarea class="form-control" rows="1" id="comment"></textarea>
                         </div>
@@ -192,372 +190,73 @@ echo display_session_message();
 
 
 
-            <!-- Chat Description start  Section Three
+            <!-- Chat Description start  SECTION THREE
                   ----------------------------------------------------------------------------------->
-            <section class=" col col-lg-2 d-none text-light d-lg-inline-block bg-secondary ">
-                <div class="contactdtls d-none dd-0">
-                    <img src="images/evariste.jpg">
-                    <hr>
-                    <ul class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                        </svg>
-                        <li><span>Mobile</span>
-                            <p>+250782123211</p>
-                        </li>
-                        <li><span>Bio</span>
-                            <p>One Love for everyone</p>
-                        </li>
-                        <li><span>Username</span>
-                            <p>@evariste32</p>
-                        </li>
-                        <hr>
-                        <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-bell-slash-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.164 14H15c-1.5-1-2-5.902-2-7 0-.264-.02-.523-.06-.776L5.164 14zm6.288-10.617A4.988 4.988 0 0 0 8.995 2.1a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 7c0 .898-.335 4.342-1.278 6.113l9.73-9.73zM10 15a2 2 0 1 1-4 0h4zm-9.375.625a.53.53 0 0 0 .75.75l14.75-14.75a.53.53 0 0 0-.75-.75L.625 15.625z" />
-                            </svg><br>
-                            <p>Notification &nbsp; &nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="23"
-                                    height="23" fill="currentColor" class="bi bi-volume-mute-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06zm7.137 2.096a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0z" />
-                                </svg></p>
-
-                        </li>
-                        <li>
-
-                            <p style="color: red; text-shadow: 1px 1px 1px rgb(29, 29, 29);"> <svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                                </svg> Block user </p>
-
-                        </li>
-                    </ul>
-                    <div>
-
-                    </div>
-                </div>
-                <div class="contactdtls d-none dd-1">
-                    <a data-toggle="modal" href="#ddp-1"><img src="images/thumbnail-1.jpg"></a>
-                    <hr>
-                    <ul class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                        </svg>
-                        <li><span>Mobile</span>
-                            <p>+250782123211</p>
-                        </li>
-                        <li><span>Bio</span>
-                            <p>One Love for everyone</p>
-                        </li>
-                        <li><span>Username</span>
-                            <p>@evariste32</p>
-                        </li>
-                        <hr>
-                        <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-bell-slash-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.164 14H15c-1.5-1-2-5.902-2-7 0-.264-.02-.523-.06-.776L5.164 14zm6.288-10.617A4.988 4.988 0 0 0 8.995 2.1a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 7c0 .898-.335 4.342-1.278 6.113l9.73-9.73zM10 15a2 2 0 1 1-4 0h4zm-9.375.625a.53.53 0 0 0 .75.75l14.75-14.75a.53.53 0 0 0-.75-.75L.625 15.625z" />
-                            </svg><br>
-                            <p>Notification &nbsp; &nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="23"
-                                    height="23" fill="currentColor" class="bi bi-volume-mute-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06zm7.137 2.096a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0z" />
-                                </svg></p>
-
-                        </li>
-                        <li>
-
-                            <p style="color: red; text-shadow: 1px 1px 1px rgb(29, 29, 29);"> <svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                                </svg> Block user </p>
-
-                        </li>
-                    </ul>
-                    <div>
-
-                    </div>
-                </div>
-
-                <div class="contactdtls d-none dd-2">
-                    <a data-toggle="modal" href="#ddp-2"><img src="images/chess.jpeg"></a>
-                    <hr>
-                    <ul class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                        </svg>
-                        <li><span>Mobile</span>
-                            <p>+250782123211</p>
-                        </li>
-                        <li><span>Bio</span>
-                            <p>One Love for everyone</p>
-                        </li>
-                        <li><span>Username</span>
-                            <p>@evariste32</p>
-                        </li>
-                        <hr>
-                        <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-bell-slash-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.164 14H15c-1.5-1-2-5.902-2-7 0-.264-.02-.523-.06-.776L5.164 14zm6.288-10.617A4.988 4.988 0 0 0 8.995 2.1a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 7c0 .898-.335 4.342-1.278 6.113l9.73-9.73zM10 15a2 2 0 1 1-4 0h4zm-9.375.625a.53.53 0 0 0 .75.75l14.75-14.75a.53.53 0 0 0-.75-.75L.625 15.625z" />
-                            </svg><br>
-                            <p>Notification &nbsp; &nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="23"
-                                    height="23" fill="currentColor" class="bi bi-volume-mute-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06zm7.137 2.096a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0z" />
-                                </svg></p>
-
-                        </li>
-                        <li>
-
-                            <p style="color: red; text-shadow: 1px 1px 1px rgb(29, 29, 29);"> <svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                                </svg> Block user </p>
-
-                        </li>
-                    </ul>
-                    <div>
-
-                    </div>
-                </div>
-
-                <div class="contactdtls d-none dd-3">
-
-                    <a data-toggle="modal" href="#ddp-3"><img src="images/evariste.jpg"></a>
-
-                    <div class="calicn text-light text-center row justify-content-around">
-                        <div class="col"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="16"
-                                fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
-                            </svg></div>
-                        <div class="col"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="16"
-                                fill="currentColor" class="bi bi-camera-video-fill" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
-                            </svg></div>
-                    </div>
-
-                    <hr>
-                    <ul class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                        </svg>
-                        <li><span>Mobile</span>
-                            <p>+250782123211</p>
-                        </li>
-                        <li><span>Bio</span>
-                            <p>One Love for everyone</p>
-                        </li>
-                        <li><span>Username</span>
-                            <p>@evariste32</p>
-                        </li>
-                        <hr>
-                        <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-bell-slash-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.164 14H15c-1.5-1-2-5.902-2-7 0-.264-.02-.523-.06-.776L5.164 14zm6.288-10.617A4.988 4.988 0 0 0 8.995 2.1a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 7c0 .898-.335 4.342-1.278 6.113l9.73-9.73zM10 15a2 2 0 1 1-4 0h4zm-9.375.625a.53.53 0 0 0 .75.75l14.75-14.75a.53.53 0 0 0-.75-.75L.625 15.625z" />
-                            </svg><br>
-                            <p>Notification &nbsp; &nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="23"
-                                    height="23" fill="currentColor" class="bi bi-volume-mute-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06zm7.137 2.096a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0z" />
-                                </svg></p>
-
-                        </li>
-                        <li>
-
-                            <p style="color: red; text-shadow: 1px 1px 1px rgb(29, 29, 29);">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                                </svg> Block user
-                            </p>
-
-                        </li>
-                    </ul>
-                    <div>
-
-                    </div>
-                </div>
-
-                <div class="contactdtls d-none dd-4">
-                    <a data-toggle="modal" href="#ddp-4"><img src="images/ange.jpg"></a>
-                    <hr>
-                    <ul class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                        </svg>
-                        <li><span>Mobile</span>
-                            <p>+250782123211</p>
-                        </li>
-                        <li><span>Bio</span>
-                            <p>One Love for everyone</p>
-                        </li>
-                        <li><span>Username</span>
-                            <p>@evariste32</p>
-                        </li>
-                        <hr>
-                        <li>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-bell-slash-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.164 14H15c-1.5-1-2-5.902-2-7 0-.264-.02-.523-.06-.776L5.164 14zm6.288-10.617A4.988 4.988 0 0 0 8.995 2.1a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 7c0 .898-.335 4.342-1.278 6.113l9.73-9.73zM10 15a2 2 0 1 1-4 0h4zm-9.375.625a.53.53 0 0 0 .75.75l14.75-14.75a.53.53 0 0 0-.75-.75L.625 15.625z" />
-                            </svg><br>
-                            <p>Notification &nbsp; &nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="23"
-                                    height="23" fill="currentColor" class="bi bi-volume-mute-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06zm7.137 2.096a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0z" />
-                                </svg></p>
-
-                        </li>
-                        <li>
-
-                            <p style="color: red; text-shadow: 1px 1px 1px rgb(29, 29, 29);"> <svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                                </svg> Block user </p>
-
-                        </li>
-                    </ul>
-                    <div>
-
-                    </div>
-                </div>
-
-                <!-- Modals Of All Images -->
-                <div>
-
-
-
-                   
-
-
-                    <!-- Profile Modal dd-2 Start-->
-                    <div class="modal fade" id="ddp-2">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button class="close btn" data-dismiss="modal">&times;</button>
-                                </div> <!-- Modal Header-->
-                                <div class="modal-body text-center">
-                                    <img src="images/chess.jpeg" class="img-fluid">
-                                </div><!-- Modal body-->
-                            </div>
-                            <!--Modal content-->
-                        </div>
-                        <!--Modal Dialog-->
-                    </div> <!-- Image Modal  End-->
-
-
-                    <!-- Profile Modal dd-3 Start-->
-                    <div class="modal fade" id="ddp-3">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button class="close btn" data-dismiss="modal">&times;</button>
-                                </div> <!-- Modal Header-->
-                                <div class="modal-body text-center">
-                                    <img src="images/evariste.jpg" class="img-fluid">
-                                </div><!-- Modal body-->
-                            </div>
-                            <!--Modal content-->
-                        </div>
-                        <!--Modal Dialog-->
-                    </div> <!-- Image Modal  End-->
-
-                    <!-- Profile Modal dd-4 Start-->
-                    <div class="modal fade" id="ddp-4">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button class="close btn" data-dismiss="modal">&times;</button>
-                                </div> <!-- Modal Header-->
-                                <div class="modal-body text-center">
-                                    <img src="images/ange.jpg" class="img-fluid">
-                                </div><!-- Modal body-->
-                            </div>
-                            <!--Modal content-->
-                        </div>
-                        <!--Modal Dialog-->
-                    </div> <!-- Image Modal  End-->
-
-
-                    <!-- Image Modal dd-3 Start-->
-                    <div class="modal fade text-dark" id="dd-3">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">@evariste32</h4>
-                                    <button class="close btn" data-dismiss="modal">&times;</button>
-                                </div> <!-- Modal Header-->
-                                <div class="modal-body">
-                                    <img src="images/evapic.png" class="img-fluid">
-                                </div><!-- Modal body-->
-                                <div class="modal-footer">
-                                    <span class="">Date: june-22-21 12:32</span>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                                        Close</button>
-                                </div> <!-- Modal Header-->
-                            </div>
-                            <!--Modal content-->
-                        </div>
-                        <!--Modal Dialog-->
-                    </div> <!-- Image Modal  End-->
-
-
-                    <!-- Image Modal dd-3 Start-->
-                    <div class="modal text-dark fade" id="dd-2">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">@Ilunga Gisa</h4>
-                                    <button class="close btn" data-dismiss="modal">&times;</button>
-                                </div> <!-- Modal Header-->
-                                <div class="modal-body">
-                                    <img src="images/pzl.jpeg" class="img-fluid">
-                                </div><!-- Modal body-->
-                                <div class="modal-footer">
-                                    <span class="">Date: june-22-21 12:32</span>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                                        Close</button>
-                                </div> <!-- Modal Header-->
-                            </div>
-                            <!--Modal content-->
-                        </div>
-                        <!--Modal Dialog-->
-                    </div> <!-- Image Modal  End-->
-
-                </div>
-                <!-- Image Modal End-->
-
+            <section class=" col col-lg-2 text-light d-lg-inline-block bg-secondary section_contact_desc">
+               
+               
+              
             </section><!-- Chat Description   End ---------------------------------------->
 
+<!-- Modals Of All Images -->
+<div>
+
+        <!-- Profile Image Modal  -->
+        <div class="modal fade" id="profile">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close btn" data-dismiss="modal">&times;</button>
+                    </div> <!-- Modal Header-->
+                    <div class="modal-body text-center">
+                        <img src="assets/images/avatar/<?php echo $_SESSION["avatar"]; ?>" class="img-fluid">
+                    </div><!-- Modal body-->
+                </div>
+                <!--Modal content-->
+            </div>
+            <!--Modal Dialog-->
+        </div> <!-- Image Modal  End-->
+
+
+        <!-- Profile Modal dd-3 Start-->
+        <div class="modal fade" id="ddp-3">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close btn" data-dismiss="modal">&times;</button>
+                    </div> <!-- Modal Header-->
+                    <div class="modal-body text-center">
+                        <img src="images/evariste.jpg" class="img-fluid">
+                    </div><!-- Modal body-->
+                </div>
+                <!--Modal content-->
+            </div>
+            <!--Modal Dialog-->
+        </div> <!-- Image Modal  End-->
+
+        <!-- Image Modal dd-3 Start-->
+        <div class="modal fade text-dark" id="dd-3">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">@evariste32</h4>
+                        <button class="close btn" data-dismiss="modal">&times;</button>
+                    </div> <!-- Modal Header-->
+                    <div class="modal-body">
+                        <img src="images/evapic.png" class="img-fluid">
+                    </div><!-- Modal body-->
+                    <div class="modal-footer">
+                        <span class="">Date: june-22-21 12:32</span>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                            Close</button>
+                    </div> <!-- Modal Header-->
+                </div>
+                <!--Modal content-->
+            </div>
+            <!--Modal Dialog-->
+            </div> <!-- Image Modal  End-->
+</div>
+<!-- Image Modal End-->
 
 
 
@@ -575,12 +274,46 @@ setInterval(() =>{
     xhr.onreadystatechange= function (){ //call back function
     if(xhr.readyState== 4 && xhr.status== 200){
         let result=xhr.responseText;
-        var target=document.querySelector(".contacts_list");
+        let target=document.querySelector(".contacts_list");
         target.innerHTML=result;
+       
     }
     }
   xhr.send();
-}, 5000);
+}, 100000);
+
+
+
+
+            var contactlst = document.querySelectorAll(".proton");
+                function user_description(l) {
+                    url="private/find_contact_description.php?idt="+l;
+                    let xhr= new XMLHttpRequest();
+                    xhr.open("GET",url,true);
+                    xhr.onreadystatechange= function (){ 
+                    if(xhr.readyState== 4 && xhr.status== 200){
+                        let result=xhr.responseText;
+                        let target=document.querySelector(".section_contact_desc");
+                        target.innerHTML=result;
+                    }
+                    }
+                xhr.send();
+                }
+                
+            
+                function get_chats(l) {
+                    url="private/find_messages.php?chat="+l;
+                    let xhr= new XMLHttpRequest();
+                    xhr.open("GET",url,true);
+                    xhr.onreadystatechange= function (){ 
+                    if(xhr.readyState== 4 && xhr.status== 200){
+                        let result=xhr.responseText;
+                        let target=document.querySelector(".whrmsggoes");
+                        target.innerHTML=result;
+                    }
+                    }
+                xhr.send();
+                }
 
 
 
@@ -685,7 +418,7 @@ setInterval(() =>{
             
     
     
-    // </script>
+     </script>
 </body>
 
 </html>

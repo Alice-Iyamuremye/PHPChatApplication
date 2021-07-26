@@ -48,6 +48,8 @@
     margin: 5px 0px;
     line-height: 22px;
     color: black; }
+    .message_section ul li .ltsmsg {
+      display: none; }
     .message_section ul li .reply {
       border-radius: 5px;
       font-size: 13px;
