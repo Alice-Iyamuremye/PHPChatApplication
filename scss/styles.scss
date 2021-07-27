@@ -8,6 +8,7 @@ $mutedColor: rgb(180, 180, 180);
 $mainLightColor: rgb(238, 236, 236);
 
 .contacts {
+    
   a {
     text-decoration: none;
     color: #eee;
@@ -17,6 +18,12 @@ $mainLightColor: rgb(238, 236, 236);
   }
 
   .list-group-item {
+    .badge,.media small{
+        position: absolute;
+        bottom: 0px;
+        font-size: 10px;
+        right: 10px;
+    }
     .media {
       .online-status {
         position: absolute;
@@ -27,9 +34,13 @@ $mainLightColor: rgb(238, 236, 236);
         height: 10px;
         background-color: $onlineColor;
       }
-      p:last-of-type {
-        max-width: 70%;
+      .ltsmsg {
+        margin: 0px;
+        padding: 0px;
+        max-width: 200px;
+        overflow: hidden;
       }
+      
     }
   }
   .list-group-item:hover {
@@ -69,11 +80,10 @@ $mainLightColor: rgb(238, 236, 236);
 			font-family: Roboto, sans-serif;
 			font-size: 16px;
 			margin: 5px 0px;
+            
 			line-height: 22px;
 			color: $textColor;
-			.ltsmsg{
-                display: none;
-            }
+			
 			.reply{
 				border-radius:5px;
 				font-size:13px;
@@ -101,7 +111,7 @@ $mainLightColor: rgb(238, 236, 236);
 		li.me{
 			border-radius: 20px 20px 0px 20px; 
 			float: right;
-			clear: right;
+			clear: both;
 		}
         li:hover{
             background-color: #cbffff;
@@ -168,15 +178,21 @@ $mainLightColor: rgb(238, 236, 236);
 
 
  
-
-
+@media screen and (max-width:1100px) {
+    .contacts {
+        .ltsmsg {
+            width: 100px;
+        }
+    }}
 @media screen and (max-width:900px) {
     .contacts {
+       
 		.media h6{
 			font-size: 10px; 
 			font-weight: bold;
 		}
 		.badge,.media small{
+          
 			position: absolute;
 			bottom: 0px;
 			right: 40px;

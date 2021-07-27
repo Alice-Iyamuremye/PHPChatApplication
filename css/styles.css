@@ -5,6 +5,12 @@
 .contacts a:hover.active {
   background-color: var(--primary); }
 
+.contacts .list-group-item .badge, .contacts .list-group-item .media small {
+  position: absolute;
+  bottom: 0px;
+  font-size: 10px;
+  right: 10px; }
+
 .contacts .list-group-item .media .online-status {
   position: absolute;
   top: 20px;
@@ -14,8 +20,11 @@
   height: 10px;
   background-color: #13e700; }
 
-.contacts .list-group-item .media p:last-of-type {
-  max-width: 70%; }
+.contacts .list-group-item .media .ltsmsg {
+  margin: 0px;
+  padding: 0px;
+  max-width: 200px;
+  overflow: hidden; }
 
 .contacts .list-group-item:hover {
   background-color: #25282c; }
@@ -34,7 +43,7 @@
 /* Messaeg Aka Chat Section Start --------------------------------- */
 .message_section ul {
   height: 88vh;
-  overflow: scroll; }
+  overflow-y: scroll; }
   .message_section ul li {
     position: relative;
     display: inline-block;
@@ -48,8 +57,6 @@
     margin: 5px 0px;
     line-height: 22px;
     color: black; }
-    .message_section ul li .ltsmsg {
-      display: none; }
     .message_section ul li .reply {
       border-radius: 5px;
       font-size: 13px;
@@ -68,7 +75,7 @@
   .message_section ul li.me {
     border-radius: 20px 20px 0px 20px;
     float: right;
-    clear: right; }
+    clear: both; }
   .message_section ul li:hover {
     background-color: #cbffff; }
 
@@ -105,6 +112,10 @@
         font-family: 'Courier New', Courier, monospace; }
     .contactdtls ul li:hover {
       background: #343a40; }
+
+@media screen and (max-width: 1100px) {
+  .contacts .ltsmsg {
+    width: 100px; } }
 
 @media screen and (max-width: 900px) {
   .contacts .media h6 {

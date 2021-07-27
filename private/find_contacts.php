@@ -7,7 +7,7 @@ $contacts=find_all_contacts();
     while($data=mysqli_fetch_assoc($contacts)){
         $lastmsg=array("sent_by"=>$_SESSION['user_id'],"sent_to"=>$data['unique_id']);
         $latest=find_latest_messages($lastmsg);
-        $result.="<a class='list-group-item text-white proton' onclick=\"user_description('".$data['unique_id']."; get_chats('".$data['unique_id']."')\" href='#'> 
+        $result.="<a class='list-group-item text-white proton' onclick=\"user_description('".$data['unique_id']."');keepfindingtext('".$data['unique_id']."')\" href='#'> 
         <div class='media'>";
         if($data['online_status']=='true'){ $result.="<span class='online-status'></span>";}
 
@@ -23,21 +23,11 @@ $contacts=find_all_contacts();
                                      ".get_time_portion($data["last_login"])."
                     </small>";
             $result.="</div>
-                        <p class='font-italic mb-0 w-75 small text-nowrap text-truncate '>";
-                        
+                        <p class='font-italic mb-0 small text-truncate text-nowrap ltsmsg'>";
             $result.= $latest["msg"]."</p>
                     </div>
                 </div>
             </a>";
     }
-        $result.="<script>
-            for (let item of contactlst) {
-                let selector = item.getAttribute('idtf');
-                item.addEventListener('click', function(event) {
-                    alert('Bonour'+selector);
-                });
-            }</script>
-        ";
-
        echo $result;
  mysqli_free_result($contacts); 

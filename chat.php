@@ -110,7 +110,7 @@ echo display_session_message();
                         $lastmsg=array("sent_by"=>$_SESSION['user_id'],"sent_to"=>$data['unique_id']);
                         ?>
                     <!-- Starting Of Contact List group-->
-                            <a class="list-group-item text-white proton"  onclick="user_description(<?php echo '\''.$data['unique_id'].'\'';?>);get_chats(<?php echo '\''.$data['unique_id'].'\'';?>)" href="#">
+                            <a class="list-group-item text-white proton"  onclick="user_description(<?php echo '\''.$data['unique_id'].'\'';?>);keepfindingtext(<?php echo '\''.$data['unique_id'].'\'';?>)" href="#">
                                 <div class="media">
                                 <?php
                                     if($data["online_status"]=="true"){
@@ -119,7 +119,7 @@ echo display_session_message();
                                 ?>
                                     <img src="assets/images/avatar/<?php echo $data["avatar"];?>" alt="user" width="60" height="60" class="rounded-pill">
                                     <div class="media-body ml-1">
-                                        <div class="d-flex align-items-end justify-content-between mb-1">
+                                        <div class="mb-1">
                                             <h6 class="mb-0 text-truncate text-nowrap"><?php echo $data["first_name"]." ".$data["last_name"] ; ?> </h6>
                                             <small class="small font-weight-bold">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -128,7 +128,7 @@ echo display_session_message();
                                                     <?php echo date('H:i',strtotime($data["last_login"])) ?>
                                             </small>
                                         </div>
-                                        <p class="font-italic mb-0 small text-truncate text-nowrap ltsmsg"><?php $latest=find_latest_messages($lastmsg);echo $latest["msg"];?></p>
+                                        <p class="font-italic mb-0 small text-truncate ltsmsg"><?php $latest=find_latest_messages($lastmsg);echo $latest["msg"];?></p>
                                     </div>
                                 </div>
                             </a> <!-- --------------End of Contact list group-->
@@ -268,6 +268,8 @@ echo display_session_message();
 
     <script>
 
+// Ajax to Keep finding users when and the latest message sent to them
+
 setInterval(() =>{
     let xhr= new XMLHttpRequest();
     xhr.open("GET","private/find_contacts.php",true);
@@ -280,10 +282,12 @@ setInterval(() =>{
     }
     }
   xhr.send();
-}, 100000);
+}, 500000);
 
 
 
+
+            // Ajax Request To find Contact Desctiption When a user is clicked 
 
             var contactlst = document.querySelectorAll(".proton");
                 function user_description(l) {
@@ -300,20 +304,39 @@ setInterval(() =>{
                 xhr.send();
                 }
                 
-            
-                function get_chats(l) {
-                    url="private/find_messages.php?chat="+l;
-                    let xhr= new XMLHttpRequest();
-                    xhr.open("GET",url,true);
-                    xhr.onreadystatechange= function (){ 
-                    if(xhr.readyState== 4 && xhr.status== 200){
-                        let result=xhr.responseText;
-                        let target=document.querySelector(".whrmsggoes");
-                        target.innerHTML=result;
+                
+
+                
+                function get_messages_again(l) {
+
+                url = "private/find_messages.php?chat=" + l;
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET", url, true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        
+                        var d = new Date();
+                        var t = d.toLocaleTimeString();
+                        let result = xhr.responseText;
+                        let target = document.querySelector(".whrmsggoes");
+                        target.innerHTML = result;
                     }
-                    }
-                xhr.send();
                 }
+                xhr.send();
+            }
+
+                    var settfunc = "";
+                    function end_get_messages() {
+                    clearInterval(settfunc);
+                    }
+
+                function keepfindingtext(l) {
+                    end_get_messages(settfunc);
+                    settfunc = setInterval(get_messages_again, 1000, l);
+                    }
+
+                                
+                
 
 
 

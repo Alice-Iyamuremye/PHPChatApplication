@@ -5,8 +5,8 @@ require_login();
 $id= $_GET["chat"] ?? "";
     $msg=array('sent_by'=>$_SESSION['user_id'],'sent_to'=>$id);
     $chat=find_chat_messages($msg);
-        $result="";
-    if(empty($chat)){
+   $result="";   
+    if(mysqli_num_rows($chat)==0){
         $result.="<h1>No Chat found with this conversation</h1>";
     }
     else{
