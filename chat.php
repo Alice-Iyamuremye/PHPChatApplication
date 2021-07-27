@@ -21,6 +21,9 @@ echo display_session_message();
      <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/animate.min.css">
     
 
+     <script src="<? echo $parent ?? '';?>assets/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/sweetalert2/dist/sweetalert2.min.css">
+
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Bootstrap</title>
@@ -136,7 +139,6 @@ echo display_session_message();
                 mysqli_free_result($contacts); ?>
                 </div>
 
-
                 <div class="d-flex justify-content-around  align-items-stretch settings">
                     <div><a href="#"><i class="fas fa-users mr-1"></i>Groups</a></div>
                     <div><a href="#"><i class="zmdi zmdi-settings zmdi-hc-2x"></i>Settings</a></div>
@@ -164,20 +166,25 @@ echo display_session_message();
                     </ul>
                 </div>
                 <!-- ---------------------------  -->
-                <div class="container text-light">
-                    <div class="row reply align-items-center">
-                        <div class="col-1 col-sm-1 col-xs-1 reply-emojis">
-                        <i class="zmdi zmdi-mood zmdi-hc-2x"></i>
-                      </div>
-                        <div class="col-7 col-sm-9 col-xs-9 reply-main">
-                            <textarea class="form-control" rows="1" id="comment"></textarea>
-                        </div>
-                        <div class="col-1 col-sm-1 col-xs-1 reply-recording">
-                            <i class="zmdi zmdi-mic zmdi-hc-2x"></i>
-                        </div>
-                        <div class="col-1 col-sm-1   col-xs-1 reply-send">
-                            <i class="zmdi zmdi-mail-send zmdi-hc-2x"></i>
-                        </div>
+                <div class="container text-light sendmsgsection">
+                        <form method="POST" class="register-form" id="sendMessageForm" action="private/sendchat.php">
+                            
+                            <div class="row reply align-items-center">
+                                <div class="col-1 col-sm-1 col-xs-1 reply-emojis">
+                                <i class="zmdi zmdi-mood zmdi-hc-2x"></i>
+                            </div>
+                                <div class="col-7 col-sm-9 col-xs-9 reply-main">
+                                    
+                                    <input type="text" class="textmessageid" name="sent_to" hidden>   
+                                    <textarea class="form-control textmessage" name="textmessage" rows="1" id="comment"></textarea>
+                                </div>
+                                <div class="col-1 col-sm-1 col-xs-1 reply-recording">
+                                    <i class="zmdi zmdi-mic zmdi-hc-2x"></i>
+                                </div>
+                                <div class="col-1 col-sm-1   col-xs-1 reply-send">
+                                    <span class="send_message"><i class="zmdi zmdi-mail-send zmdi-hc-2x"></i></span>
+                                </div>
+                        </form>
                     </div>
 
                 </div>
@@ -314,12 +321,12 @@ setInterval(() =>{
                 xhr.open("GET", url, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
-                        
                         var d = new Date();
                         var t = d.toLocaleTimeString();
                         let result = xhr.responseText;
                         let target = document.querySelector(".whrmsggoes");
                         target.innerHTML = result;
+                        document.querySelector(".textmessageid").value=l;
                     }
                 }
                 xhr.send();
@@ -341,105 +348,92 @@ setInterval(() =>{
 
 
 
-    //     var button = document.querySelector("#signin");
+            var button = document.querySelector(".send_message");
                 
-    //             function disableSubmitButton() {
-    //             button.disabled = true;
-    //             button.style.backgroundColor = "grey";
-                
-    //             button.value = 'Authenticationg...';
-    //             }
+                    // function disableSubmitButton() {
+                    // button.disabled = true;
+                    // button.style.backgroundColor = "grey";
+                    
+                    // button.value = 'Authenticationg...';
+                    // }
 
-    //             function enableSubmitButton() {
-    //                 button.disabled = false;
-    //                 button.style.backgroundColor = "rgb(250, 50, 50 )";
-    //                 button.value = 'Login in';
-    //                 button.classList.remove("avoidclicks");
-    //             }
+                    // function enableSubmitButton() {
+                    //     button.disabled = false;
+                    //     button.style.backgroundColor = "rgb(250, 50, 50 )";
+                    //     button.value = 'Login in';
+                    //     button.classList.remove("avoidclicks");
+                    // }
 
-    //             function displayErrors(errors) {
-    //                 const Toast = Swal.mixin({
-    //                     toast: true,
-    //                     position: 'top-right',
-    //                     showCloseButton: true,
-    //                     showConfirmButton: false,
-                        
-    //                     timerProgressBar: true,
-    //                     didOpen: (toast) => {
-    //                         toast.addEventListener('mouseenter', Swal.stopTimer)
-    //                         toast.addEventListener('mouseleave', Swal.resumeTimer)
-    //                     }
-    //                     })
-    //                     Toast.fire({
-    //                     icon: 'error',
-    //                     title: 'Unknown Username Or Password'
-    //                     })
-    //             }
-    //             function successlogin() {
-    //                 const Toast = Swal.mixin({
-    //                     toast: true,
-    //                     position: 'top-end',
-    //                     showConfirmButton: false,
-    //                     timer: 1000,
-    //                     timerProgressBar: true,
-    //                     didOpen: (toast) => {
-    //                         toast.addEventListener('mouseenter', Swal.stopTimer)
-    //                         toast.addEventListener('mouseleave', Swal.resumeTimer)
-    //                     }
-    //                  })
-    //                     Toast.fire({
-    //                     icon: 'success',
-    //                     title: 'Signed in successfully'
-    //                     }).then(function() {
-    //                         window.location = "private/index.php";
-    //                     });
-    //                     // Disappearing Effect 
-    //                     $toremove1=document.querySelector(".signin-content .signin-image");
-    //                     $toremove2=document.querySelector(".signin-content .signin-form");
-    //                     $toremove3=document.querySelector(".container");
-    //                     $toremove1.classList.add("animate__fadeOutLeft");
-    //                     $toremove2.classList.add("animate__fadeOutRight");
-    //                     $toremove3.classList.add("animate__fadeOut");
-    //             }
+                    function displayErrors(errors) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-right',
+                            showCloseButton: true,
+                            showConfirmButton: false,
+                            
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                            })
+                            Toast.fire({
+                            icon: 'error',
+                            title: 'Unknown Username Or Password'
+                            })
+                    }
+                    function successlogin() {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 1000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                         })
+                            Toast.fire({
+                            icon: 'success',
+                            title: 'Message Sent Successfully'
+                            })
+                    }
 
-                
+                    
 
 
-    //             function findmsg() {
-    //             disableSubmitButton();
-    //             var form = document.querySelector("#login-form");
-    //             var action = form.getAttribute("action");
-    //             // gather form data
-    //             var form_data = new FormData(form);
-    //             var xhr = new XMLHttpRequest();
-    //             xhr.open('POST', action, true);
-    //             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    //             xhr.onreadystatechange = function () {
-    //                 if(xhr.readyState == 4 && xhr.status == 200) {
-    //                 var result = xhr.responseText;
-    //                     console.log('Result: ' + result);
-    //                 var json = JSON.parse(result);
-    //                 if(json.hasOwnProperty('Errors') && json.Errors.length > 0) {
-    //                     displayErrors(json.Errors);
-    //                  enableSubmitButton();
-                        
-    //                 } else{
-    //                         enableSubmitButton();     
-    //                         successlogin();
-    //                     }
-    //                 }
-    //             };
-    //             xhr.send(form_data);
-    //             }
+                    function sendmessage() {
+                    var form = document.querySelector("#sendMessageForm");
+                    var action = form.getAttribute("action");
+                    // gather form data
+                    var form_data = new FormData(form);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', action, true);
+                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    xhr.onreadystatechange = function () {
+                        if(xhr.readyState == 4 && xhr.status == 200) {
+                        var result = xhr.responseText;
+                            console.log('Result: ' + result);
+                        var json = JSON.parse(result);
+                        if(json.hasOwnProperty('Errors') && json.Errors.length > 0) {
+                            displayErrors(json.Errors);
+                        } else{ 
+                            var scroll = document.querySelector(".whrmsggoes");
+                                scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
+                            }
+                        }
+                    };
+                    xhr.send(form_data);
+                    }
 
-    //                 button.addEventListener("click", function(event) {
-    //                 event.preventDefault();
-    //                 findmsg();
-    //                 });
-                
-    //             function profile_picture_model(image)
-            
-    
+                        button.addEventListener("click", function(event) {
+                        event.preventDefault();
+                        sendmessage();
+                        });
+                    
+                   
+        
     
      </script>
 </body>

@@ -43,7 +43,7 @@
 /* Messaeg Aka Chat Section Start --------------------------------- */
 .message_section ul {
   height: 88vh;
-  overflow-y: scroll; }
+  overflow: scroll; }
   .message_section ul li {
     position: relative;
     display: inline-block;
@@ -78,6 +78,12 @@
     clear: both; }
   .message_section ul li:hover {
     background-color: #cbffff; }
+
+.message_section .sendmsgsection i {
+  cursor: pointer;
+  transition: .3s; }
+  .message_section .sendmsgsection i:hover {
+    color: var(--primary); }
 
 /* Contact Destion Section  -------------------------*/
 .contactdtls {

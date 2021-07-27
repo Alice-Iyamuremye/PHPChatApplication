@@ -369,6 +369,17 @@ function find_all_subjects($options=[]) {
     return $data; // returns an assoc. array
   }
 
+  function  find_user_by_id($username) {
+    global $db;
+    $sql = "SELECT unique_id from users ";
+    $sql .= "WHERE unique_id='" . db_escape($db, $username) . "' ";
+    $sql .= "LIMIT 1";
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    $data = mysqli_fetch_assoc($result); // find first
+    mysqli_free_result($result);
+    return $data; // returns an assoc. array
+  }
 
   // pass the username password email ... to this function as an array
 // It makes all the possible tests and return Errors in an array

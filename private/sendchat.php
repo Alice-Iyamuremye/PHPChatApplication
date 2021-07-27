@@ -1,56 +1,56 @@
 <?php
 
-require_once("private/initialize.php");
+require_once("initialize.php");
 
   $username = $_SESSION['user_id'] ?? '';
-  $message = $_POST['message'] ?? '';
-  $sendingto = $_POST['message'] ?? '';
-  $msg=array("sent_by"=>$username,"sent_to"=>$sendingto,"msg"=>$msg);
+  $message = $_POST['textmessage'] ?? '';
+  $sendingto = $_POST['sent_to'] ?? '';
 $errors=[];
 if(is_blank($username)) {
-    $errors[] = "Username cannot be blank.";
+    $errors[] = "Unknown User.";
 }
 if(is_blank($message)) {
-    $errors[] = "Password cannot be blank.";
+    $errors[] = "You can not Send en amplty text";
 }
 if(is_blank($sendingto)) {
     $errors[] = "Unknown Chatid";
 }
 if(is_ajax_request()) {
-    
-    
+  
     if(!empty($errors)) {
         $result_array = array('Errors' => $errors);
         echo json_encode($result_array);
         exit;
     }
     if(empty($errors)){
-        $login_failure_msg = "Error While Sending The Message.";
-        $admin = find_user_by_username($username); 
+        $msg=array("sent_by"=>$username,"sent_to"=>$sendingto,"msg"=>$message);
+    
+        $msg_failure_error = "Error While Sending The Message.";
+        $admin = find_user_by_id($sendingto); 
         if($admin) {
             //check if the password from form match with the encrypted password
-            if(password_verify($password, $admin['hashed_password'])) {
+            if($sendingto==$admin['unique_id']) {
                $result=send_message_to($msg);
                 if($result) {
                     echo "true";
                     exit;}
                 }
             else{
-                $errors[] = $login_failure_msg;
+                $errors[] = $msg_failure_error;
             $result_array = array('Errors' => $errors);
              echo json_encode($result_array);
             }
 
         } else {
             // no username found
-            $errors[] = $login_failure_msg;
+            $errors[] = $msg_failure_error;
             $result_array = array('Errors' => $errors);
              echo json_encode($result_array);
             }
     }
     else {
         // no username found
-        $errors[] = $login_failure_msg;
+        $errors[] = $msg_failure_error;
         $result_array = array('Errors' => $errors);
          echo json_encode($result_array);
     }
@@ -67,7 +67,7 @@ else{
         // if there were no errors, try to login
         if(empty($errors)) {
             // Using one variable ensures that msg is the same
-            $login_failure_msg = "Unknown Username or Password";
+            $msg_failure_error = "Unknown Username or Password";
             //return an associative array with the user Data
             $admin = find_user_by_username($username); 
             if($admin) {
@@ -79,11 +79,11 @@ else{
                     //send to the login page
                     redirect_to('private/index.php');
                 }else{
-                    $errors[] = $login_failure_msg;
+                    $errors[] = $msg_failure_error;
                 }
             } else{
                 // no username found
-                $errors[] = $login_failure_msg;
+                $errors[] = $msg_failure_error;
                 }
                 $result_array =$errors;
                 $_SESSION['authErrors'] = $result_array;
