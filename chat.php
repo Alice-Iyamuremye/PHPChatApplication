@@ -99,11 +99,28 @@ echo display_session_message();
                 </script>
 
                 <!-- Search Form above the contact -->
-                <div class="form-outline d-inline-block">
-                    <input type="search" id="form1" class="form-control my-2 mx-auto" placeholder="Search "
+                <div class="form-outline d-inline-block seachform">
+                    <input type="text" id="form1" name="search" class="form-control my-2 mx-auto" placeholder="Search "
                         aria-label="Search" />
                 </div>
+                <script>
 
+                    searchBar = document.querySelector(".seachform #form1")
+                    searchBar.onkeyup = ()=>{
+                     xhr.open("GET","private/seach_contact.php?searchTerm="+searchBar.value,true);
+                     let xhr= new XMLHttpRequest();
+                    xhr.onreadystatechange= function (){ //call back function
+                    if(xhr.readyState== 4 && xhr.status== 200){
+                        let result=xhr.responseText;
+                        let target=document.querySelector(".contacts_list");
+                        target.innerHTML=result;
+                    
+                    }
+                    }
+                xhr.send();    
+                }
+                
+                </script>
                 <!-- Contact List Groups  -->
                 <div class="list-group contacts contacts_list" style="height: 80vh; overflow: scroll;">
 
@@ -152,8 +169,8 @@ echo display_session_message();
             <section class="col p-0 col-sm-8 col-md-9 col-lg-7 d-none d-inline-block bg-dark  message_section">
 
                 <!-- Text To be Displayed When A used First Lend On the Site ANd Havent Selected Any Contact -->
-                <div class="container-fluid text-center message d-none dd-0" style="padding:240px 0px;">
-                    <h2 class=" text-light align-content-center">please Select a contact</h2>
+                <div class="container-fluid text-center message  dd-0" style="padding:240px 0px;">
+                    <h2 class=" text-light align-content-center pleasesel">please Select a contact</h2>
                 </div>
 
               
@@ -313,6 +330,18 @@ setInterval(() =>{
                 
                 
 
+                chatBox = document.querySelector(".whrmsggoes")
+                    function scrollToBottom(){
+                           chatBox.scrollTop = chatBox.scrollHeight;
+                        }
+                     chatBox.onmouseenter = ()=>{
+                        chatBox.classList.add("active");
+                        }
+
+                    chatBox.onmouseleave = ()=>{
+                        chatBox.classList.remove("active");
+                        }
+
                 
                 function get_messages_again(l) {
 
@@ -327,11 +356,13 @@ setInterval(() =>{
                         let target = document.querySelector(".whrmsggoes");
                         target.innerHTML = result;
                         document.querySelector(".textmessageid").value=l;
+                        if(!chatBox.classList.contains("active")){
+                            scrollToBottom();
+                        }
                     }
                 }
                 xhr.send();
             }
-
                     var settfunc = "";
                     function end_get_messages() {
                     clearInterval(settfunc);
@@ -339,7 +370,7 @@ setInterval(() =>{
 
                 function keepfindingtext(l) {
                     end_get_messages(settfunc);
-                    settfunc = setInterval(get_messages_again, 1000, l);
+                    settfunc = setInterval(get_messages_again, 500, l);
                     }
 
                                 
@@ -349,20 +380,7 @@ setInterval(() =>{
 
 
             var button = document.querySelector(".send_message");
-                
-                    // function disableSubmitButton() {
-                    // button.disabled = true;
-                    // button.style.backgroundColor = "grey";
-                    
-                    // button.value = 'Authenticationg...';
-                    // }
-
-                    // function enableSubmitButton() {
-                    //     button.disabled = false;
-                    //     button.style.backgroundColor = "rgb(250, 50, 50 )";
-                    //     button.value = 'Login in';
-                    //     button.classList.remove("avoidclicks");
-                    // }
+            
 
                     function displayErrors(errors) {
                         const Toast = Swal.mixin({
@@ -400,6 +418,15 @@ setInterval(() =>{
                             })
                     }
 
+                    function waitms(ms){
+                        var start = new Date().getTime();
+                        var end = start;
+                        while(end < start + ms) {
+                            end = new Date().getTime();
+                        }
+                    }
+                    
+                   
                     
 
 
@@ -419,8 +446,9 @@ setInterval(() =>{
                         if(json.hasOwnProperty('Errors') && json.Errors.length > 0) {
                             displayErrors(json.Errors);
                         } else{ 
-                            var scroll = document.querySelector(".whrmsggoes");
-                                scroll.scrollTop = scroll.scrollHeight - scroll.clientHeight;
+                            
+                            document.querySelector(".textmessage").value="";
+                            scrollToBottom();
                             }
                         }
                     };
