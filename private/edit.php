@@ -1,8 +1,7 @@
 <?php
 require_once("initialize.php");
 //Links To the Files In the Parent Directories
-$parent="../";
-require_once("../header.php");
+
 
 if(!has_presence($_GET['id']) || !is_an_integer($_GET['id'])){
     redirect_to("index.php");

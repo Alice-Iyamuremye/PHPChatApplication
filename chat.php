@@ -107,17 +107,26 @@ echo display_session_message();
 
                     searchBar = document.querySelector(".seachform #form1")
                     searchBar.onkeyup = ()=>{
-                     xhr.open("GET","private/seach_contact.php?searchTerm="+searchBar.value,true);
-                     let xhr= new XMLHttpRequest();
-                    xhr.onreadystatechange= function (){ //call back function
-                    if(xhr.readyState== 4 && xhr.status== 200){
+                        searchTerm=searchBar.value
+                        if(searchTerm != ""){
+                            searchBar.classList.add("active");
+                        }else{
+                            searchBar.classList.remove("active");
+                        }
+                        if(searchBar.value!=""){
+                            url = "private/search_contact.php?searchTerm="+searchBar.value;
+                        let xhr = new XMLHttpRequest();
+                        xhr.open("GET", url, true);
+                        xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
                         let result=xhr.responseText;
                         let target=document.querySelector(".contacts_list");
                         target.innerHTML=result;
                     
                     }
                     }
-                xhr.send();    
+                xhr.send(); 
+                        }
                 }
                 
                 </script>
@@ -169,8 +178,8 @@ echo display_session_message();
             <section class="col p-0 col-sm-8 col-md-9 col-lg-7 d-none d-inline-block bg-dark  message_section">
 
                 <!-- Text To be Displayed When A used First Lend On the Site ANd Havent Selected Any Contact -->
-                <div class="container-fluid text-center message  dd-0" style="padding:240px 0px;">
-                    <h2 class=" text-light align-content-center pleasesel">please Select a contact</h2>
+                <div class="container-fluid text-center message d-none dd-0" style="padding:240px 0px;">
+                    <h2 class=" text-light align-content-center ">please Select a contact</h2>
                 </div>
 
               
@@ -286,10 +295,7 @@ echo display_session_message();
 
         </section><!-- Row Section End Section End ---------------------------------------->
     </section><!-- Container Section  End ---------------------------------------->
-    <script src="js/jquery.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
+    
     <script>
 
 // Ajax to Keep finding users when and the latest message sent to them
@@ -301,12 +307,14 @@ setInterval(() =>{
     if(xhr.readyState== 4 && xhr.status== 200){
         let result=xhr.responseText;
         let target=document.querySelector(".contacts_list");
+        
+        if(!searchBar.classList.contains("active")){
         target.innerHTML=result;
-       
+        }
     }
     }
   xhr.send();
-}, 500000);
+}, 500);
 
 
 
@@ -330,6 +338,10 @@ setInterval(() =>{
                 
                 
 
+
+
+
+                // Ajax To find Messages accordingly to the chat
                 chatBox = document.querySelector(".whrmsggoes")
                     function scrollToBottom(){
                            chatBox.scrollTop = chatBox.scrollHeight;
@@ -465,5 +477,10 @@ setInterval(() =>{
     
      </script>
 </body>
+
+</html>
+    <script src="js/jquery.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
 </html>

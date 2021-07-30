@@ -71,7 +71,7 @@ $mainLightColor: rgb(238, 236, 236);
          overflow:scroll;
 		li{
 			position: relative;
-			display: inline-block;
+			display: table;
 			background-color: $chatBackground;
 			border-radius: 20px 20px 20px 0px;
 			max-width:70%;

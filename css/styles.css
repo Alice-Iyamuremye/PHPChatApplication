@@ -46,7 +46,7 @@
   overflow: scroll; }
   .message_section ul li {
     position: relative;
-    display: inline-block;
+    display: table;
     background-color: #82ffee;
     border-radius: 20px 20px 20px 0px;
     max-width: 70%;

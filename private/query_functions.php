@@ -160,11 +160,11 @@ function find_all_subjects($options=[]) {
     users.unique_id, users.first_name, users.last_name, 
     users.avatar, online_status.last_login, online_status.online_status 
     FROM chatapplication.users INNER JOIN chatapplication.online_status 
-    ON users.unique_id=online_status.user_id WHERE NOT unique_id =\"{$_SESSION['user_id']}\" AND (fname LIKE '%{$searchTerm}%' OR lname LIKE '%{$searchTerm}%');";
+    ON users.unique_id=online_status.user_id WHERE NOT unique_id =\"{$_SESSION['user_id']}\" AND (first_name LIKE '%{$searchTerm}%' OR last_name LIKE '%{$searchTerm}%');";
     //$sql .= "ORDER BY online_status.online_status DESC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
-    return $sql;
+    return $result;
   }
 
   function find_contact_by_id($id) {

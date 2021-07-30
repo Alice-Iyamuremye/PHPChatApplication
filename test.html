@@ -1,50 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 
 <body>
-
-    <p>Click the button to wait 3 seconds, then alert "Hello".</p>
-    <h1>After clicking away the alert box, an new alert box will appear in 3 seconds. This goes on forever...</h1>
-    <button onclick="keepfindingtext('1232')">Try it</button>
-    <button onclick="end_get_messages()">Remove it</button>
-
-    <script>
-
-        function dan(daniel = "paris") { alert(daniel); }
-        var stol = "";
-        function myFunction() {
-            stol = setInterval(dan, 1500, "Bojoust Daniel");
-        }
-        function end_get_messages() {
-            clearInterval(stol);
-        }
-
-
-        function get_messages_again(l) {
-
-            url = "private/find_messages.php?chat=" + l;
-            let xhr = new XMLHttpRequest();
-            xhr.open("GET", url, true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    console.log("yes");
-                    let result = xhr.responseText + date.toLocaleTimeString();
-                    let target = document.querySelector("h1");
-                    target.innerHTML = result;
-                }
-            }
-            xhr.send();
-        }
-
-        var settfunc = "";
-        function keepfindingtext(l) {
-            const lp = l;
-            settfunc = setInterval(get_messages_again, 1050, l);
-        }
-
-
-    </script>
-
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">.col-md-4</div>
+                <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
+                <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-9">
+                    Level 1: .col-sm-9
+                    <div class="row">
+                        <div class="col-8 col-sm-6">
+                            Level 2: .col-8 .col-sm-6
+                        </div>
+                        <div class="col-4 col-sm-6">
+                            Level 2: .col-4 .col-sm-6
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
