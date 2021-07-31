@@ -2,10 +2,10 @@
 require_once("private/initialize.php");
 require_once("header.php");
 if(is_post_request()) {
-
-    $admin['avatar'] ='hello.jpg';
-    
-    if(isset($_FILES['user_avatar'])){
+    //In the Avatar folder we have pictured called 1.svg...7.svg
+    $admin['avatar'] =rand(1,7).".svg";
+    //Check if really there was a file uploaded otherwise it will just get a random name and assign it to the user profile
+    if((has_presence($_FILES['user_avatar']['name']) && has_presence($_FILES['user_avatar']['type'])) && $_FILES['user_avatar']['error']!=4){
         $result=upload_image();
         if($result["uploadStatus"]==true && isset($result["filename"])){
             $admin['avatar']=$result["filename"];
@@ -17,17 +17,17 @@ if(is_post_request()) {
             }
         }
     }
-$admin['unique_id'] = generate_uid();
-$admin['first_name'] = $_POST['firstname'] ?? '';
-$admin['last_name'] = $_POST['lastname'] ?? '';
-$admin['username'] = $_POST['username'] ?? '';
-$admin['email'] = $_POST['email'] ?? '';
-$admin['password'] = $_POST['password'] ?? '';
-$admin['confirm_password'] = $_POST['confirm_password'] ?? '';
-if(empty($errors)){
-    $result = insert_admin($admin);//return all the errors if it does not work
-    print_r($result);
-    if($result === true) {
+    $admin['unique_id'] = generate_uid();
+    $admin['first_name'] = $_POST['firstname'] ?? '';
+    $admin['last_name'] = $_POST['lastname'] ?? '';
+    $admin['username'] = $_POST['username'] ?? '';
+    $admin['email'] = $_POST['email'] ?? '';
+    $admin['password'] = $_POST['password'] ?? '';
+    $admin['confirm_password'] = $_POST['confirm_password'] ?? '';
+    if(empty($errors)){
+        $result = insert_admin($admin);//return all the errors if it does not work
+        print_r($result);
+        if($result === true) {
         $new_id = mysqli_insert_id($db);
         $_SESSION['message'] = $admin['username'].' Your Account Successfully Created';
         redirect_to('index.php');
@@ -68,7 +68,6 @@ echo display_session_message();
                         <div class="form-group">
                             <label for="avatar"><i class="zmdi zmdi-file-plus"></i></label>
                             <input type="file" name="user_avatar" id="avatar" placeholder="Your Email" value="<?php echo $_POST['email'] ?? "";?>" />
-                            
                         </div>
                         <div class="form-group">
                             <label for="email"><i class="zmdi zmdi-email"></i></label>

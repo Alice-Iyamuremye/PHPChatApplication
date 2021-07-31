@@ -132,9 +132,9 @@ function image_validation_check($target_file){
     }
     return $error;
 }
-function upload_image(){
+function upload_image($back=""){
     $newName=uniqid() . "-" . time();
-    $filename   = "assets/images/avatar/".$newName; // 5dab1961e93a7-1571494241
+    $filename   = $back."assets/images/avatar/".$newName; // 5dab1961e93a7-1571494241
     $imageFileType = strtolower(pathinfo($_FILES["user_avatar"]["name"], PATHINFO_EXTENSION));
     $target_file = $filename.".".$imageFileType;
     $errors=image_validation_check($target_file);
@@ -145,8 +145,7 @@ function upload_image(){
     return $sucessUpload;
     }else{
         if (move_uploaded_file($_FILES["user_avatar"]["tmp_name"], $target_file)) {
-            echo "The file " . htmlspecialchars(basename($_FILES["user_avatar"]["name"])) . " has been uploaded.";
-            $sucessUpload=array("uploadStatus"=>true, "filename"=>"$newName"."."."$imageFileType");
+           $sucessUpload=array("uploadStatus"=>true, "filename"=>"$newName"."."."$imageFileType");
             return $sucessUpload;
         } else {
             $errors[]="Sorry, there was an error uploading your file.";

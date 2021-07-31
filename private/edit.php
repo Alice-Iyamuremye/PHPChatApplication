@@ -1,7 +1,8 @@
 <?php
 require_once("initialize.php");
 //Links To the Files In the Parent Directories
-
+$parent="../";
+require_once("../header.php");
 
 if(!has_presence($_GET['id']) || !is_an_integer($_GET['id'])){
     redirect_to("index.php");
@@ -17,7 +18,7 @@ if(is_post_request()) {
     $admin['username'] = $_POST['username'] ?? '';
     $admin['password'] = $_POST['password'] ?? '';
     $admin['confirm_password'] = $_POST['confirm_password'] ?? '';
-    $result = update_admin($admin);
+    $result = update_user($admin);
     
     if($result === true) {
         $_SESSION['message'] = "Admin {$admin['username']} updated.";

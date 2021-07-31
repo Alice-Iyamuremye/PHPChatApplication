@@ -384,7 +384,7 @@ function find_all_subjects($options=[]) {
 
   function  find_user_by_id($username) {
     global $db;
-    $sql = "SELECT unique_id from users ";
+    $sql = "SELECT unique_id,first_name,last_name,username,email,avatar from users ";
     $sql .= "WHERE unique_id='" . db_escape($db, $username) . "' ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
@@ -458,7 +458,7 @@ function find_all_subjects($options=[]) {
     }}
 
 
-    // Validata Form Last Name
+    // Validata Form image
     if(is_blank($admin['avatar'])) {// Check if it's empty first
         $errors[] = "Please Select An Image";
       }
@@ -523,7 +523,7 @@ function find_all_subjects($options=[]) {
 
 
   // Update a User From the Admin Table , pass in all the data in an array
-  function update_admin($admin) {
+  function update_user($admin) {
     global $db;
     /*
       We Don't always need to update the password , let's wok on the field
@@ -539,10 +539,9 @@ function find_all_subjects($options=[]) {
     if (!empty($errors)) {
       return $errors;
     }
-
     // Grabs the password , Encrypt it and set it ready for our database
     $hashed_password = password_hash($admin['password'], PASSWORD_BCRYPT);
-    $sql = "UPDATE admins SET ";
+    $sql = "UPDATE users SET ";
     $sql .= "first_name='" . db_escape($db, $admin['first_name']) . "', ";
     $sql .= "last_name='" . db_escape($db, $admin['last_name']) . "', ";
     $sql .= "email='" . db_escape($db, $admin['email']) . "', ";
@@ -550,10 +549,14 @@ function find_all_subjects($options=[]) {
       $sql .= "hashed_password='" . db_escape($db, $hashed_password) . "',";
     }
     $sql .= "username='" . db_escape($db, $admin['username']) . "' ";
-    $sql .= "WHERE id='" . db_escape($db, $admin['id']) . "' ";
+    if(!($admin["avatar"]=="update")){
+        $sql .= ", avatar='" . db_escape($db, $admin['avatar']) . "' ";
+      }
+    $sql .= "WHERE unique_id='" . db_escape($db, $admin['id']) . "' ";
     $sql .= "LIMIT 1";
-    $result = mysqli_query($db, $sql);
 
+    
+    $result = mysqli_query($db, $sql);
     // For UPDATE statements, $result is true/false
     if($result) {
       return true;
