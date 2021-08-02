@@ -193,6 +193,6 @@ require_once("private/initialize.php");
 </script>
 
 
-<script src="js/jquery.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+<script src="assets/js/jquery.slim.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>

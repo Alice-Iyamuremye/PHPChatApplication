@@ -5,8 +5,8 @@ const sass = require("gulp-sass");
 const browserSync = require('browser-sync').create();
 
 function style(){
-	return gulp.src('./scss/**/*.scss').pipe(sass().on('error',sass.logError)).pipe(gulp.dest('./css')).pipe(browserSync.stream());
-}
+	return gulp.src('./scss/**/*.scss').pipe(sass().on('error',sass.logError)).pipe(gulp.dest('./assets/css')).pipe(browserSync.stream());
+}	
 function watch(){
 	browserSync.init({
 		server: {
@@ -15,6 +15,7 @@ function watch(){
 	});
 	gulp.watch('./scss/**/*.scss',style);
 	gulp.watch('./*.html').on('change',browserSync.reload);
+	gulp.watch('./*.php').on('change',browserSync.reload);
 	gulp.watch('./js/**/*.js').on('change',browserSync.reload);
 }
 
