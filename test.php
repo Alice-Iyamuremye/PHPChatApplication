@@ -3,13 +3,15 @@
 require_once("private/initialize.php");
 //Links To the Files In the Parent Directories
 
-
+    $users=find_all_contacts();
 
     $admin = find_user_by_id("2051224492162685558060f7d89cbcb6f");
     $username=$admin['username'];
     $firstname=$admin['first_name'];
     $lastname=$admin['last_name'];
     $email=$admin['email'];
+
+    
 ?>
 
 <style>
@@ -29,6 +31,7 @@ require_once("private/initialize.php");
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"></button>
 
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content border-0" style="z-index:-2;">
@@ -39,60 +42,32 @@ require_once("private/initialize.php");
         </button>
       </div>
       <div class="modal-body border-0 border border-primary" style="background-color: transparent !important; ">
-            <div class="main" style="text-align:center;">
+            <div class="main" >
                 <!-- Sign up form -->
                     <section class="signup">
                         <div class="container">
                             <div class="signup-content" >
                                 <div class="signup-form">
-                                    <form method="POST" class="register-form" id="update_form" action="private/update_admin.php">
+                                    <form method="POST" class="register-form" enctype="multipart/form-data"  id="create_group" action="private/create_group.php">
                                         
                                         <div class="form-group">
+                                        <input type="file" name="user_avatar" id="email" placeholder="Your Email" style="width:100%;"/><br>
                                             <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                            <input type="text" name="lastname" id="name" placeholder="Group Name.." value=""/>
+                                            <input type="text" name="name" id="name" placeholder="Group Name.." value=""/>
                                         </div>
-                                        <div class="custom-control custom-checkbox mb-2">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
-                                        </div>
-
-
-
-
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
-                                        </div> <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
-                                        </div> <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
-                                        </div> <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
-                                        </div> <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
-                                        </div> <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
-                                        </div> <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
-                                        </div> <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
-                                        </div> <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
-                                        </div> <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1"><img src="assets/images/avatar/1.svg" width="40px">Ilunga Gisa Daniel</label>
+                                        
+                                        <div style=" height:45vh; overflow:scroll;">
+                                            <?php 
+                                                while($data=mysqli_fetch_assoc($users)){
+                                                            ?>
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                <input type="checkbox" class="custom-control-input" name="checklist[]" value="<?php echo $data['username'];?>" id="<?php echo $data['username'];?>">
+                                                <label class="custom-control-label" for="<?php echo $data['username'];?>"><img src="assets/images/avatar/<?php echo $data['avatar'];?>" style="border-radius:100%; width:40px; height:40px;" width="40px"><?php echo $data['first_name'].$data['last_name'];?></label>
+                                            </div>
+                                            <?php
+                                                }
+                                                mysqli_free_result($users);
+                                            ?>
                                         </div>
 
 
@@ -111,7 +86,7 @@ require_once("private/initialize.php");
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="signin" class="form-submit btn btn-primary">Send message</button>
+        <button type="button" id="signin" class="form-submit btn btn-primary">Create Group</button>
       </div>
     </div>
   </div>
@@ -184,7 +159,7 @@ require_once("private/initialize.php");
 
                 function update_admin() {
                 disableSubmitButton();
-                var form = document.querySelector("#update_form");
+                var form = document.querySelector("#create_group");
                 var action = form.getAttribute("action");
                 // gather form data
                 var form_data = new FormData(form);
@@ -203,7 +178,7 @@ require_once("private/initialize.php");
                         
                     } else{
                             enableSubmitButton();     
-                            successupdate();
+                          
                         }
                     }
                 };
@@ -214,7 +189,7 @@ require_once("private/initialize.php");
                     event.preventDefault();
                     update_admin();
                     });
-                
+
 </script>
 
 

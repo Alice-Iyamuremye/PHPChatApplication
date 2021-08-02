@@ -144,7 +144,7 @@ function find_all_subjects($options=[]) {
     global $db;
     $sql = "
     SELECT 
-    users.unique_id, users.first_name, users.last_name, 
+    users.unique_id, users.first_name, users.last_name,users.username, 
     users.avatar, online_status.last_login, online_status.online_status 
     FROM chatapplication.users INNER JOIN chatapplication.online_status 
     ON users.unique_id=online_status.user_id WHERE NOT unique_id =\"{$_SESSION['user_id']}\" ;";
@@ -481,7 +481,6 @@ function find_all_subjects($options=[]) {
 
     // Encrypting the password for the user so that nobody can see shit
     $hashed_password = password_hash($admin['password'], PASSWORD_BCRYPT);
-
     // db_escape simply uses mysl_real_escapre_string on all outside data
     $sql = "INSERT INTO users ";
     $sql .= "(unique_id,first_name, last_name, username, email, hashed_password,avatar) ";
@@ -647,5 +646,52 @@ function find_all_subjects($options=[]) {
         return $data;
     }
 }
+
+
+function create_group($group) {
+    global $db;
+    $sql = "INSERT INTO groups ";
+    $sql .= "(groupid, group_name, creator,members,avatar) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . db_escape($db, $group['groupid']) . "',";
+    $sql .= "'" . db_escape($db, $group['group_name']) . "',";
+    $sql .= "'" . db_escape($db, $group['creator']) . "',";
+    $sql .= "'" . db_escape($db, $group['members']) . "',";
+    $sql .= "'" . db_escape($db, $group['avatar']) . "'";
+    $sql .= ")";
+    $result = mysqli_query($db, $sql);
+    // For INSERT statements, $result is true/false
+    if($result) {
+      return true;
+    } else {
+      // INSERT failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }
+  }
+  function create_group_members($groupid,$members) {
+    global $db;
+    $sql = "INSERT INTO group_members ";
+    $sql .= "(groupid, unique_id) ";
+    $sql .= "VALUES ";
+    foreach($members as $value){
+        $sql .= "('" . db_escape($db, $groupid) . "','". db_escape($db,$value) ."'),";
+    }
+    //Remove the last , from the contructed strin lol i know i am lazy so what 
+    $sql=substr("$sql", 0, -1);
+   $sql.=";";
+
+    $result = mysqli_query($db, $sql);
+    // For INSERT statements, $result is true/false
+    if($result) {
+      return true;
+    } else {
+      // INSERT failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }
+  }
     
 ?>
