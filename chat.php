@@ -24,16 +24,24 @@ echo display_session_message();
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     
       <!-- Font Icon -->
-      <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/fonts/material-icon/css/material-design-iconic-font.min.css">
      <!-- Animate Css  -->
-     <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/animate.min.css">
+    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/animate.min.css">
     
-
+    <!-- SweetAlert2 -->
      <script src="<? echo $parent ?? '';?>assets/sweetalert2/dist/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/sweetalert2/dist/sweetalert2.min.css">
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <!-- Main Css -->
+    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/styles.css" />
+
+
+    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/owlcarousel/owl.theme.default.min.css">
+    <script language="JavaScript" type="text/javascript" src="assets/js/jquery.min.js"></script>
+    
     <title>Bootstrap</title>
 </head>
 
@@ -205,7 +213,71 @@ echo display_session_message();
                 </script>
                 <!-- Contact List Groups  -->
                 <div class="list-group contacts contacts_list" style="height: 80vh; overflow: scroll;">
+                <div class="owl-carousel owl-theme">
+        <div class="item">
+            <h4>1</h4>
+        </div>
+        <div class="item">
+            <h4>2</h4>
+        </div>
+        <div class="item">
+            <h4>3</h4>
+        </div>
+        <div class="item">
+            <h4>4</h4>
+        </div>
+        <div class="item">
+            <h4>5</h4>
+        </div>
+        <div class="item">
+            <h4>6</h4>
+        </div>
+        <div class="item">
+            <h4>7</h4>
+        </div>
+        <div class="item">
+            <h4>8</h4>
+        </div>
+        <div class="item">
+            <h4>9</h4>
+        </div>
+        <div class="item">
+            <h4>10</h4>
+        </div>
+        <div class="item">
+            <h4>11</h4>
+        </div>
+        <div class="item">
+            <h4>12</h4>
+        </div>
+    </div>
 
+    <script>
+    $(document).ready(function () {
+
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            animateOut: 'slideOutDown',
+            stagePadding: 40,
+            items: 4,
+            loop: true,
+            margin: 10,
+            dots: false
+
+        });
+        owl.on('mousewheel', '.owl-stage', function (e) {
+            if (e.deltaY > 0) {
+                owl.trigger('next.owl');
+            } else {
+                owl.trigger('prev.owl');
+            }
+            e.preventDefault();
+        });
+
+
+    });
+
+</script>
                 <?php 
                 // Display All Contacts 
                     while($data=mysqli_fetch_assoc($contacts)){ 
@@ -640,8 +712,9 @@ setInterval(() =>{
 </body>
 
 </html>
-    <script src="assets/js/jquery.slim.min.js"></script>
     <script src="assets/js/popper.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.mousewheel.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
 
 </html>
