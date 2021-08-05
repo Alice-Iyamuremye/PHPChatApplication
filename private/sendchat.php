@@ -29,7 +29,7 @@ if(is_ajax_request()) {
         $admin = find_user_by_id($sendingto); 
         $groupmembershitp = find_group_membership($username,$sendingto); 
         if($admin) {
-            //Check if the person being sent to a message Exist
+            //Check if the person To whom the message is being sent to exist
             if($sendingto==$admin['unique_id']) {
                $result=send_message_to($msg);
                 if($result) {
@@ -43,6 +43,7 @@ if(is_ajax_request()) {
             }
 
         } 
+        //Check if it's a message going in a group instead
         elseif($groupmembershitp) {
             if($sendingto==$groupmembershitp['groupid']) {
                $result=send_message_to($msg);

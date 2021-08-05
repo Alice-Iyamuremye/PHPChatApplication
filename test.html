@@ -1,30 +1,54 @@
-require_once("initialize.php");
-require_login();
-
-$id= $_GET["chat"] ?? "";
-$msg=array('sent_by'=>$_SESSION['user_id'],'sent_to'=>$id);
-$chat=find_group_messages($msg);
-$result="";
-if(mysqli_num_rows($chat)==0){
-$result.="<h1>No Chat found with this conversation</h1>";
-}
-else{
-while($data=mysqli_fetch_assoc($chat)){
-$me=($data['sent_by']== $_SESSION['user_id']) ? 'me' : '';
-$result.="<li class='".$me."'>";
-    if(empty($me)){
-    $result.="<div style=' color:brown;'>
-        <span>".$data['first_name']." ".$data['last_name']."</span>
-    </div>";
-    }
-    $result.="<div>".$data['msg']."</div>
-    <span class='deltime  '> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
-            class='bi bi-check-all' viewBox='0 0 16 16'>
-            <path
-                d='M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z' />
-        </svg>".get_time_portion($data['text_time'])."</span>
-</li><br>";
-}
-}
-echo $result;
-mysqli_free_result($chat);
+<div class="owl-carousel bg-dark owl-theme border-bottom border-dark">
+    <a class="list-group-item bg-secondary text-white item"
+        onclick="keepfindinggroupmsg('1056106161162791739061080c4ed29da')" href="#">
+        <div class="media m-0">
+            <img src="assets/images/avatar/7.svg" alt="user" class="rounded-pill d-flex align-self-center"
+                style="width: 50px;">
+            <div class="media-body mr2 w-75s">
+                <div class="">
+                    <p class="m-0 text-truncate">Chess Club</p>
+                    <p class="m-0 font-italic w-75 small text-nowrap text-truncate">hahha , never mind
+                    </p>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a class="list-group-item bg-secondary text-white item"
+        onclick="keepfindinggroupmsg('605595234162791769961080d83e3ba2')" href="#">
+        <div class="media m-0">
+            <img src="assets/images/avatar/1.svg" alt="user" class="rounded-pill d-flex align-self-center"
+                style="width: 50px;">
+            <div class="media-body mr2 w-75s">
+                <div class="">
+                    <p class="m-0 text-truncate">Mmama mia</p>
+                    <p class="m-0 font-italic w-75 small text-nowrap text-truncate">this is the greek geek groupp</p>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a class="list-group-item bg-secondary text-white item"
+        onclick="keepfindinggroupmsg('109802561816279284356108377375d7b')" href="#">
+        <div class="media m-0">
+            <img src="assets/images/avatar/5.svg" alt="user" class="rounded-pill d-flex align-self-center"
+                style="width: 50px;">
+            <div class="media-body mr2 w-75s">
+                <div class="">
+                    <p class="m-0 text-truncate">matata</p>
+                    <p class="m-0 font-italic w-75 small text-nowrap text-truncate">No Message Yet</p>
+                </div>
+            </div>
+        </div>
+    </a> <a class="list-group-item bg-secondary text-white item"
+        onclick="keepfindinggroupmsg('1356526800162792937561083b1f0d272')" href="#">
+        <div class="media m-0">
+            <img src="assets/images/avatar/3.svg" alt="user" class="rounded-pill d-flex align-self-center"
+                style="width: 50px;">
+            <div class="media-body mr2 w-75s">
+                <div class="">
+                    <p class="m-0 text-truncate">o</p>
+                    <p class="m-0 font-italic w-75 small text-nowrap text-truncate">No Message Yet</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

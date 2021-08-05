@@ -6,12 +6,15 @@ setInterval(() =>{
     xhr.onreadystatechange= function (){ //call back function
     if(xhr.readyState== 4 && xhr.status== 200){
         let result=xhr.responseText;
-        let target=document.querySelector(".contacts_list");
         
+        let target=document.querySelector(".contacts_list");
         if(!searchBar.classList.contains("active")){
         target.innerHTML=result;
+
         }
     }
     }
   xhr.send();
-}, 500000);
+}, 1000);
+
+

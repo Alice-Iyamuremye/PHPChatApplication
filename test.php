@@ -4,7 +4,6 @@ require_once("private/initialize.php");
 //Links To the Files In the Parent Directories
 
     $users=find_all_contacts();
-
     $admin = find_user_by_id("2051224492162685558060f7d89cbcb6f");
     $username=$admin['username'];
     $firstname=$admin['first_name'];
@@ -29,13 +28,9 @@ require_once("private/initialize.php");
     <!-- Main css -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"></button>
+<button type="button" class="btn btn-primary" data-toggle='modal' data-target='#groupmodal' data-whatever="@mdo"></button>
 
-<style>
-    *{
-        border:1px solid red;
-    }
-</style>
+
    <!-- Starting Of Contact List group-->
             <a class="list-group-item text-dark item" href="#">
                         <div class="media m-0">
@@ -43,14 +38,14 @@ require_once("private/initialize.php");
                             <div class=" media-body ml-1 w-75">
                                 <div class="">
                                     <p class="m-0 text-truncate">Monkeyman</p>
-                                    <p class="m-0 font-italic  small text-nowrap text-truncate ">Lorem ipsum, dore sit... </p>
+                                    <p class="mb-0 font-italic  small text-nowrap text-truncate ">Lorem ipsum, dore sit... </p>
                                 </div>
                             </div>
                         </div>
                     </a> <!-- --------------End of Contact list group-->
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="groupmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content border-0" style="z-index:-2;">
       <div class="modal-header">
@@ -111,18 +106,18 @@ require_once("private/initialize.php");
 </div>
 <script>
 
-                var update = document.querySelector("#signin");
+                var creategrp = document.querySelector("#signin");
                 function disableSubmitButton() {
-                update.disabled = true;
-                update.style.backgroundColor = "grey";
+                creategrp.disabled = true;
+                creategrp.style.backgroundColor = "grey";
                 
-                update.value = 'Authenticationg...';
+                creategrp.value = 'Authenticationg...';
                 }
                 function enableSubmitButton() {
-                    update.disabled = false;
-                    update.style.backgroundColor = "rgb(250, 50, 50 )";
-                    update.value = 'Update..';
-                    update.classList.remove("avoidclicks");
+                    creategrp.disabled = false;
+                    creategrp.style.backgroundColor = "rgb(250, 50, 50 )";
+                    creategrp.value = 'Update...';
+                    creategrp.classList.remove("avoidclicks");
                 }
 
                 function displayErrors(errors) {
@@ -145,7 +140,7 @@ require_once("private/initialize.php");
                     
                     })
                 }
-                function successupdate() {
+                function created_successfully() {
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -163,19 +158,10 @@ require_once("private/initialize.php");
                         }).then(function() {
                             window.location = "chat.php";
                         });
-                        // Disappearing Effect 
-                        // $toremove1=document.querySelector(".signin-content .signin-image");
-                        // $toremove2=document.querySelector(".signin-content .signin-form");
-                        // $toremove3=document.querySelector(".container");
-                        // $toremove1.classList.add("animate__fadeOutLeft");
-                        // $toremove2.classList.add("animate__fadeOutRight");
-                        // $toremove3.classList.add("animate__fadeOut");
+                    
                 }
 
-                
-
-
-                function update_admin() {
+                function creategroup() {
                 disableSubmitButton();
                 var form = document.querySelector("#create_group");
                 var action = form.getAttribute("action");
@@ -196,20 +182,20 @@ require_once("private/initialize.php");
                         
                     } else{
                             enableSubmitButton();     
-                          
+                            created_successfully()
                         }
                     }
                 };
                 xhr.send(form_data);
                 }
 
-                    update.addEventListener("click", function(event) {
+                    creategrp.addEventListener("click", function(event) {
                     event.preventDefault();
-                    update_admin();
+                    creategroup();
                     });
 
 </script>
-
+    
 
 <script src="assets/js/jquery.slim.min.js"></script>
 <script src="assets/js/popper.min.js"></script>

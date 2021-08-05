@@ -171,9 +171,16 @@ function convert_to_time($timestamp){
 
 
 
+//Get The Time portion from the timestamp
+function get_time_portion($time){
+    return date('H:i',strtotime($time));
+}
 
 
-
+//Get The Date portion from the timestamp
+function get_date_portion($time){
+    return date('M d',strtotime($time));
+}
 
 
 

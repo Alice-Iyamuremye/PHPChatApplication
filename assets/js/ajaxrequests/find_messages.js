@@ -97,3 +97,7 @@ var setfunc2 = "";
         end_group_messages(setfunc2);
         setfunc2 = setInterval(get_group_messages_again, 500, l);
     }
+
+
+
+    

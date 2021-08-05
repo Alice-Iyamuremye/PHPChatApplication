@@ -2,6 +2,7 @@
 require_once("initialize.php");
 require_login();
 $contacts=find_all_contacts();
+$groups=find_all_groups($_SESSION['username']);
     $result='';
     // Display All Contacts  
     while($data=mysqli_fetch_assoc($contacts)){
@@ -29,5 +30,7 @@ $contacts=find_all_contacts();
                 </div>
             </a>";
     }
+
+
        echo $result;
  mysqli_free_result($contacts); 

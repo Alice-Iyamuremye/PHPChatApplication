@@ -7,11 +7,11 @@ $group['group_name'] = $_POST['name'] ?? '';
 $group["creator"]=$_SESSION['user_id'] ?? '';
 $group["members"]=0;
 
-$members=0;
+$members=1;
 if (isset($_POST['checklist'])){
-    $members=sizeof($_POST['checklist']);
+    $members+=(int)(sizeof($_POST['checklist']));
 }
-    if($members > 1 )
+    if($members >= 2 )
     {
         $group["members"]=$members;
     }
@@ -45,7 +45,7 @@ if(is_ajax_request()) {
     // Validations
     // if there were no errors, try to login
     if(empty($errors)){
-        $login_failure_msg="Error Creating the group {$group['group_name']}";
+        $error_creating_group="Error Creating the group {$group['group_name']}";
         $update_user = create_group($group);
         if($update_user === true) {
             
@@ -56,7 +56,7 @@ if(is_ajax_request()) {
             }
         }
          else {
-            $errors[] = $login_failure_msg;
+            $errors[] = $error_creating_group;
             $result_array = array('Errors' => $errors);
              echo json_encode($result_array);
         }

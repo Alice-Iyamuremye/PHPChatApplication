@@ -4,6 +4,7 @@ require_once("private/initialize.php");
 require_login();
 
 $contacts=find_all_contacts();
+$users=find_all_contacts();
 $groups=find_all_groups($_SESSION['username']);
 echo display_errors($errors);
 echo display_session_message();
@@ -81,7 +82,7 @@ echo display_session_message();
                         </div>
 
                     <ul class="list-group list-group-flush  mb-4">
-                        <li class="list-group-item list-group-item-light " href="#">
+                        <li class="list-group-item list-group-item-light" data-toggle='modal' data-target='#groupmodal' data-whatever='@mdo' href="#">
                             <i class="mr-4 zmdi zmdi-accounts-add zmdi-hc-2x"></i>New Group
                         </li>
                         <li class="list-group-item list-group-item-light " href="#">
@@ -213,31 +214,35 @@ echo display_session_message();
                 
                 </script>
                 <!-- Contact List Groups  -->
-                <div class="list-group contacts contacts_list" style="height: 80vh; overflow: scroll;">
+                <div class="list-group contacts" style="height: 80vh; overflow: scroll;">
                     <!-- <p class="text-light p-0  " style="position:absolute; top:44px; z-index:10; text-shadow:0px 0px 10px black;">Groups</p> -->
                     <div class="owl-carousel bg-dark owl-theme border-bottom border-dark">
                      <?php  
-                     while($data=mysqli_fetch_assoc($groups)){?>
-                     <a class="list-group-item bg-secondary text-white item" onclick="keepfindinggroupmsg(<?php echo '\''.$data['groupid'].'\'';?>)" href="#">
-                        <div class="media m-0">
-                            <img src="assets/images/avatar/<?php echo $data['avatar'];?>" alt="user" class="rounded-pill d-flex align-self-center" style="width: 50px;">
-                            <div class="media-body mr2 w-75s">
-                                <div class="">
-                                    <p class="m-0 text-truncate"><?php echo $data['group_name'];?></p>
-                                    <p class="m-0 font-italic w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit... </p>
+                     while($data=mysqli_fetch_assoc($groups)){
+                         $lastmsg=array("sent_by"=>$_SESSION['user_id'],"sent_to"=>$data['groupid']);
+                         ?>
+                        
+                        <a class="list-group-item bg-secondary text-white item" onclick="keepfindinggroupmsg(<?php echo '\''.$data['groupid'].'\'';?>)" href="#">
+                            <div class="media m-0">
+                                <img src="assets/images/avatar/<?php echo $data['avatar'];?>" alt="user" class="rounded-pill d-flex align-self-center" style="width: 50px;">
+                                <div class="media-body mr2 w-75s">
+                                    <div class="">
+                                        <p class="m-0 text-truncate"><?php echo $data['group_name'];?></p>
+                                        <p class="m-0 font-italic w-75 small text-nowrap text-truncate "><?php $latest=find_latest_messages($lastmsg);echo $latest["msg"];?> </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a> 
-                <?php }
-                mysqli_free_result($groups);
-                ?>
-                       
+                        </a> 
+                    <?php }
+                    mysqli_free_result($groups);
+                    ?>  
                 </div>
-               
-    <script>
-    $(document).ready(function () {
-
+                            <!-- Owl -->
+<script>
+      
+    interv="";
+    function group_contact(){
+        clearInterval(interv);
         var owl = $('.owl-carousel');
         owl.owlCarousel({
             loop: true,
@@ -260,11 +265,11 @@ echo display_session_message();
             }
             e.preventDefault();
         });
-
-
-    });
-
+    }
+    interv=setInterval(group_contact ,500);
+    
 </script>
+            <div class="contacts_list">
                 <?php 
                 // Display All Contacts 
                     while($data=mysqli_fetch_assoc($contacts)){ 
@@ -296,7 +301,8 @@ echo display_session_message();
                  <?php }
                 mysqli_free_result($contacts); ?>
             </div>
-
+            </div>
+        
                 <div class="d-flex justify-content-around  align-items-stretch settings">
                     <div><a href="#"><i class="fas fa-users mr-1"></i>Groups</a></div>
                     <div><a href="#"><i class="zmdi zmdi-settings zmdi-hc-2x"></i>Settings</a></div>
@@ -429,13 +435,13 @@ echo display_session_message();
     </section><!-- Container Section  End ---------------------------------------->
     
     <!-- Ajaxt to keep track of users -->
-    <script src="assets/js/load_users.js"></script>
+    <script src="assets/js/ajaxrequests/load_users.js"></script>
 
     <!-- Ajax to find user Descrition -->
-    <script src="assets/js/user_description.js"></script>
+    <script src="assets/js/ajaxrequests/user_description.js"></script>
 
     <!-- Ajax to Find Chat Messages -->
-    <script src="assets/js/find_messages.js"></script>
+    <script src="assets/js/ajaxrequests/find_messages.js"></script>
     <script>
 
 
@@ -505,12 +511,161 @@ echo display_session_message();
                     event.preventDefault();
                     sendmessage();
                     });
-                    
-                        
                         
                         </script>
                         <!-- Ajax Script to Update a User -->
-                        <script src="assets/js/update_users.js"></script>
+                        <script src="assets/js/ajaxrequests/update_users.js"></script>
+<div class="modal fade" id="groupmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content border-0" style="z-index:-2;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create New User </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body border-0 border border-primary" style="background-color: transparent !important; ">
+            <div class="main" >
+                <!-- Sign up form -->
+                    <section class="signup">
+                        <div class="container">
+                            <div class="signup-content" >
+                                <div class="signup-form">
+                                    <form method="POST" class="register-form" enctype="multipart/form-data"  id="create_group" action="private/create_group.php">
+                                        
+                                        <div class="form-group">
+                                        <input type="file" name="user_avatar" id="email" placeholder="Your Email" style="width:100%;"/><br>
+                                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                            <input type="text" name="name" id="name" placeholder="Group Name.." value=""/>
+                                        </div>
+                                        
+                                        <div style=" height:45vh; overflow:scroll;">
+                                            <?php 
+                                                while($data=mysqli_fetch_assoc($users)){
+                                                            ?>
+                                            <div class="custom-control custom-checkbox mb-2">
+                                                <input type="checkbox" class="custom-control-input" name="checklist[]" value="<?php echo $data['username'];?>" id="<?php echo $data['username'];?>">
+                                                <label class="custom-control-label" for="<?php echo $data['username'];?>"><img src="assets/images/avatar/<?php echo $data['avatar'];?>" style="border-radius:100%; width:40px; height:40px;" width="40px"><?php echo $data['first_name'].$data['last_name'];?></label>
+                                            </div>
+                                            <?php
+                                                }
+                                                mysqli_free_result($users);
+                                            ?>
+                                        </div>
+
+
+
+
+                                    </form>
+                                </div>
+                                <div class="signup-image d-none  d-md-inline-block" style="position:absolute; bottom:-10px; left:250px; z-index:-1;">
+                                    <figure><img src="assets/images/group.svg" width=500 alt="sing up image"></figure>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+            </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="create_grp" class="form-submit btn btn-primary">Create Group</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+                var creategrp = document.querySelector("#create_grp");
+                function disablecreatebutton() {
+                creategrp.disabled = true;
+                creategrp.style.backgroundColor = "grey";
+                
+                creategrp.value = 'Authenticationg...';
+                }
+                function enableSubmitButton() {
+                    creategrp.disabled = false;
+                    creategrp.style.backgroundColor = "rgb(250, 50, 50 )";
+                    creategrp.value = 'Update...';
+                    creategrp.classList.remove("avoidclicks");
+                }
+
+                function displayErrors(errors) {
+                    const ul = document.createElement('ul');
+                   
+                    for (var i = 0; i < errors.length; i++) {
+                        let li = document.createElement("li");
+                        li.append(errors[i]);
+                        ul.appendChild(li);
+                    }
+                  
+                    const Toast = Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Error Creating Group',
+                    html: ul,
+                    showConfirmButton: false,
+                    timerProgressBar:true,
+                    timer: 2500
+                    
+                    })
+                }
+                function created_successfully() {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                     })
+                        Toast.fire({
+                        icon: 'success',
+                        title: 'User Updated Successfully'
+                        }).then(function() {
+                            window.location = "chat.php";
+                        });
+                    
+                }
+
+                function creategroup() {
+                disablecreatebutton();
+                var form = document.querySelector("#create_group");
+                var action = form.getAttribute("action");
+                // gather form data
+                var form_data = new FormData(form);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', action, true);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.onreadystatechange = function () {
+                    if(xhr.readyState == 4 && xhr.status == 200) {
+                    var result = xhr.responseText;
+                        console.log("Here Are The result Down");
+                        console.log('Result: ' + result);
+                    var json = JSON.parse(result);
+                    if(json.hasOwnProperty('Errors') && json.Errors.length > 0) {
+                        displayErrors(json.Errors);
+                        enableSubmitButton();
+                        
+                    } else{
+                            enableSubmitButton();     
+                            created_successfully()
+                        }
+                    }
+                };
+                xhr.send(form_data);
+                }
+
+                    creategrp.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    creategroup();
+                    });
+
+</script>
+    
 </body>
 
 </html>

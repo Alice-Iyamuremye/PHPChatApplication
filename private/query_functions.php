@@ -663,9 +663,7 @@ function  find_user_by_id($username) {
    return $result;
   }
 
-  function get_time_portion($time){
-      return date('H:i',strtotime($time));
-  }
+
 
   function find_latest_messages($msg) {
     global $db;
@@ -717,9 +715,10 @@ function create_group($group) {
     foreach($members as $value){
         $sql .= "('" . db_escape($db, $groupid) . "','". db_escape($db,$value) ."'),";
     }
+    $sql .= "('" . db_escape($db, $groupid) . "','". db_escape($db,$_SESSION['username']) ."');";
     //Remove the last , from the contructed strin lol i know i am lazy so what 
-    $sql=substr("$sql", 0, -1);
-   $sql.=";";
+//     $sql=substr("$sql", 0, -1);
+//    $sql.=";";
 
     $result = mysqli_query($db, $sql);
     // For INSERT statements, $result is true/false

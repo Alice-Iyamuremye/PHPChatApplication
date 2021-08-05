@@ -12,7 +12,17 @@ if(mysqli_num_rows($chat)==0){
 }
 // If there is Message Dispaly This
 else{
+    $today="0";
      while($data=mysqli_fetch_assoc($chat)){
+
+        if($today!=get_date_portion($data['text_time'])){
+            $today=get_date_portion($data['text_time']);
+            $result.=" <div class='bg-secondary rounded d-table px-4 py-1 border rounded-pill text-white'
+            style='margin: 0px auto; clear:both;'>".
+            $today.
+        "</div><hr><br>";
+        }
+
         $me=($data['sent_by']== $_SESSION['user_id']) ? 'me' : '';
         $result.="<li class='".$me."'>";
         // If The Text If From Me, then Don't Display The sender Name

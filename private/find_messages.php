@@ -10,7 +10,18 @@ $id= $_GET["chat"] ?? "";
         $result.="<h1>No Chat found with this conversation</h1>";
     }
     else{
+        $today="0";
      while($data=mysqli_fetch_assoc($chat)){
+
+    //    Function to check if there is a difference in date and display the date 
+         if($today!=get_date_portion($data['text_time'])){
+            $today=get_date_portion($data['text_time']);
+            $result.=" <div class='bg-secondary rounded d-table px-4 py-1 border rounded-pill text-white'
+            style='margin: 0px auto; clear:both;'>".
+            $today.
+        "</div><hr><br>";
+            
+        }
             $me=($data['sent_by']== $_SESSION['user_id']) ? 'me' : '';
             $result.="<li class='".$me."'> 
                     <div>".$data['msg']."</div>
