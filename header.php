@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/sweetalert2/dist/sweetalert2.min.css">
     <!-- Main css -->
     <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/style.css">
+
 </head>
 <body>
 

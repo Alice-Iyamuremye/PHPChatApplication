@@ -31,6 +31,24 @@ require_once("private/initialize.php");
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"></button>
 
+<style>
+    *{
+        border:1px solid red;
+    }
+</style>
+   <!-- Starting Of Contact List group-->
+            <a class="list-group-item text-dark item" href="#">
+                        <div class="media m-0">
+                            <img src="assets/images/avatar/1.svg" alt="user" class="rounded-pill d-flex align-self-center" style="width: 50px;">
+                            <div class=" media-body ml-1 w-75">
+                                <div class="">
+                                    <p class="m-0 text-truncate">Monkeyman</p>
+                                    <p class="m-0 font-italic  small text-nowrap text-truncate ">Lorem ipsum, dore sit... </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a> <!-- --------------End of Contact list group-->
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

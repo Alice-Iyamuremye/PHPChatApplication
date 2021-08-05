@@ -2,11 +2,12 @@
 
 require_once("initialize.php");
 
-  $username = $_SESSION['user_id'] ?? '';
+  $username = $_SESSION['username'] ?? '';
+  $user_id = $_SESSION['user_id'] ?? '';
   $message = $_POST['textmessage'] ?? '';
   $sendingto = $_POST['sent_to'] ?? '';
 $errors=[];
-if(is_blank($username)) {
+if(is_blank($user_id)) {
     $errors[] = "Unknown User.";
 }
 if(is_blank($message)) {
@@ -23,12 +24,12 @@ if(is_ajax_request()) {
         exit;
     }
     if(empty($errors)){
-        $msg=array("sent_by"=>$username,"sent_to"=>$sendingto,"msg"=>$message);
-    
+        $msg=array("sent_by"=>$user_id,"sent_to"=>$sendingto,"msg"=>$message);
         $msg_failure_error = "Error While Sending The Message.";
         $admin = find_user_by_id($sendingto); 
+        $groupmembershitp = find_group_membership($username,$sendingto); 
         if($admin) {
-            //check if the password from form match with the encrypted password
+            //Check if the person being sent to a message Exist
             if($sendingto==$admin['unique_id']) {
                $result=send_message_to($msg);
                 if($result) {
@@ -41,7 +42,23 @@ if(is_ajax_request()) {
              echo json_encode($result_array);
             }
 
-        } else {
+        } 
+        elseif($groupmembershitp) {
+            if($sendingto==$groupmembershitp['groupid']) {
+               $result=send_message_to($msg);
+                if($result) {
+                    echo "true";
+                    exit;}
+                }
+            else{
+                $errors[] = $msg_failure_error;
+            $result_array = array('Errors' => $errors);
+             echo json_encode($result_array);
+            }
+
+        } 
+        
+        else {
             // no username found
             $errors[] = $msg_failure_error;
             $result_array = array('Errors' => $errors);

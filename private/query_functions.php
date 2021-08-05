@@ -153,6 +153,17 @@ function find_all_subjects($options=[]) {
     confirm_result_set($result);
     return $result;
   }
+  function find_all_groups($user) {
+    global $db;
+    $sql = "
+    SELECT 
+    groupid,group_name,creator,members, avatar 
+    FROM groups WHERE groups.groupid in (SELECT DISTINCT groupid FROM group_members WHERE unique_id=\"".db_escape($db, $user)."\") ;";
+    //$sql .= "ORDER BY online_status.online_status DESC";
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    return $result;
+  }
     function seach_contact($searchTerm) {
     global $db;
     $sql = "
@@ -382,10 +393,23 @@ function find_all_subjects($options=[]) {
     return $data; // returns an assoc. array
   }
 
-  function  find_user_by_id($username) {
+function  find_user_by_id($username) {
     global $db;
     $sql = "SELECT unique_id,first_name,last_name,username,email,avatar from users ";
     $sql .= "WHERE unique_id='" . db_escape($db, $username) . "' ";
+    $sql .= "LIMIT 1";
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    $data = mysqli_fetch_assoc($result); // find first
+    mysqli_free_result($result);
+    return $data; // returns an assoc. array
+  }
+
+  function  find_group_membership($username,$groupid) {
+    global $db;
+    $sql = "SELECT groupid FROM group_members ";
+    $sql .= "WHERE unique_id='" . db_escape($db, $username) . "' ";
+    $sql .= "and groupid='" . db_escape($db, $groupid) . "' ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
@@ -611,7 +635,7 @@ function find_all_subjects($options=[]) {
     }
   }
 
-  //Function To send Messaged
+  //Function To find chat messages Messaged
   function find_chat_messages($msg) {
     global $db;
     $sql = "SELECT * FROM  messages where (";
@@ -625,9 +649,24 @@ function find_all_subjects($options=[]) {
    return $result;
   }
 
+  //Function To find chat messages Messaged
+  function find_group_messages($msg) {
+    global $db;
+    $sql="   ";
+    $sql = "SELECT    messages.msg_id,messages.sent_by,messages.sent_to,messages.msg,messages.text_time, users.first_name, users.last_name ";
+    $sql .= " FROM chatapplication.messages INNER JOIN chatapplication.users ON ";
+    $sql .= " messages.sent_by=users.unique_id ";
+    $sql .= " WHERE sent_to='".$msg['sent_to']."'";
+    $sql .= " order by msg_id,text_time ";
+   $result = mysqli_query($db, $sql);
+   confirm_result_set($result);
+   return $result;
+  }
+
   function get_time_portion($time){
       return date('H:i',strtotime($time));
   }
+
   function find_latest_messages($msg) {
     global $db;
     $sql="SELECT msg FROM `messages` WHERE (";

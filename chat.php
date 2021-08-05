@@ -4,6 +4,7 @@ require_once("private/initialize.php");
 require_login();
 
 $contacts=find_all_contacts();
+$groups=find_all_groups($_SESSION['username']);
 echo display_errors($errors);
 echo display_session_message();
 
@@ -50,12 +51,12 @@ echo display_session_message();
  <!-- The Whole Displayed is Made Using A 3 COlumns Grid Alignment Each Named Section one , Section two , section 3 -->
 
     <section class="container-fluid" style="overflow: hidden;">
-        <section class="row vh-100">
+        <section class="row vh-100 p-0">
 
             <!-- Contact List  Section   -----SECTION ONE
             ------------------------------------------------------------------------------------------------------------- -->
             <section class=" col col-sm-4 col-md-3 p-0 d-none d-sm-inline-block bg-secondary contacts">
-                <nav class="navbar navbar-dark bg-dark d-inline-block ">
+                <nav class="navbar navbar-dark bg-dark d-inline-block rounded-right " style="padding:0px 0px 0px 0px;">
                     <button class="navbar-toggler " onclick="openNav()">
                         <span class="navbar-toggler-icon "></span>
                     </button>
@@ -66,7 +67,7 @@ echo display_session_message();
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
                     </div>
                   
-                            <div class="tophead">
+                        <div class="tophead">
                             <div> 
                                 <a data-toggle="modal" href="#profile">
                                     <img src="assets/images/avatar/<?php echo $avatar;?>">
@@ -77,7 +78,7 @@ echo display_session_message();
                                 <h3><?php echo $username; ?></h3>
                                 <h5><?php echo $email;?></h5>
                             </div>
-                            </div>
+                        </div>
 
                     <ul class="list-group list-group-flush  mb-4">
                         <li class="list-group-item list-group-item-light " href="#">
@@ -213,56 +214,42 @@ echo display_session_message();
                 </script>
                 <!-- Contact List Groups  -->
                 <div class="list-group contacts contacts_list" style="height: 80vh; overflow: scroll;">
-                <div class="owl-carousel owl-theme">
-        <div class="item">
-            <h4>1</h4>
-        </div>
-        <div class="item">
-            <h4>2</h4>
-        </div>
-        <div class="item">
-            <h4>3</h4>
-        </div>
-        <div class="item">
-            <h4>4</h4>
-        </div>
-        <div class="item">
-            <h4>5</h4>
-        </div>
-        <div class="item">
-            <h4>6</h4>
-        </div>
-        <div class="item">
-            <h4>7</h4>
-        </div>
-        <div class="item">
-            <h4>8</h4>
-        </div>
-        <div class="item">
-            <h4>9</h4>
-        </div>
-        <div class="item">
-            <h4>10</h4>
-        </div>
-        <div class="item">
-            <h4>11</h4>
-        </div>
-        <div class="item">
-            <h4>12</h4>
-        </div>
-    </div>
-
+                    <!-- <p class="text-light p-0  " style="position:absolute; top:44px; z-index:10; text-shadow:0px 0px 10px black;">Groups</p> -->
+                    <div class="owl-carousel bg-dark owl-theme border-bottom border-dark">
+                     <?php  
+                     while($data=mysqli_fetch_assoc($groups)){?>
+                     <a class="list-group-item bg-secondary text-white item" onclick="keepfindinggroupmsg(<?php echo '\''.$data['groupid'].'\'';?>)" href="#">
+                        <div class="media m-0">
+                            <img src="assets/images/avatar/<?php echo $data['avatar'];?>" alt="user" class="rounded-pill d-flex align-self-center" style="width: 50px;">
+                            <div class="media-body mr2 w-75s">
+                                <div class="">
+                                    <p class="m-0 text-truncate"><?php echo $data['group_name'];?></p>
+                                    <p class="m-0 font-italic w-75 small text-nowrap text-truncate ">Lorem ipsum, dore sit... </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a> 
+                <?php }
+                mysqli_free_result($groups);
+                ?>
+                       
+                </div>
+               
     <script>
     $(document).ready(function () {
 
         var owl = $('.owl-carousel');
         owl.owlCarousel({
-            animateOut: 'slideOutDown',
-            stagePadding: 40,
-            items: 4,
             loop: true,
-            margin: 10,
-            dots: false
+            margin: 4,
+            dots: false,
+            responsive:{
+                0:{
+                    items:1.125,
+                },
+                1000:{
+                    items:1.325
+                }}       
 
         });
         owl.on('mousewheel', '.owl-stage', function (e) {
@@ -306,9 +293,9 @@ echo display_session_message();
                                     </div>
                                 </div>
                             </a> <!-- --------------End of Contact list group-->
-                <?php }
+                 <?php }
                 mysqli_free_result($contacts); ?>
-                </div>
+            </div>
 
                 <div class="d-flex justify-content-around  align-items-stretch settings">
                     <div><a href="#"><i class="fas fa-users mr-1"></i>Groups</a></div>
@@ -404,7 +391,7 @@ echo display_session_message();
                         <button class="close btn" data-dismiss="modal">&times;</button>
                     </div> <!-- Modal Header-->
                     <div class="modal-body text-center">
-                        <img src="images/evariste.jpg" class="img-fluid">
+                        <img src="assets/images/avatar/1.svg" class="img-fluid">
                     </div><!-- Modal body-->
                 </div>
                 <!--Modal content-->
@@ -421,7 +408,7 @@ echo display_session_message();
                         <button class="close btn" data-dismiss="modal">&times;</button>
                     </div> <!-- Modal Header-->
                     <div class="modal-body">
-                        <img src="images/evapic.png" class="img-fluid">
+                        <img src="assets/images/avatar/1.svg" class="img-fluid">
                     </div><!-- Modal body-->
                     <div class="modal-footer">
                         <span class="">Date: june-22-21 12:32</span>
@@ -441,94 +428,26 @@ echo display_session_message();
         </section><!-- Row Section End Section End ---------------------------------------->
     </section><!-- Container Section  End ---------------------------------------->
     
+    <!-- Ajaxt to keep track of users -->
+    <script src="assets/js/load_users.js"></script>
+
+    <!-- Ajax to find user Descrition -->
+    <script src="assets/js/user_description.js"></script>
+
+    <!-- Ajax to Find Chat Messages -->
+    <script src="assets/js/find_messages.js"></script>
     <script>
 
-// Ajax to Keep finding users when and the latest message sent to them
 
-setInterval(() =>{
-    let xhr= new XMLHttpRequest();
-    xhr.open("GET","private/find_contacts.php",true);
-    xhr.onreadystatechange= function (){ //call back function
-    if(xhr.readyState== 4 && xhr.status== 200){
-        let result=xhr.responseText;
-        let target=document.querySelector(".contacts_list");
+
+
+
         
-        if(!searchBar.classList.contains("active")){
-        target.innerHTML=result;
-        }
-    }
-    }
-  xhr.send();
-}, 50000);
-
-
-
-
-            // Ajax Request To find Contact Desctiption When a user is clicked 
-
-            var contactlst = document.querySelectorAll(".proton");
-                function user_description(l) {
-                    url="private/find_contact_description.php?idt="+l;
-                    let xhr= new XMLHttpRequest();
-                    xhr.open("GET",url,true);
-                    xhr.onreadystatechange= function (){ 
-                    if(xhr.readyState== 4 && xhr.status== 200){
-                        let result=xhr.responseText;
-                        let target=document.querySelector(".section_contact_desc");
-                        target.innerHTML=result;
-                    }
-                    }
-                xhr.send();
-                }
                 
                 
 
 
 
-
-                // Ajax To find Messages accordingly to the chat
-                chatBox = document.querySelector(".whrmsggoes")
-                    function scrollToBottom(){
-                           chatBox.scrollTop = chatBox.scrollHeight;
-                        }
-                     chatBox.onmouseenter = ()=>{
-                        chatBox.classList.add("active");
-                        }
-
-                    chatBox.onmouseleave = ()=>{
-                        chatBox.classList.remove("active");
-                        }
-
-                
-                function get_messages_again(l) {
-
-                url = "private/find_messages.php?chat=" + l;
-                let xhr = new XMLHttpRequest();
-                xhr.open("GET", url, true);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        var d = new Date();
-                        var t = d.toLocaleTimeString();
-                        let result = xhr.responseText;
-                        let target = document.querySelector(".whrmsggoes");
-                        target.innerHTML = result;
-                        document.querySelector(".textmessageid").value=l;
-                        if(!chatBox.classList.contains("active")){
-                            scrollToBottom();
-                        }
-                    }
-                }
-                xhr.send();
-            }
-                    var settfunc = "";
-                    function end_get_messages() {
-                    clearInterval(settfunc);
-                    }
-
-                function keepfindingtext(l) {
-                    end_get_messages(settfunc);
-                    settfunc = setInterval(get_messages_again, 500, l);
-                    }
 
                                 
                 
@@ -537,8 +456,7 @@ setInterval(() =>{
 
 
             var button = document.querySelector(".send_message");
-            
-
+                    // SweetAlert Error To be Displayed When Chat is not found
                     function displayErrors(errors) {
                         const Toast = Swal.mixin({
                             toast: true,
@@ -554,38 +472,9 @@ setInterval(() =>{
                             })
                             Toast.fire({
                             icon: 'error',
-                            title: 'Unknown Username Or Password'
+                            title: 'Unknown Chat Id'
                             })
                     }
-                    function successlogin() {
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 1000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                         })
-                            Toast.fire({
-                            icon: 'success',
-                            title: 'Message Sent Successfully'
-                            })
-                    }
-
-                    function waitms(ms){
-                        var start = new Date().getTime();
-                        var end = start;
-                        while(end < start + ms) {
-                            end = new Date().getTime();
-                        }
-                    }
-                    
-                   
-                    
-
 
                     function sendmessage() {
                     var form = document.querySelector("#sendMessageForm");
@@ -603,7 +492,7 @@ setInterval(() =>{
                         if(json.hasOwnProperty('Errors') && json.Errors.length > 0) {
                             displayErrors(json.Errors);
                         } else{ 
-                            
+                            // Clean The Text Message 
                             document.querySelector(".textmessage").value="";
                             scrollToBottom();
                             }
@@ -612,103 +501,16 @@ setInterval(() =>{
                     xhr.send(form_data);
                     }
 
-                        button.addEventListener("click", function(event) {
-                        event.preventDefault();
-                        sendmessage();
-                        });
-                    
-                   
-        // Ajac Script To Update User in the Database
-        var update = document.querySelector("#signin");
-                function disableSubmitButton() {
-                update.disabled = true;
-                update.style.backgroundColor = "grey";
-                update.value = 'Authenticationg...';
-                }
-                function enableSubmitButton() {
-                    update.disabled = false;
-                    update.style.backgroundColor = "rgb(250, 50, 50 )";
-                    update.value = 'Update..';
-                    update.classList.remove("avoidclicks");
-                }
-
-                function displayEditErrors(errors) {
-                    const ul = document.createElement('ul');
-                   
-                    for (var i = 0; i < errors.length; i++) {
-                        let li = document.createElement("li");
-                        li.append(errors[i]);
-                        ul.appendChild(li);
-                    }
-                  
-                    const Toast = Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: 'Error Updating Profile',
-                    html: ul,
-                    showConfirmButton: false,
-                    timerProgressBar:true,
-                    timer: 2500
-                    
-                    })
-                }
-                function successupdate() {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 1000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                     })
-                        Toast.fire({
-                        icon: 'success',
-                        title: 'User Updated Successfully'
-                        }).then(function() {
-                            window.location = "chat.php";
-                        });
-                }
-
-                
-
-
-                function update_admin() {
-                disableSubmitButton();
-                var form = document.querySelector("#update_form");
-                var action = form.getAttribute("action");
-                // gather form data
-                var form_data = new FormData(form);
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', action, true);
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.onreadystatechange = function () {
-                    if(xhr.readyState == 4 && xhr.status == 200) {
-                    var result = xhr.responseText;
-                        console.log("Here Are The result Down");
-                        console.log('Result: ' + result);
-                    var json = JSON.parse(result);
-                    if(json.hasOwnProperty('Errors') && json.Errors.length > 0) {
-                        displayEditErrors(json.Errors);
-                        enableSubmitButton();
-                        
-                    } else{
-                            enableSubmitButton();     
-                            successupdate();
-                        }
-                    }
-                };
-                xhr.send(form_data);
-                }
-
-                    update.addEventListener("click", function(event) {
+                    button.addEventListener("click", function(event) {
                     event.preventDefault();
-                    update_admin();
+                    sendmessage();
                     });
-    
-     </script>
+                    
+                        
+                        
+                        </script>
+                        <!-- Ajax Script to Update a User -->
+                        <script src="assets/js/update_users.js"></script>
 </body>
 
 </html>
