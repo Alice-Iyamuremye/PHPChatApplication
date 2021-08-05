@@ -225,10 +225,10 @@ echo display_session_message();
                         <a class="list-group-item bg-secondary text-white item" onclick="keepfindinggroupmsg(<?php echo '\''.$data['groupid'].'\'';?>)" href="#">
                             <div class="media m-0">
                                 <img src="assets/images/avatar/<?php echo $data['avatar'];?>" alt="user" class="rounded-pill d-flex align-self-center" style="width: 50px;">
-                                <div class="media-body mr2 w-75s">
+                                <div class="media-body mr2 w-75">
                                     <div class="">
-                                        <p class="m-0 text-truncate"><?php echo $data['group_name'];?></p>
-                                        <p class="m-0 font-italic w-75 small text-nowrap text-truncate "><?php $latest=find_latest_messages($lastmsg);echo $latest["msg"];?> </p>
+                                        <p class="m-0 text-truncate" style="width: 98%;"><?php echo $data['group_name'];?></p>
+                                        <p class="m-0 font-italic small text-truncate " style="width: 100%; overflow:hidden;"><?php $latest=find_latest_messages($lastmsg);echo $latest["msg"];?> </p>
                                     </div>
                                 </div>
                             </div>
@@ -442,79 +442,14 @@ echo display_session_message();
 
     <!-- Ajax to Find Chat Messages -->
     <script src="assets/js/ajaxrequests/find_messages.js"></script>
-    <script>
-
-
-
-
-
-        
-                
-                
-
-
-
-
-                                
-                
-
-
-
-
-            var button = document.querySelector(".send_message");
-                    // SweetAlert Error To be Displayed When Chat is not found
-                    function displayErrors(errors) {
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-right',
-                            showCloseButton: true,
-                            showConfirmButton: false,
-                            
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                            })
-                            Toast.fire({
-                            icon: 'error',
-                            title: 'Unknown Chat Id'
-                            })
-                    }
-
-                    function sendmessage() {
-                    var form = document.querySelector("#sendMessageForm");
-                    var action = form.getAttribute("action");
-                    // gather form data
-                    var form_data = new FormData(form);
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', action, true);
-                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                    xhr.onreadystatechange = function () {
-                        if(xhr.readyState == 4 && xhr.status == 200) {
-                        var result = xhr.responseText;
-                            console.log('Result: ' + result);
-                        var json = JSON.parse(result);
-                        if(json.hasOwnProperty('Errors') && json.Errors.length > 0) {
-                            displayErrors(json.Errors);
-                        } else{ 
-                            // Clean The Text Message 
-                            document.querySelector(".textmessage").value="";
-                            scrollToBottom();
-                            }
-                        }
-                    };
-                    xhr.send(form_data);
-                    }
-
-                    button.addEventListener("click", function(event) {
-                    event.preventDefault();
-                    sendmessage();
-                    });
+    
+    <!-- Ajax To send Message -->
+    <script src="assets/js/ajaxrequests/send_message.js"></script>
                         
-                        </script>
-                        <!-- Ajax Script to Update a User -->
+    <!-- Ajax Script to Update a User -->
                         <script src="assets/js/ajaxrequests/update_users.js"></script>
+
+
 <div class="modal fade" id="groupmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content border-0" style="z-index:-2;">
@@ -574,98 +509,9 @@ echo display_session_message();
     </div>
   </div>
 </div>
-<script>
+<!-- Ajax To create A new Group -->
+<script src="assets/js/ajaxrequests/create_group.js"></script>
 
-                var creategrp = document.querySelector("#create_grp");
-                function disablecreatebutton() {
-                creategrp.disabled = true;
-                creategrp.style.backgroundColor = "grey";
-                
-                creategrp.value = 'Authenticationg...';
-                }
-                function enableSubmitButton() {
-                    creategrp.disabled = false;
-                    creategrp.style.backgroundColor = "rgb(250, 50, 50 )";
-                    creategrp.value = 'Update...';
-                    creategrp.classList.remove("avoidclicks");
-                }
-
-                function displayErrors(errors) {
-                    const ul = document.createElement('ul');
-                   
-                    for (var i = 0; i < errors.length; i++) {
-                        let li = document.createElement("li");
-                        li.append(errors[i]);
-                        ul.appendChild(li);
-                    }
-                  
-                    const Toast = Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: 'Error Creating Group',
-                    html: ul,
-                    showConfirmButton: false,
-                    timerProgressBar:true,
-                    timer: 2500
-                    
-                    })
-                }
-                function created_successfully() {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 1000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                     })
-                        Toast.fire({
-                        icon: 'success',
-                        title: 'User Updated Successfully'
-                        }).then(function() {
-                            window.location = "chat.php";
-                        });
-                    
-                }
-
-                function creategroup() {
-                disablecreatebutton();
-                var form = document.querySelector("#create_group");
-                var action = form.getAttribute("action");
-                // gather form data
-                var form_data = new FormData(form);
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', action, true);
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.onreadystatechange = function () {
-                    if(xhr.readyState == 4 && xhr.status == 200) {
-                    var result = xhr.responseText;
-                        console.log("Here Are The result Down");
-                        console.log('Result: ' + result);
-                    var json = JSON.parse(result);
-                    if(json.hasOwnProperty('Errors') && json.Errors.length > 0) {
-                        displayErrors(json.Errors);
-                        enableSubmitButton();
-                        
-                    } else{
-                            enableSubmitButton();     
-                            created_successfully()
-                        }
-                    }
-                };
-                xhr.send(form_data);
-                }
-
-                    creategrp.addEventListener("click", function(event) {
-                    event.preventDefault();
-                    creategroup();
-                    });
-
-</script>
-    
 </body>
 
 </html>
