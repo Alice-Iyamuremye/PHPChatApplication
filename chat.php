@@ -10,7 +10,7 @@ echo display_errors($errors);
 echo display_session_message();
 
 // Find All User Data
-    $admin = find_user_by_id("2051224492162685558060f7d89cbcb6f");
+    $admin = find_user_by_id($_SESSION['user_id']);
         $username=$admin['username'];
         $firstname=$admin['first_name'];
         $lastname=$admin['last_name'];
@@ -70,7 +70,7 @@ echo display_session_message();
                   
                         <div class="tophead">
                             <div> 
-                                <a data-toggle="modal" href="#profile">
+                                <a data-toggle="modal" class="cursor-zoom-in" href="#profile">
                                     <img src="assets/images/avatar/<?php echo $avatar;?>">
                                 </a>
                             </div>
@@ -186,49 +186,23 @@ echo display_session_message();
                     <input type="text" id="form1" name="search" class="form-control my-2 mx-auto" placeholder="Search "
                         aria-label="Search" />
                 </div>
-                <script>
-
-                    searchBar = document.querySelector(".seachform #form1")
-                    searchBar.onkeyup = ()=>{
-                        searchTerm=searchBar.value
-                        if(searchTerm != ""){
-                            searchBar.classList.add("active");
-                        }else{
-                            searchBar.classList.remove("active");
-                        }
-                        if(searchBar.value!=""){
-                            url = "private/search_contact.php?searchTerm="+searchBar.value;
-                        let xhr = new XMLHttpRequest();
-                        xhr.open("GET", url, true);
-                        xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        let result=xhr.responseText;
-                        let target=document.querySelector(".contacts_list");
-                        target.innerHTML=result;
-                    
-                    }
-                    }
-                xhr.send(); 
-                        }
-                }
-                
-                </script>
+                <script src="assets/js/ajaxrequests/search_user.js"></script>
                 <!-- Contact List Groups  -->
                 <div class="list-group contacts" style="height: 80vh; overflow: scroll;">
                     <!-- <p class="text-light p-0  " style="position:absolute; top:44px; z-index:10; text-shadow:0px 0px 10px black;">Groups</p> -->
-                    <div class="owl-carousel bg-dark owl-theme border-bottom border-dark">
+                    <div class="owl-carousel bg-dark cursor-resize owl-theme border-bottom border-dark">
                      <?php  
                      while($data=mysqli_fetch_assoc($groups)){
                          $lastmsg=array("sent_by"=>$_SESSION['user_id'],"sent_to"=>$data['groupid']);
                          ?>
                         
-                        <a class="list-group-item bg-secondary text-white item" onclick="keepfindinggroupmsg(<?php echo '\''.$data['groupid'].'\'';?>)" href="#">
+                        <a class="list-group-item bg-secondary cursor-resize text-white item" onclick="group_description(<?php echo '\''.$data['groupid'].'\'';?>);keepfindinggroupmsg(<?php echo '\''.$data['groupid'].'\'';?>)" href="#">
                             <div class="media m-0">
-                                <img src="assets/images/avatar/<?php echo $data['avatar'];?>" alt="user" class="rounded-pill d-flex align-self-center" style="width: 50px;">
+                                <img src="assets/images/avatar/<?php echo $data['avatar'];?>" alt="user" class="rounded-pill d-flex align-self-center cursor-pointer" style="width: 50px;">
                                 <div class="media-body mr2 w-75">
                                     <div class="">
-                                        <p class="m-0 text-truncate" style="width: 98%;"><?php echo $data['group_name'];?></p>
-                                        <p class="m-0 font-italic small text-truncate " style="width: 100%; overflow:hidden;"><?php $latest=find_latest_messages($lastmsg);echo $latest["msg"];?> </p>
+                                        <p class="cursor-pointer m-0 text-truncate" style="width: 98%;"><?php echo $data['group_name'];?></p>
+                                        <p class="cursor-pointer m-0 font-italic small text-truncate " style="width: 100%; overflow:hidden;"><?php $latest=find_latest_messages($lastmsg);echo $latest["msg"];?> </p>
                                     </div>
                                 </div>
                             </div>
@@ -305,7 +279,7 @@ echo display_session_message();
         
                 <div class="d-flex justify-content-around  align-items-stretch settings">
                     <div><a href="#"><i class="fas fa-users mr-1"></i>Groups</a></div>
-                    <div><a href="#"><i class="zmdi zmdi-settings zmdi-hc-2x"></i>Settings</a></div>
+                    <div onclick="openNav()"><a href="#"><i class="zmdi zmdi-settings zmdi-hc-2x"></i>Settings</a></div>
                     <div><a href="#"><i class="fas fa-plus mr-1"></i>Contact</a></div>
                 </div>
                 
@@ -511,6 +485,9 @@ echo display_session_message();
 </div>
 <!-- Ajax To create A new Group -->
 <script src="assets/js/ajaxrequests/create_group.js"></script>
+<script src="assets/js/ajaxrequests/main_functions.js"></script>
+
+
 
 </body>
 

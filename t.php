@@ -1,3 +1,7 @@
+<?php 
+require("private/initialize.php");
+$users=find_group_users("5998036171628159910610bbfa6e92eb");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,53 +17,27 @@
 </head>
 <body>
 
-<div class="owl-carousel owl-theme">
-        <div class="item">
-            <h4>1</h4>
+<div class="owl-carousel  mojoman owl-theme" style="width: 300px;">
+    <?php 
+        while($data=mysqli_fetch_assoc($users)){
+    ?>
+    <div class="item">
+            <img src="assets/images/avatar/<?php echo $data['avatar'];?>" >
+            <h4 class="text-center" style="text-align:center;font-size: 10px;"><?php echo $data["username"];?></h4>
         </div>
-        <div class="item">
-            <h4>2</h4>
-        </div>
-        <div class="item">
-            <h4>3</h4>
-        </div>
-        <div class="item">
-            <h4>4</h4>
-        </div>
-        <div class="item">
-            <h4>5</h4>
-        </div>
-        <div class="item">
-            <h4>6</h4>
-        </div>
-        <div class="item">
-            <h4>7</h4>
-        </div>
-        <div class="item">
-            <h4>8</h4>
-        </div>
-        <div class="item">
-            <h4>9</h4>
-        </div>
-        <div class="item">
-            <h4>10</h4>
-        </div>
-        <div class="item">
-            <h4>11</h4>
-        </div>
-        <div class="item">
-            <h4>12</h4>
-        </div>
+        <?php } ?>
     </div>
+
+
 </body>
 <script>
     $(document).ready(function () {
 
-        var owl = $('.owl-carousel');
+        var owl = $('.owl-carousel.mojoman');
         owl.owlCarousel({
             animateOut: 'slideOutDown',
             stagePadding: 40,
-            items: 4,
+            items: 3,
             loop: true,
             margin: 10,
             dots: false

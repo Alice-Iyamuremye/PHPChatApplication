@@ -1,11 +1,27 @@
 $onlineColor: rgb(19, 231, 0);
-$mainDarkColor: #25282c;
+$mainDarkColor: #004094;
 $mainLightDarkColor: #343a40;
-$chatBackground: #82ffee;
+$chatBackground: #81f1e3;
 $mainBlueColor: var(--primary);
 $textColor: rgb(0, 0, 0);
 $mutedColor: rgb(180, 180, 180);
 $mainLightColor: rgb(238, 236, 236);
+
+
+
+    .cursor-pointer{
+        cursor: pointer;
+      }
+      .cursor-zoom-in{
+        cursor: zoom-in;
+      }
+
+      .cursor-grab{
+        cursor: grab;
+      };
+      .cursor-resize{
+        cursor: ew-resize;
+      };
 
 .contacts {
     
@@ -125,9 +141,7 @@ $mainLightColor: rgb(238, 236, 236);
                 color: $mainBlueColor;
             }
         }
-        .send_message{
-            
-        }
+        
     }
 }
 
@@ -139,7 +153,7 @@ $mainLightColor: rgb(238, 236, 236);
    
 	width: 100%;
 	
-	img{
+	.profilep{
 		width: 180px; 
 		height:180px;
 		border-radius: 100%;
@@ -160,7 +174,7 @@ $mainLightColor: rgb(238, 236, 236);
         }
     }
 
-	img:hover{
+	.profilep:hover{
 		border:5px solid var(--info);
 		padding:2px;
 	}

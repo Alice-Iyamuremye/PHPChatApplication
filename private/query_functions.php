@@ -405,6 +405,24 @@ function  find_user_by_id($username) {
     return $data; // returns an assoc. array
   }
 
+
+
+
+//   FUnction To select Group Description
+function  find_group_by_id($id) {
+    global $db;
+        $sql = "SELECT groups.groupid, groups.group_name, groups.creator, groups.members, groups.avatar, groups.creationdate, users.username FROM groups INNER JOIN users ON users.unique_id=groups.creator WHERE ";
+        $sql .= " groups.groupid='" . db_escape($db, $id) . "'";
+    $sql .= "LIMIT 1";
+    
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    $data = mysqli_fetch_assoc($result); // find first
+    mysqli_free_result($result);
+    return $data; // returns an assoc. array
+  }
+
+// Function To check if a user belongs to a group
   function  find_group_membership($username,$groupid) {
     global $db;
     $sql = "SELECT groupid FROM group_members ";
@@ -416,6 +434,17 @@ function  find_user_by_id($username) {
     $data = mysqli_fetch_assoc($result); // find first
     mysqli_free_result($result);
     return $data; // returns an assoc. array
+  }
+
+// Find All Users From A group
+  function  find_group_users($groupid) {
+    global $db;
+    $sql = "SELECT users.username,users.unique_id as id,users.first_name,users.last_name,users.avatar,group_members.unique_id FROM chatapplication.users  INNER JOIN chatapplication.group_members ON users.username=group_members.unique_id ";
+    $sql.=" WHERE group_members.groupid='" . db_escape($db, $groupid) . "'; ";
+    
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    return $result; // returns an assoc. array
   }
 
   // pass the username password email ... to this function as an array
