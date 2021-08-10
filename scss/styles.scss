@@ -159,6 +159,7 @@ $mainLightColor: rgb(238, 236, 236);
 		border-radius: 100%;
 		border: 2px solid #eee;
 		padding:2px;
+      
 		transition: .2s;
 		background-color: var(--info);
 	}
@@ -167,9 +168,8 @@ $mainLightColor: rgb(238, 236, 236);
         
         .col{
             margin: 0px;
-            &:hover{
+            :last-child &:hover{
                 color: $mainLightDarkColor;
-                transform: rotate(20deg);
             }
         }
     }

@@ -7,9 +7,10 @@ $id= $_GET["chat"] ?? "";
     $chat=find_chat_messages($msg);
    $result="";   
     if(mysqli_num_rows($chat)==0){
-        $result.="<h1>No Chat found with this conversation</h1>";
+        $result.="<h5 class='text-warning text-center' style='position:relative; top:30%;' >No Chat found with this conversation</h5>";
     }
     else{
+        update_message_afterread($msg);
         $today="0";
      while($data=mysqli_fetch_assoc($chat)){
 

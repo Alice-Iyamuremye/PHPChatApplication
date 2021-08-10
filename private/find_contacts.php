@@ -3,19 +3,25 @@ require_once("initialize.php");
 require_login();
 $contacts=find_all_contacts();
 $groups=find_all_groups($_SESSION['username']);
+
     $result='';
     // Display All Contacts  
     while($data=mysqli_fetch_assoc($contacts)){
         $lastmsg=array("sent_by"=>$_SESSION['user_id'],"sent_to"=>$data['unique_id']);
         $latest=find_latest_messages($lastmsg);
+        $unread=find_unread_messages($lastmsg);
         $result.="<a class='list-group-item text-white proton' onclick=\"user_description('".$data['unique_id']."');keepfindingtext('".$data['unique_id']."')\" href='#'> 
         <div class='media'>";
         if($data['online_status']=='true'){ $result.="<span class='online-status'></span>";}
 
         $result.="<img src='assets/images/avatar/".$data['avatar']."' alt='user' width='60' height='60' class='rounded-pill' >";
             
+        if($unread['unread']>=1){
+            $result.="<span class='badge badge-danger ' style='postion:absolute; top:1px; right:1px; display:table;'>".$unread['unread']."</span>";
+        }
         $result.="<div class='media-body ml-1'>
-                        <div class='d-flex align-items-end justify-content-between mb-1'>
+        <div class='d-flex align-items-end justify-content-between mb-1'>
+        
                             <h6 class='mb-0 text-truncate text-nowrap'>". $data['first_name'].' '.$data['last_name']."</h6>";
         $result.="<small class='small font-weight-bold'>
                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'

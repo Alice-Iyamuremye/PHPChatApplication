@@ -147,8 +147,8 @@ function find_all_subjects($options=[]) {
     users.unique_id, users.first_name, users.last_name,users.username, 
     users.avatar, online_status.last_login, online_status.online_status 
     FROM chatapplication.users INNER JOIN chatapplication.online_status 
-    ON users.unique_id=online_status.user_id WHERE NOT unique_id =\"{$_SESSION['user_id']}\" ;";
-    //$sql .= "ORDER BY online_status.online_status DESC";
+    ON users.unique_id=online_status.user_id WHERE NOT unique_id =\"{$_SESSION['user_id']}\" ";
+    $sql .= "ORDER BY online_status.last_login;";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
@@ -712,7 +712,44 @@ function  find_group_by_id($id) {
         return $data;
     }
 }
+function find_unread_messages($msg) {
+    global $db;
+    $sql="SELECT count(msg) as unread FROM `messages` WHERE (";
+    $sql .= " sent_by='".   $msg['sent_to'] . "' AND ";
+    $sql .= " sent_to='" .  $msg['sent_by'] . "') ";
+    $sql .= "AND delivered='false' LIMIT 1";
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    $data = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+    if(empty($data)){
+        return array("msg"=>"No Message Yet");
+    }else{
+        return $data;
+    }
+}
 
+function update_message_afterread($msg){
+     global $db;
+        $sql = "UPDATE messages SET ";
+        $sql .= "delivered='true' ";
+        $sql .= " WHERE ";
+        $sql .= "(sent_by='" . db_escape($db, $msg['sent_to']) . "' AND ";
+        $sql .= "sent_to='" . db_escape($db, $msg['sent_by']) . "') AND delivered='false';";
+        
+        $result = mysqli_query($db, $sql);
+        // For UPDATE statements, $result is true/false
+        if($result) {
+          return true;
+        } else {
+          // UPDATE failed
+          echo mysqli_error($db);
+          db_disconnect($db);
+          exit;
+        }
+    
+    
+}
 
 function create_group($group) {
     global $db;

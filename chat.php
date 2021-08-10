@@ -82,17 +82,17 @@ echo display_session_message();
                         </div>
 
                     <ul class="list-group list-group-flush  mb-4">
-                        <li class="list-group-item list-group-item-light" data-toggle='modal' data-target='#groupmodal' data-whatever='@mdo' href="#">
+                        <li class="list-group-item list-group-item-light cursor-pointer" data-toggle='modal' data-target='#groupmodal' data-whatever='@mdo' href="#">
                             <i class="mr-4 zmdi zmdi-accounts-add zmdi-hc-2x"></i>New Group
                         </li>
-                        <li class="list-group-item list-group-item-light " href="#">
+                        <li class="list-group-item list-group-item-light cursor-pointer " href="#">
                             <i class="mr-4 zmdi zmdi-phone zmdi-hc-2x"></i> Calls
                         </li>
 
-                        <li class="list-group-item list-group-item-light " data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" href="#">
+                        <li class="list-group-item list-group-item-light cursor-pointer " data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" href="#">
                             <i class="mr-4 zmdi zmdi-settings zmdi-hc-2x"></i>Settings
                         </li>
-                        <li class="list-group-item list-group-item-light " href="#">
+                        <li class="list-group-item list-group-item-light cursor-pointer " href="#">
                             <i class="mr-4 zmdi zmdi-lamp zmdi-hc-2x"></i>NightMode
                             <div class="custom-control custom-switch mx-3 d-inline-block">
                                 <input class="custom-control-input" id="wkns" type="checkbox" checked> 
@@ -111,7 +111,7 @@ echo display_session_message();
   <div class="modal-dialog" role="document">
     <div class="modal-content border-0" style="z-index:-2;">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Accout</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -198,7 +198,7 @@ echo display_session_message();
                         
                         <a class="list-group-item bg-secondary cursor-resize text-white item" onclick="group_description(<?php echo '\''.$data['groupid'].'\'';?>);keepfindinggroupmsg(<?php echo '\''.$data['groupid'].'\'';?>)" href="#">
                             <div class="media m-0">
-                                <img src="assets/images/avatar/<?php echo $data['avatar'];?>" alt="user" class="rounded-pill d-flex align-self-center cursor-pointer" style="width: 50px;">
+                                <img src="assets/images/avatar/<?php echo $data['avatar'];?>" alt="user" class="rounded-pill d-flex align-self-center cursor-pointer" style="width: 50px; height: 50px;">
                                 <div class="media-body mr2 w-75">
                                     <div class="">
                                         <p class="cursor-pointer m-0 text-truncate" style="width: 98%;"><?php echo $data['group_name'];?></p>

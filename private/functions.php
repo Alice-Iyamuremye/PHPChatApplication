@@ -171,17 +171,22 @@ function convert_to_time($timestamp){
 
 
 
-//Get The Time portion from the timestamp
+//Get The Time portion from the timestamp (Hour:Minutes)
 function get_time_portion($time){
     return date('H:i',strtotime($time));
 }
 
 
-//Get The Date portion from the timestamp
+//Get The Date portion from the timestamp(Month Day)
 function get_date_portion($time){
     return date('M d',strtotime($time));
 }
 
+
+//Get The Date portion from the timestamp(Month Day)
+function get_online_format($time){
+    return date('M d, H:i',strtotime($time));
+}
 
 
 

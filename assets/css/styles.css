@@ -111,9 +111,8 @@
     background-color: var(--info); }
   .contactdtls .calicn .col {
     margin: 0px; }
-    .contactdtls .calicn .col:hover {
-      color: #343a40;
-      transform: rotate(20deg); }
+    :last-child .contactdtls .calicn .col:hover {
+      color: #343a40; }
   .contactdtls .profilep:hover {
     border: 5px solid var(--info);
     padding: 2px; }

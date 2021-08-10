@@ -26,7 +26,7 @@ if(is_post_request()) {
     $admin['confirm_password'] = $_POST['confirm_password'] ?? '';
     if(empty($errors)){
         $result = insert_admin($admin);//return all the errors if it does not work
-        print_r($result);
+       
         if($result === true) {
         $new_id = mysqli_insert_id($db);
         $_SESSION['message'] = $admin['username'].' Your Account Successfully Created';
