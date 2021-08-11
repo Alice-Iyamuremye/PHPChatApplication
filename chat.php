@@ -183,8 +183,8 @@ echo display_session_message();
 
                 <!-- Search Form above the contact -->
                 <div class="form-outline d-inline-block seachform">
-                    <input type="text" id="form1" name="search" class="form-control my-2 mx-auto" placeholder="Search "
-                        aria-label="Search" />
+                    <input type="text" id="form1" name="search" class="form-control my-2 mx-auto" placeholder="Search " 
+                        aria-label="Search" style="width:200px;" />
                 </div>
                 <script src="assets/js/ajaxrequests/search_user.js"></script>
                 <!-- Contact List Groups  -->
@@ -316,9 +316,7 @@ echo display_session_message();
                                     <input type="text" class="textmessageid" name="sent_to" hidden>   
                                     <textarea class="form-control textmessage" name="textmessage" rows="1" id="comment"></textarea>
                                 </div>
-                                <div class="col-1 col-sm-1 col-xs-1 reply-recording">
-                                    <i class="zmdi zmdi-mic zmdi-hc-2x"></i>
-                                </div>
+                             
                                 <div class="col-1 col-sm-1   col-xs-1 reply-send">
                                     <span class="send_message"><i class="zmdi zmdi-mail-send zmdi-hc-2x"></i></span>
                                 </div>

@@ -14,7 +14,7 @@ if(empty($contact)){
                   <img src='assets/images/avatar/".$contact["avatar"]."' class='profilep'>   
                   <div class='calicn text-light text-center row justify-content-around'>
                         <div class='col'>
-                            <i class='zmdi zmdi-email'></i>
+                        <a class='text-warning' href = 'mailto: ".$contact["email"]."'> <i class='zmdi zmdi-email'></i></a>
                         </div>
                     </div>
                   ";
