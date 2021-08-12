@@ -43,8 +43,8 @@ echo display_session_message();
     <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/owlcarousel/owl.carousel.min.css">
     <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/owlcarousel/owl.theme.default.min.css">
     <script language="JavaScript" type="text/javascript" src="assets/js/jquery.min.js"></script>
-    
-    <title>Bootstrap</title>
+    <link rel="shortcut icon" href="assets/images/chatapplication.png" type="image/x-icon">
+    <title>Chat Application</title>
 </head>
 
 <body>

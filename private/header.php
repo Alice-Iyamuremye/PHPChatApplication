@@ -7,7 +7,7 @@
     <title>Sign Up Form by Colorlib</title>
 
     <!-- Font Icon -->
-    <link rel="stylesheet" href="<? echo $boot_strap_file ?? "assets/fonts/material-icon/css/material-design-iconic-font.min.css";?>">
+    <link rel="stylesheet" href="<?php echo $boot_strap_file ?? "assets/fonts/material-icon/css/material-design-iconic-font.min.css";?>">
     
      <!-- Animate Css  -->
      <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
