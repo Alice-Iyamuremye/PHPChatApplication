@@ -26,25 +26,45 @@ echo display_session_message();
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     
       <!-- Font Icon -->
-    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="<?php echo $parent ?? '';?>assets/fonts/material-icon/css/material-design-iconic-font.min.css">
      <!-- Animate Css  -->
-    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/animate.min.css">
+    <link rel="stylesheet" href="<?php echo $parent ?? '';?>assets/css/animate.min.css">
     
     <!-- SweetAlert2 -->
-     <script src="<? echo $parent ?? '';?>assets/sweetalert2/dist/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/sweetalert2/dist/sweetalert2.min.css">
+     <script src="<?php echo $parent ?? '';?>assets/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="<?php echo $parent ?? '';?>assets/sweetalert2/dist/sweetalert2.min.css">
     <!-- Bootstrap 4 -->
-    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?php echo $parent ?? '';?>assets/css/bootstrap.min.css" />
 
     <!-- Main Css -->
-    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/styles.css" />
+    <link rel="stylesheet" href="<?php echo $parent ?? '';?>assets/css/styles.css" />
 
 
-    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/owlcarousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="<? echo $parent ?? '';?>assets/css/owlcarousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="<?php echo $parent ?? '';?>assets/css/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?php echo $parent ?? '';?>assets/css/owlcarousel/owl.theme.default.min.css">
     <script language="JavaScript" type="text/javascript" src="assets/js/jquery.min.js"></script>
     <link rel="shortcut icon" href="assets/images/chatapplication.png" type="image/x-icon">
     <title>Chat Application</title>
+    <style>
+.scrollbar-black::-webkit-scrollbar-track {
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #F5F5F5;
+border-radius: 10px; }
+
+.scrollbar-black::-webkit-scrollbar {
+width: 12px;
+background-color: #F5F5F5; }
+
+.scrollbar-black::-webkit-scrollbar-thumb {
+border-radius: 10px;
+-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+background-color: #000; }
+
+.scrollbar-black {
+scrollbar-color: #000 #F5F5F5;
+}
+
+    </style>
 </head>
 
 <body>
@@ -57,6 +77,86 @@ echo display_session_message();
             <!-- Contact List  Section   -----SECTION ONE
             ------------------------------------------------------------------------------------------------------------- -->
             <section class=" col col-sm-4 col-md-3 p-0 d-none d-sm-inline-block bg-secondary contacts">
+               
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content border-0" style="z-index:-2;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Accout</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body border-0 border border-primary" style="background-color: transparent !important; ">
+            <div class="main" style="text-align:center;">
+                <!-- From To Update User Datas ----------------------------------- -->
+                    <section class="signup">
+                        <div class="container">
+                            <div class="signup-content" >
+                                <div class="signup-form">
+                                    <form method="POST" class="register-form" id="update_form" action="private/update_admin.php">
+                                        <div class="form-group">
+                                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                            <input type="text" name="firstname" id="name" placeholder="First Name" value="<?php echo $firstname;?>"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                            <input type="text" name="lastname" id="name" placeholder="Last Name" value="<?php echo $lastname;?>"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                            <input type="text" name="username" id="name" placeholder="User Name" value="<?php echo $username;?>"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                            <input type="email" name="email" id="email" placeholder="Your Email" value="<?php echo $email;?>"/>
+                                        </div>
+                                        <center><div class="form-group d-flex" style=" width:50%;">
+                                            <label for="email"><i class="zmdi zmdi-file-add"></i></label>&nbsp;&nbsp;
+                                            <input type="file" name="user_avatar" id="email" placeholder="Your Email" style="width:100%;"/>
+                                        </div></center>
+                                       
+                                        <div class="form-group">
+                                            <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                            <input type="password" name="password" id="pass" placeholder="Password"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                            <input type="password" name="confirm_password" id="re_pass" placeholder="Repeat your password"/>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="signup-image d-none  d-md-inline-block" style="position:absolute; top:0px; left:-55%; z-index:-1;">
+                                    <figure><img src="assets/images/login-image.svg" width=500 alt="sing up image"></figure>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+            </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="signin" class="form-submit btn btn-primary">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+              <script>
+                    function openNav() {
+                        document.getElementById("mySidepanel").style.width = "350px";
+                    }
+
+                    function closeNav() {
+                        document.getElementById("mySidepanel").style.width = "0px";
+                    }
+                </script>
+
+                <!-- Search Form above the contact -->
+                <div class="form-outline d-inline-block seachform">
+                    <input type="text" id="form1" name="search" class="form-control my-2 mx-auto" placeholder="Search " 
+                        aria-label="Search" style="width:200px;" />
+                </div>
                 <nav class="navbar navbar-dark bg-dark d-inline-block rounded-right " style="padding:0px 0px 0px 0px;">
                     <button class="navbar-toggler " onclick="openNav()">
                         <span class="navbar-toggler-icon "></span>
@@ -107,85 +207,6 @@ echo display_session_message();
                     
 
                 </div><!-- Side Menue -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content border-0" style="z-index:-2;">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Accout</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body border-0 border border-primary" style="background-color: transparent !important; ">
-            <div class="main" style="text-align:center;">
-                <!-- Sign up form -->
-                    <section class="signup">
-                        <div class="container">
-                            <div class="signup-content" >
-                                <div class="signup-form">
-                                    <form method="POST" class="register-form" id="update_form" action="private/update_admin.php">
-                                        <div class="form-group">
-                                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                            <input type="text" name="firstname" id="name" placeholder="First Name" value="<?php echo $firstname;?>"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                            <input type="text" name="lastname" id="name" placeholder="Last Name" value="<?php echo $lastname;?>"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                            <input type="text" name="username" id="name" placeholder="User Name" value="<?php echo $username;?>"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                            <input type="email" name="email" id="email" placeholder="Your Email" value="<?php echo $email;?>"/>
-                                        </div>
-                                        <center><div class="form-group d-flex" style=" width:50%;">
-                                            <label for="email"><i class="zmdi zmdi-file-add"></i></label>&nbsp;&nbsp;
-                                            <input type="file" name="user_avatar" id="email" placeholder="Your Email" style="width:100%;"/>
-                                        </div></center>
-                                       
-                                        <div class="form-group">
-                                            <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                            <input type="password" name="password" id="pass" placeholder="Password"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                            <input type="password" name="confirm_password" id="re_pass" placeholder="Repeat your password"/>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="signup-image d-none  d-md-inline-block" style="position:absolute; top:0px; left:-55%; z-index:-1;">
-                                    <figure><img src="assets/images/login-image.svg" width=500 alt="sing up image"></figure>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-            </div>
-        </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="signin" class="form-submit btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
-              <script>
-                    function openNav() {
-                        document.getElementById("mySidepanel").style.width = "350px";
-                    }
-
-                    function closeNav() {
-                        document.getElementById("mySidepanel").style.width = "0px";
-                    }
-                </script>
-
-                <!-- Search Form above the contact -->
-                <div class="form-outline d-inline-block seachform">
-                    <input type="text" id="form1" name="search" class="form-control my-2 mx-auto" placeholder="Search " 
-                        aria-label="Search" style="width:200px;" />
-                </div>
                 <script src="assets/js/ajaxrequests/search_user.js"></script>
                 <!-- Contact List Groups  -->
                 <div class="list-group contacts" style="height: 80vh; overflow: scroll;">
@@ -278,9 +299,9 @@ echo display_session_message();
             </div>
         
                 <div class="d-flex justify-content-around  align-items-stretch settings">
-                    <div><a href="#"><i class="fas fa-users mr-1"></i>Groups</a></div>
-                    <div onclick="openNav()"><a href="#"><i class="zmdi zmdi-settings zmdi-hc-2x"></i>Settings</a></div>
-                    <div><a href="#"><i class="fas fa-plus mr-1"></i>Contact</a></div>
+                    <div data-toggle='modal' data-target='#groupmodal' ><a href="#"><i class="zmdi zmdi-accounts-add zmdi-hc-1x"></i>Groups</a></div>
+                    <div onclick="openNav()"><a href="#"><i class="zmdi zmdi-settings zmdi-hc-1x"></i>Settings</a></div>
+                    <div><a href="#"><i class="fas fa-plus mr-1"></i>Profile</a></div>
                 </div>
                 
            
@@ -446,7 +467,7 @@ echo display_session_message();
                                             <input type="text" name="name" id="name" placeholder="Group Name.." value=""/>
                                         </div>
                                         
-                                        <div style=" height:45vh; overflow:scroll;">
+                                        <div class="scrollbar scrollbar-black bordered-black square thin" style=" height:45vh; overflow:scroll;">
                                             <?php 
                                                 while($data=mysqli_fetch_assoc($users)){
                                                             ?>

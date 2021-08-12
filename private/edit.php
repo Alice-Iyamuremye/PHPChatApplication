@@ -3,11 +3,59 @@ require_once("initialize.php");
 //Links To the Files In the Parent Directories
 $parent="../";
 require_once("../header.php");
+function  update_user($admin) {
+    global $db;
+    /*
+      We Don't always need to update the password , let's wok on the field
+      We wan to do it in a way that if the password was sent then it's okay
+      we update it , otherwise , we don't
+    */
 
-if(!has_presence($_GET['id']) || !is_an_integer($_GET['id'])){
+    // if the password field is not blank then we know thta it was sent
+    $password_sent=!is_blank($admin['password']);
+
+    // Make Checks on all data And make sure they are all good to go
+    $errors = validate_admin($admin,['password_required'=>$password_sent]);
+    if (!empty($errors)) {
+      return $errors;
+    }
+    // Grabs the password , Encrypt it and set it ready for our database
+    $hashed_password = password_hash($admin['password'], PASSWORD_BCRYPT);
+    $sql = "UPDATE users SET ";
+    $sql .= "first_name='" . db_escape($db, $admin['first_name']) . "', ";
+    $sql .= "last_name='" . db_escape($db, $admin['last_name']) . "', ";
+    $sql .= "email='" . db_escape($db, $admin['email']) . "', ";
+    if($password_sent){
+      $sql .= "hashed_password='" . db_escape($db, $hashed_password) . "',";
+    }
+    $sql .= "username='" . db_escape($db, $admin['username']) . "' ";
+    if(!($admin["avatar"]=="update")){
+        $sql .= ", avatar='" . db_escape($db, $admin['avatar']) . "' ";
+      }
+    $sql .= "WHERE id='" . db_escape($db, $admin['id']) . "' ";
+    $sql .= "LIMIT 1";
+
+    
+    $result = mysqli_query($db, $sql);
+    // For UPDATE statements, $result is true/false
+    if($result) {
+      return true;
+    } else {
+      // UPDATE failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }
+  }
+
+
+
+
+
+  if(!has_presence($_GET['user_id']) || !is_an_integer($_GET['user_id'])){
     redirect_to("index.php");
 }
-$id=$_GET['id'];
+$id=$_GET['user_id'];
 
 if(is_post_request()) {
     $admin = [];
@@ -81,10 +129,7 @@ if(is_post_request()) {
                         </div>
                     </form>
                 </div>
-                <div class="signup-image">
-                    <figure><img src="../assets/images/signup-image.svg" alt="sing up image"></figure>
-                    <a href="index.php" class="signup-image-link">Cancel</a>
-                </div>
+              
             </div>
         </div>
     </section>

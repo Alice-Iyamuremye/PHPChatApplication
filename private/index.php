@@ -31,9 +31,9 @@ print_r($_SESSION);
                         </thead>
                         <tbody>
                             <?php while($admin = mysqli_fetch_assoc($admin_set)) { ?>
-                                <tr scope="row" class="<?php echo "Row_".h($admin['id']);?>">
+                                <tr scope="row" class="<?php echo "Row_".h($admin['user_id']);?>">
                                 <td>
-                                <?php echo h($admin['id']); ?>
+                                <?php echo h($admin['user_id']); ?>
                             </td>
                             <td>
                                 <a href="#"><?php echo h($admin['first_name']); ?></a>
@@ -45,9 +45,9 @@ print_r($_SESSION);
                             <td>  <a href="#"><?php echo h($admin['email']); ?> </a></td>
                             <td><?php echo h($admin['username']); ?></td>
                             <td>
-                                <a class="action" href="<?php echo 'show.php?id=' . h(u($admin['id'])); ?>"><button class="btn-success view badge">View</button></a>
-                                <a class="action" href="<?php echo 'edit.php?id=' . h(u($admin['id'])); ?>"><button class="btn-warning badge">Edit</button></a>
-                                <button class="btn-danger delete badge " value="<?php echo h($admin['id']); ?>">Delete</button>
+                                <a class="action" href="<?php echo 'show.php?user_id=' . h(u($admin['user_id'])); ?>"><button class="btn-success view badge">View</button></a>
+                                <a class="action" href="<?php echo 'edit.php?user_id=' . h(u($admin['user_id'])); ?>"><button class="btn-warning badge">Edit</button></a>
+                                <button class="btn-danger delete badge " value="<?php echo h($admin['user_id']); ?>">Delete</button>
                             </td>
                             </tr>
                             <?php } ?>
@@ -114,7 +114,7 @@ print_r($_SESSION);
                     xhr.send("id=" + id);
                     }
                     })
-            }
+        }
         
        var btn_delete=document.querySelectorAll("body table .delete");
         for(i=0; i < btn_delete.length; i++) {

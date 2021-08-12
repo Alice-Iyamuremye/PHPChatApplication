@@ -372,7 +372,7 @@ function find_all_subjects($options=[]) {
   function find_admin_by_id($id) {
     global $db;
     $sql = "SELECT * from users ";
-    $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
+    $sql .= "WHERE user_id='" . db_escape($db, $id) . "' ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);//CHECK if the query worked

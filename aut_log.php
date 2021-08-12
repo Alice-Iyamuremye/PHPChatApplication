@@ -58,11 +58,11 @@ if(is_ajax_request()) {
 
 else{
 
-    if(!empty($errors)) {
+        if(!empty($errors)) {
                 $_SESSION['authErrors'] = $errors;
                 redirect_to('private/index.php');
                 return;
-    }
+        }
 
         // if there were no errors, try to login
         if(empty($errors)) {

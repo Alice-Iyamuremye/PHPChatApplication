@@ -1,1 +1,1 @@
-<h1>helo we are the  revolo </h1>
+    messages.msg_id,    messages.sent_by,   messages.sent_to,  messages.msg, text_time FROM messages WHERE 1

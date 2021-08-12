@@ -35,6 +35,7 @@ if(empty($group)){
                         ";
 
                             while($data=mysqli_fetch_assoc($users)){
+                                
                                $result.="<div class='item cursor-pointer' onclick=\"user_description('".$data['id']."');keepfindingtext('".$data['id']."')\">
                                         <img src='assets/images/avatar/".$data['avatar']."'>
                                         <h4 class='text-center' style='text-align:center;font-size: 10px;'>".$data['username']."</h4>

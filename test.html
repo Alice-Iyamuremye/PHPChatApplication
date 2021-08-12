@@ -1,54 +1,232 @@
-<div class="owl-carousel bg-dark owl-theme border-bottom border-dark">
-    <a class="list-group-item bg-secondary text-white item"
-        onclick="keepfindinggroupmsg('1056106161162791739061080c4ed29da')" href="#">
-        <div class="media m-0">
-            <img src="assets/images/avatar/7.svg" alt="user" class="rounded-pill d-flex align-self-center"
-                style="width: 50px;">
-            <div class="media-body mr2 w-75s">
-                <div class="">
-                    <p class="m-0 text-truncate">Chess Club</p>
-                    <p class="m-0 font-italic w-75 small text-nowrap text-truncate">hahha , never mind
+<div class='owl-carousel bg-dark owl-theme border-bottom border-dark'><a
+        class='list-group-item bg-secondary text-white item'
+        onclick="keepfindinggroupmsg('1056106161162791739061080c4ed29da')" href='#'>
+        <div class='media m-0'>
+            <img src='assets/images/avatar/7.svg' alt='user' class='rounded-pill d-flex align-self-center'
+                style='width: 50px;'>
+            <div class='media-body mr2 w-75s'>
+                <div class=''>
+                    <p class='m-0 text-truncate'>Chess Club</p>
+                    <p class='m-0 font-italic w-75 small text-nowrap text-truncate'>hahha , never mind
+
                     </p>
                 </div>
             </div>
         </div>
-    </a>
-    <a class="list-group-item bg-secondary text-white item"
-        onclick="keepfindinggroupmsg('605595234162791769961080d83e3ba2')" href="#">
-        <div class="media m-0">
-            <img src="assets/images/avatar/1.svg" alt="user" class="rounded-pill d-flex align-self-center"
-                style="width: 50px;">
-            <div class="media-body mr2 w-75s">
-                <div class="">
-                    <p class="m-0 text-truncate">Mmama mia</p>
-                    <p class="m-0 font-italic w-75 small text-nowrap text-truncate">this is the greek geek groupp</p>
+    </a> <a class='list-group-item bg-secondary text-white item'
+        onclick="keepfindinggroupmsg('605595234162791769961080d83e3ba2')" href='#'>
+        <div class='media m-0'>
+            <img src='assets/images/avatar/1.svg' alt='user' class='rounded-pill d-flex align-self-center'
+                style='width: 50px;'>
+            <div class='media-body mr2 w-75s'>
+                <div class=''>
+                    <p class='m-0 text-truncate'>Mmama mia</p>
+                    <p class='m-0 font-italic w-75 small text-nowrap text-truncate'>this is the greek geek groupp</p>
                 </div>
             </div>
         </div>
-    </a>
-    <a class="list-group-item bg-secondary text-white item"
-        onclick="keepfindinggroupmsg('109802561816279284356108377375d7b')" href="#">
-        <div class="media m-0">
-            <img src="assets/images/avatar/5.svg" alt="user" class="rounded-pill d-flex align-self-center"
-                style="width: 50px;">
-            <div class="media-body mr2 w-75s">
-                <div class="">
-                    <p class="m-0 text-truncate">matata</p>
-                    <p class="m-0 font-italic w-75 small text-nowrap text-truncate">No Message Yet</p>
+    </a> <a class='list-group-item bg-secondary text-white item'
+        onclick="keepfindinggroupmsg('109802561816279284356108377375d7b')" href='#'>
+        <div class='media m-0'>
+            <img src='assets/images/avatar/5.svg' alt='user' class='rounded-pill d-flex align-self-center'
+                style='width: 50px;'>
+            <div class='media-body mr2 w-75s'>
+                <div class=''>
+                    <p class='m-0 text-truncate'>matata</p>
+                    <p class='m-0 font-italic w-75 small text-nowrap text-truncate'>No Message Yet</p>
                 </div>
             </div>
         </div>
-    </a> <a class="list-group-item bg-secondary text-white item"
-        onclick="keepfindinggroupmsg('1356526800162792937561083b1f0d272')" href="#">
-        <div class="media m-0">
-            <img src="assets/images/avatar/3.svg" alt="user" class="rounded-pill d-flex align-self-center"
-                style="width: 50px;">
-            <div class="media-body mr2 w-75s">
-                <div class="">
-                    <p class="m-0 text-truncate">o</p>
-                    <p class="m-0 font-italic w-75 small text-nowrap text-truncate">No Message Yet</p>
+    </a> <a class='list-group-item bg-secondary text-white item'
+        onclick="keepfindinggroupmsg('1356526800162792937561083b1f0d272')" href='#'>
+        <div class='media m-0'>
+            <img src='assets/images/avatar/3.svg' alt='user' class='rounded-pill d-flex align-self-center'
+                style='width: 50px;'>
+            <div class='media-body mr2 w-75s'>
+                <div class=''>
+                    <p class='m-0 text-truncate'>o</p>
+                    <p class='m-0 font-italic w-75 small text-nowrap text-truncate'>No Message Yet</p>
                 </div>
             </div>
         </div>
-    </a>
-</div>
+    </a> </div>
+<script type='text/javascript'>
+    $(function () {
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            loop: true,
+            margin: 4,
+            dots: false,
+            responsive: {
+                0: {
+                    items: 1.125,
+                },
+                1000: {
+                    items: 1.325
+                }
+            }
+
+        });
+        owl.on('mousewheel', '.owl-stage', function (e) {
+            if (e.deltaY > 0) {
+                owl.trigger('next.owl');
+            } else {
+                owl.trigger('prev.owl');
+            }
+            e.preventDefault();
+        });
+
+
+    });
+
+</script><a class='list-group-item text-white proton'
+    onclick="user_description('1124238672162685569160f7d90bc1c47');keepfindingtext('1124238672162685569160f7d90bc1c47')"
+    href='#'>
+    <div class='media'><span class='online-status'></span><img src='assets/images/avatar/2.svg' alt='user' width='60'
+            height='60' class='rounded-pill'>
+        <div class='media-body ml-1'>
+            <div class='d-flex align-items-end justify-content-between mb-1'>
+                <h6 class='mb-0 text-truncate text-nowrap'>Tuyisenge Evariste</h6><small class='small font-weight-bold'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
+                        class='bi bi-check-all' viewBox='0 0 16 16'>
+                        <path
+                            d='M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z' />
+                    </svg>
+                    06:35
+                </small>
+            </div>
+            <p class='font-italic mb-0 small text-truncate text-nowrap ltsmsg'>what happened
+
+            </p>
+        </div>
+    </div>
+</a><a class='list-group-item text-white proton'
+    onclick="user_description('1343114919162685591560f7d9eb731d5');keepfindingtext('1343114919162685591560f7d9eb731d5')"
+    href='#'>
+    <div class='media'><img src='assets/images/avatar/3.svg' alt='user' width='60' height='60' class='rounded-pill'>
+        <div class='media-body ml-1'>
+            <div class='d-flex align-items-end justify-content-between mb-1'>
+                <h6 class='mb-0 text-truncate text-nowrap'>Nicolas Bigir</h6><small class='small font-weight-bold'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
+                        class='bi bi-check-all' viewBox='0 0 16 16'>
+                        <path
+                            d='M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z' />
+                    </svg>
+                    10:22
+                </small>
+            </div>
+            <p class='font-italic mb-0 small text-truncate text-nowrap ltsmsg'>no i do not want you money please </p>
+        </div>
+    </div>
+</a><a class='list-group-item text-white proton'
+    onclick="user_description('190952265162685602860f7da5c174c3');keepfindingtext('190952265162685602860f7da5c174c3')"
+    href='#'>
+    <div class='media'><img src='assets/images/avatar/4.svg' alt='user' width='60' height='60' class='rounded-pill'>
+        <div class='media-body ml-1'>
+            <div class='d-flex align-items-end justify-content-between mb-1'>
+                <h6 class='mb-0 text-truncate text-nowrap'>Nicole Bigir</h6><small class='small font-weight-bold'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
+                        class='bi bi-check-all' viewBox='0 0 16 16'>
+                        <path
+                            d='M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z' />
+                    </svg>
+                    10:42
+                </small>
+            </div>
+            <p class='font-italic mb-0 small text-truncate text-nowrap ltsmsg'>biko aye?</p>
+        </div>
+    </div>
+</a><a class='list-group-item text-white proton'
+    onclick="user_description('1815812960162685631160f7db77691d5');keepfindingtext('1815812960162685631160f7db77691d5')"
+    href='#'>
+    <div class='media'><img src='assets/images/avatar/5.svg' alt='user' width='60' height='60' class='rounded-pill'>
+        <div class='media-body ml-1'>
+            <div class='d-flex align-items-end justify-content-between mb-1'>
+                <h6 class='mb-0 text-truncate text-nowrap'>Mumberto Carlos</h6><small class='small font-weight-bold'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
+                        class='bi bi-check-all' viewBox='0 0 16 16'>
+                        <path
+                            d='M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z' />
+                    </svg>
+                    00:00
+                </small>
+            </div>
+            <p class='font-italic mb-0 small text-truncate text-nowrap ltsmsg'>No Message Yet</p>
+        </div>
+    </div>
+</a><a class='list-group-item text-white proton'
+    onclick="user_description('867310657162714709660fc4b58c78bc');keepfindingtext('867310657162714709660fc4b58c78bc')"
+    href='#'>
+    <div class='media'><img src='assets/images/avatar/6.svg' alt='user' width='60' height='60' class='rounded-pill'>
+        <div class='media-body ml-1'>
+            <div class='d-flex align-items-end justify-content-between mb-1'>
+                <h6 class='mb-0 text-truncate text-nowrap'>Mumberto Carlos</h6><small class='small font-weight-bold'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
+                        class='bi bi-check-all' viewBox='0 0 16 16'>
+                        <path
+                            d='M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z' />
+                    </svg>
+                    00:14
+                </small>
+            </div>
+            <p class='font-italic mb-0 small text-truncate text-nowrap ltsmsg'>what</p>
+        </div>
+    </div>
+</a><a class='list-group-item text-white proton'
+    onclick="user_description('586509744162714762660fc4d6ad05fc');keepfindingtext('586509744162714762660fc4d6ad05fc')"
+    href='#'>
+    <div class='media'><img src='assets/images/avatar/7.svg' alt='user' width='60' height='60' class='rounded-pill'>
+        <div class='media-body ml-1'>
+            <div class='d-flex align-items-end justify-content-between mb-1'>
+                <h6 class='mb-0 text-truncate text-nowrap'>chess Guru</h6><small class='small font-weight-bold'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
+                        class='bi bi-check-all' viewBox='0 0 16 16'>
+                        <path
+                            d='M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z' />
+                    </svg>
+                    00:00
+                </small>
+            </div>
+            <p class='font-italic mb-0 small text-truncate text-nowrap ltsmsg'>I would really Like to learn chess
+
+                would you please teach me?</p>
+        </div>
+    </div>
+</a><a class='list-group-item text-white proton'
+    onclick="user_description('285161929162714797160fc4ec336e24');keepfindingtext('285161929162714797160fc4ec336e24')"
+    href='#'>
+    <div class='media'><img src='assets/images/avatar/1.svg' alt='user' width='60' height='60' class='rounded-pill'>
+        <div class='media-body ml-1'>
+            <div class='d-flex align-items-end justify-content-between mb-1'>
+                <h6 class='mb-0 text-truncate text-nowrap'>olsun Mining</h6><small class='small font-weight-bold'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
+                        class='bi bi-check-all' viewBox='0 0 16 16'>
+                        <path
+                            d='M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z' />
+                    </svg>
+                    00:00
+                </small>
+            </div>
+            <p class='font-italic mb-0 small text-truncate text-nowrap ltsmsg'>No Message Yet</p>
+        </div>
+    </div>
+</a><a class='list-group-item text-white proton'
+    onclick="user_description('1447413916162762730461039f28998a5');keepfindingtext('1447413916162762730461039f28998a5')"
+    href='#'>
+    <div class='media'><img src='assets/images/avatar/2.svg' alt='user' width='60' height='60' class='rounded-pill'>
+        <div class='media-body ml-1'>
+            <div class='d-flex align-items-end justify-content-between mb-1'>
+                <h6 class='mb-0 text-truncate text-nowrap'>james Blunt</h6><small class='small font-weight-bold'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
+                        class='bi bi-check-all' viewBox='0 0 16 16'>
+                        <path
+                            d='M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z' />
+                    </svg>
+                    08:45
+                </small>
+            </div>
+            <p class='font-italic mb-0 small text-truncate text-nowrap ltsmsg'>No Message Yet</p>
+        </div>
+    </div>
+</a>
+load_users.js:9:17
